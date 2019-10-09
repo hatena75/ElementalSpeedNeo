@@ -10,11 +10,11 @@ public class SceneManagerMain : MonoBehaviour
     float a;
 
     public void Win(){
-        SceneManager.LoadScene("GameClear");
+        StartCoroutine(FadeOutWinPanel());
     }
 
     public void Lose(){
-        SceneManager.LoadScene("GameOver");
+        StartCoroutine(FadeOutLosePanel());
     }
 
     void Awake()
@@ -25,18 +25,44 @@ public class SceneManagerMain : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(FadePanel());
+        StartCoroutine(FadeInPanel());
     }
 
-    IEnumerator FadePanel()
+    IEnumerator FadeInPanel()
     {
         while(a > 0.0f)
         {
             Debug.Log(a);
-            Panel.GetComponent<Image>().color -= new Color(0, 0, 0, 0.02f);
-            a += 0.02f;
+            Panel.GetComponent<Image>().color -= new Color(0, 0, 0, 0.01f);
+            a -= 0.01f;
             yield return null;
         }
+    }
+
+    IEnumerator FadeOutWinPanel()
+    {
+        while(a < 1.0f)
+        {
+            Debug.Log(a);
+            Panel.GetComponent<Image>().color += new Color(0, 0, 0, 0.01f);
+            a += 0.01f;
+            yield return null;
+        }
+
+        SceneManager.LoadScene("GameClear");
+    }
+
+    IEnumerator FadeOutLosePanel()
+    {
+        while(a < 1.0f)
+        {
+            Debug.Log(a);
+            Panel.GetComponent<Image>().color += new Color(0, 0, 0, 0.01f);
+            a += 0.01f;
+            yield return null;
+        }
+
+        SceneManager.LoadScene("GameOver");
     }
 
     // Update is called once per frame
