@@ -14,7 +14,7 @@ public class EnemyPlay : MonoBehaviour
     void Start()
     {
         jm = GameObject.Find ("Master").GetComponent<Judgement>();
-        timeOut = 1.3f;
+        timeOut = 2.0f;
         timeElapsed = 0.0f;
         moveFlg = null;
     }
