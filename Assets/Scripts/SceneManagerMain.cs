@@ -10,10 +10,12 @@ public class SceneManagerMain : MonoBehaviour
     float a;
 
     public void Win(){
+        Panel.SetActive(true);
         StartCoroutine(FadeOutWinPanel());
     }
 
     public void Lose(){
+        Panel.SetActive(true);
         StartCoroutine(FadeOutLosePanel());
     }
 
@@ -37,6 +39,8 @@ public class SceneManagerMain : MonoBehaviour
             a -= 0.01f;
             yield return null;
         }
+
+        Panel.SetActive(false);
     }
 
     IEnumerator FadeOutWinPanel()
