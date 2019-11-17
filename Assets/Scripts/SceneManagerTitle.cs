@@ -12,6 +12,7 @@ public class SceneManagerTitle : MonoBehaviour
     void Awake()
     {
         a = Panel.GetComponent<Image>().color.a;
+        Screen.SetResolution(450, 800, false, 60);
     }
     
     // Start is called before the first frame update
