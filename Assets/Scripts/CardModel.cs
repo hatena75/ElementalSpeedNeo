@@ -43,7 +43,7 @@ public class CardModel : MonoBehaviour
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        faces = Resources.LoadAll<Sprite> ("pictures/Cards");
+        faces = Resources.LoadAll<Sprite> ("pictures/frames");
         cardMax = faces.Length;
     }
 
