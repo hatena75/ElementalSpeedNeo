@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 enum Elements : int
 {
@@ -30,7 +31,7 @@ public class Judgement : MonoBehaviour
         int playerNum = playerIndex % 6;
         int fieldNum = fieldIndex % 6;
 
-        return playerNum == fieldNum || playerNum + 1 == fieldNum || playerNum - 1 == fieldNum;
+        return playerNum + 1 == fieldNum || playerNum - 1 == fieldNum || System.Math.Abs(playerNum - fieldNum) == 5;
     }
 
     //置けるかどうか確認+置く
@@ -41,7 +42,7 @@ public class Judgement : MonoBehaviour
         int playerNum = playerIndex % 6;
         int fieldNum = fieldIndex % 6;
 
-        if(playerNum == fieldNum || playerNum + 1 == fieldNum || playerNum - 1 == fieldNum)
+        if(playerNum + 1 == fieldNum || playerNum - 1 == fieldNum || System.Math.Abs(playerNum - fieldNum) == 5)
         {
             //ダメージの処理。
             DamageCalculator(hand, field);
