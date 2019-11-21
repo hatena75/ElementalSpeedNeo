@@ -20,6 +20,7 @@ public partial class DefineStateMachine : MonoBehaviour
 
             Debug.Log("相手のプレイターン");
             //EnemyがEnemyCardを動かすことを許可
+            GameObject.Find ("Enemy").GetComponent<EnemyPlay>().enabled = true;
         }
 
         // 状態の更新はこのUpdateで行う
@@ -34,22 +35,20 @@ public partial class DefineStateMachine : MonoBehaviour
 
                 //時間切れでEnemyAttackStateへ
                 stateMachine.SendEvent((int)StateEventId.EnemyPlayEnd);
-
             }
-
-            
         }
 
         // 状態から脱出する時の処理はこのExitで行う
         protected internal override void Exit()
         {
-            //カードの位置を初期位置にする
+            //EnemyがEnemyCardを動かせないようにする
+            GameObject.Find ("Enemy").GetComponent<EnemyPlay>().enabled = false;
+
             timeElapsed = 0.0f;
-            //散らかったカードを戻し、自分のCardを動かせないようにする
+            //散らかったカードを戻す
             foreach (GameObject enemyHand in enemyHands) {
                 enemyHand.GetComponent<CardModel>().ResetPos();
             }
-            //EnemyがEnemyCardを動かせないようにする
 
             Debug.Log("相手のプレイターン終了");
         }

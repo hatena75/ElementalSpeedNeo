@@ -35,7 +35,7 @@ public class SceneManagerOver : MonoBehaviour
     {
         while(a < 1.0f)
         {
-            Debug.Log(a);
+            //Debug.Log(a);
             Panel.GetComponent<Image>().color += new Color(0, 0, 0, 0.01f);
             a += 0.01f;
             yield return null;
