@@ -18,8 +18,9 @@ public partial class DefineStateMachine : MonoBehaviour
     {
         // ステートマシンを起動
         stateMachine.Update();
-    }
 
+        stateMachine.SendEvent((int)StateEventId.Start);
+    }
 
     private void Update()
     {

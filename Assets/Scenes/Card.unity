@@ -666,6 +666,11 @@ PrefabInstance:
       propertyPath: isDowned
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8550806685719874641, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7, type: 3}
 --- !u!1 &412649346
@@ -758,6 +763,7 @@ GameObject:
   - component: {fileID: 433747251}
   - component: {fileID: 433747250}
   - component: {fileID: 433747252}
+  - component: {fileID: 433747253}
   m_Layer: 0
   m_Name: Master
   m_TagString: Untagged
@@ -804,6 +810,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Panel: {fileID: 1326695770}
+--- !u!114 &433747253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 433747249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4af467fb7fc73a141a67e9336c1f7a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &622057211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,11 +1335,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 8550806685719874653, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8550806685719874655, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1376,11 +1389,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8550806685719874652, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7, type: 3}
@@ -2464,6 +2472,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550806685719874641, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550806685719874640, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7, type: 3}

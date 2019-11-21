@@ -7,25 +7,54 @@ public partial class DefineStateMachine : MonoBehaviour
 {
     private class MyPlayState : ImtStateMachine<DefineStateMachine>.State
     {
+        private float timeOut;
+        private float timeElapsed;
+        GameObject[] myHands = GameObject.FindGameObjectsWithTag("Player");
+
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
         {
             //タイマーセット 5秒
+            timeOut = 5.0f;
+            timeElapsed = 0.0f;
+
             //自分のCardを動かせるようにする
+            foreach (GameObject myHand in myHands) {
+                myHand.GetComponent<Mouse>().enabled = true;
+                //Debug.Log(activeSelf);
+            }
+
+            Debug.Log("自分のプレイターン");
         }
 
         // 状態の更新はこのUpdateで行う
         protected internal override void Update()
         {
-            //タイマー実行？
+            //タイマー実行
+            timeElapsed += Time.deltaTime;
+
+            if(timeElapsed >= timeOut)
+            {
+                timeElapsed = 0.0f;
+
+                stateMachine.SendEvent((int)StateEventId.MyPlayEnd);
+
+            }
             //時間切れになったらMyAttackStateへ
         }
 
         // 状態から脱出する時の処理はこのExitで行う
         protected internal override void Exit()
         {
-            //自分のCardを動かせないようにする
-            //散らかったカードを戻す？
+            timeElapsed = 0.0f;
+            //散らかったカードを戻し、自分のCardを動かせないようにする
+            foreach (GameObject myHand in myHands) {
+                myHand.GetComponent<CardModel>().ResetPos();
+                myHand.GetComponent<Mouse>().enabled = false;
+            }
+
+            Debug.Log("自分のプレイターン終了");
+
         }
     }
 
@@ -36,6 +65,8 @@ public partial class DefineStateMachine : MonoBehaviour
         {
             //ダメージ+エフェクト用コルーチン？
             //処理が終わったらEnemyPlayStateへ
+
+            Debug.Log("自分の攻撃開始");
         }
 
         // 状態の更新はこのUpdateで行う

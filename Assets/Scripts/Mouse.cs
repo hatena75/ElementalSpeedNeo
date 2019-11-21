@@ -18,19 +18,27 @@ public class Mouse : MonoBehaviour
     }
 
     void OnMouseDown() {
-        this.screenPoint = Camera.main.WorldToScreenPoint(transform.position);
-        this.offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
-        isDowned = false;
+        //enableでifを絡ませているのは、enabledをoffにしてもこれらが動くから(Unityの有効無効設定外？)
+        if(this.enabled){
+            this.screenPoint = Camera.main.WorldToScreenPoint(transform.position);
+            this.offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+            isDowned = false;
+        }
     }
 
     void OnMouseDrag() {
-        Vector3 currentScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
-        Vector3 currentPosition = Camera.main.ScreenToWorldPoint(currentScreenPoint) + this.offset;
-        transform.position = currentPosition;
+        if(this.enabled){
+            Vector3 currentScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
+            Vector3 currentPosition = Camera.main.ScreenToWorldPoint(currentScreenPoint) + this.offset;
+            transform.position = currentPosition;
+        }
+        
     }
 
     void OnMouseUp() {
-        isDowned = true;
+        if(this.enabled){
+            isDowned = true;
+        }
     }
 
     void OnTriggerStay2D(Collider2D coll){ //Colliderオブジェクト(カード)と衝突した瞬間1度呼ばれる。

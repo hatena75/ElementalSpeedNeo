@@ -4,13 +4,16 @@ using System.Collections;
 public class CardModel : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
-
     public Sprite[] faces;
     public Sprite cardBack;
     public int cardIndex; // e.g. faces[cardIndex];
     public int cardMax; // e.g. faces[cardIndex];
-
     public Vector3 firstPos;
+
+    public void Reset(){
+        ResetPos();
+        RandomFace();
+    }
 
     public void ChangeFace(int Index)
     {
@@ -20,8 +23,7 @@ public class CardModel : MonoBehaviour
 
     public void RandomFace()
     {
-        cardIndex = (int)Random.Range(0.0f, (float)cardMax);
-        ChangeFace(cardIndex);
+        ChangeFace((int)Random.Range(0.0f, (float)cardMax));
     }
 
     public void ToggleFace(bool showFace)
@@ -49,8 +51,7 @@ public class CardModel : MonoBehaviour
 
     void Start()
     {
-        cardIndex = (int)Random.Range(0.0f, (float)cardMax);
-        spriteRenderer.sprite = faces[cardIndex];
+        RandomFace();
         //Debug.Log(cardIndex);
         firstPos = this.transform.position;
     }

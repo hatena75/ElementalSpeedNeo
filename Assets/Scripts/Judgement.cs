@@ -49,10 +49,7 @@ public class Judgement : MonoBehaviour
             //フィールド側の処理
             field.GetComponent<CardModel>().ChangeFace(playerIndex);
             //使用カードリセット
-            Instantiate(hand, hand.GetComponent<CardModel>().firstPos, Quaternion.identity);
-            //使用カード消去
-            Destroy (hand);
-
+            hand.GetComponent<CardModel>().Reset();
         }
         else
         {
