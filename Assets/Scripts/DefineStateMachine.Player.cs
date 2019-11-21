@@ -73,12 +73,14 @@ public partial class DefineStateMachine : MonoBehaviour
         protected internal override void Update()
         {
             //ダメージ+エフェクトの処理？
+            stateMachine.SendEvent((int)StateEventId.MyTurnEnd);
         }
 
         // 状態から脱出する時の処理はこのExitで行う
         protected internal override void Exit()
         {
             //相手のHPが0ならWinシーンへ
+             Debug.Log("自分の攻撃終了");
         }
     }
 }
