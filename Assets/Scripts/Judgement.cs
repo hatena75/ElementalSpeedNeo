@@ -83,11 +83,11 @@ public class Judgement : MonoBehaviour
 
         if(attacker == "Player")
         {
-            GameObject.Find ("Enemy").GetComponent<EnemyStatus>().Damage(damage * times);
+            GameObject.Find ("Enemy").GetComponent<EnemyStatus>().DamagePlus(damage * times);
         }
         else
         {
-            GameObject.Find ("Player").GetComponent<PlayerStatus>().Damage(damage * times);
+            GameObject.Find ("Player").GetComponent<PlayerStatus>().DamagePlus(damage * times);
         }
 
     }

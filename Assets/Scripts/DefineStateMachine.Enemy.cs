@@ -60,6 +60,7 @@ public partial class DefineStateMachine : MonoBehaviour
         protected internal override void Enter()
         {
             //ダメージ+エフェクト用コルーチン？
+            GameObject.Find ("Player").GetComponent<PlayerStatus>().DamageCal();
             //処理が終わったらMyPlayStateへ
         }
 

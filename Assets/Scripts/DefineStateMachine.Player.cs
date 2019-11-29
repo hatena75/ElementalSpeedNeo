@@ -64,6 +64,7 @@ public partial class DefineStateMachine : MonoBehaviour
         protected internal override void Enter()
         {
             //ダメージ+エフェクト用コルーチン？
+            GameObject.Find ("Enemy").GetComponent<EnemyStatus>().DamageCal();
             //処理が終わったらEnemyPlayStateへ
 
             Debug.Log("自分の攻撃開始");
