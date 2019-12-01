@@ -10,6 +10,7 @@ public class EnemyStatus : MonoBehaviour
     private int damageSum;
     private Text textHP;
     private Slider barHP;
+    private Text damageCount;
 
 
     // Start is called before the first frame update
@@ -19,7 +20,7 @@ public class EnemyStatus : MonoBehaviour
         damageSum = 0;
         textHP = GameObject.Find ("EnemyHP").GetComponent<Text>();
         barHP = GameObject.Find("EnemyBar").GetComponent<Slider>();
-
+        damageCount = GameObject.Find ("DamageCount").GetComponent<Text>();
     }
 
     public void Damage(int damage)
@@ -30,12 +31,14 @@ public class EnemyStatus : MonoBehaviour
     public void DamagePlus(int damage)
     {
         damageSum += damage;
+        damageCount.text = damageSum.ToString();//ここで表示されるのは相手からのダメージ
     }
 
     public void DamageCal()
     {
-        HP -= damageSum;
+        Damage(damageSum);
         damageSum = 0;
+        damageCount.text = damageSum.ToString();//ここで表示されるのは相手からのダメージ
     }
 
     // Update is called once per frame
@@ -43,6 +46,7 @@ public class EnemyStatus : MonoBehaviour
     {
         textHP.text = HP.ToString();
         barHP.value = HP;
+        
 
         if(HP <= 0)
         {

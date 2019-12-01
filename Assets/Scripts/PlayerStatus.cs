@@ -12,6 +12,8 @@ public class PlayerStatus : MonoBehaviour
     private Text textHP;
     private Slider barHP;
 
+    private Text damageCount;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,7 @@ public class PlayerStatus : MonoBehaviour
         damageSum = 0;
         textHP = GameObject.Find ("PlayerHP").GetComponent<Text>();
         barHP = GameObject.Find("PlayerBar").GetComponent<Slider>();
+        damageCount = GameObject.Find ("DamageCount").GetComponent<Text>();
     }
 
     public void Damage(int damage)
@@ -29,12 +32,14 @@ public class PlayerStatus : MonoBehaviour
     public void DamagePlus(int damage)
     {
         damageSum += damage;
+        damageCount.text = damageSum.ToString();//ここで表示されるのは相手からのダメージ
     }
 
     public void DamageCal()
     {
-        HP -= damageSum;
+        Damage(damageSum);
         damageSum = 0;
+        damageCount.text = damageSum.ToString();//ここで表示されるのは相手からのダメージ
     }
 
     // Update is called once per frame
@@ -42,6 +47,7 @@ public class PlayerStatus : MonoBehaviour
     {
         textHP.text = HP.ToString();
         barHP.value = HP;
+        
 
         if(HP <= 0)
         {
