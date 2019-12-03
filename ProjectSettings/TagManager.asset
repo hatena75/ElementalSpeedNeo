@@ -50,3 +50,6 @@ TagManager:
   - name: Front
     uniqueID: 4049244675
     locked: 0
+  - name: Effect
+    uniqueID: 79900281
+    locked: 0

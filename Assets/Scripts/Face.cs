@@ -4,11 +4,12 @@ using UnityEngine;
 
 public enum Faces : int
 {
-    Normal, Attack, Win, Lose
+    Normal, Attack, Win, Lose //ダメージを受けたときもLose
 }
 
 public class Face : MonoBehaviour
 {
+    
     SpriteRenderer spriteRenderer;
     public Sprite[] faces;
     [SerializeField] string charName; //Inspectorから書き換え可能

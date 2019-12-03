@@ -11,6 +11,9 @@ public class EnemyStatus : MonoBehaviour
     private Text textHP;
     private Slider barHP;
     private Text damageCount;
+    private GameObject face;
+
+    private GameObject effect;
 
 
     // Start is called before the first frame update
@@ -21,11 +24,37 @@ public class EnemyStatus : MonoBehaviour
         textHP = GameObject.Find ("EnemyHP").GetComponent<Text>();
         barHP = GameObject.Find("EnemyBar").GetComponent<Slider>();
         damageCount = GameObject.Find ("DamageCount").GetComponent<Text>();
+        face = GameObject.Find ("EnemyCharactor");
+
+        //プレハブをGameObject型で取得
+        effect = (GameObject)Resources.Load ("Prefabs/Hit_Fire");
+        
     }
 
     public void Damage(int damage)
     {
-        HP -= damage;
+        if(damage != 0){
+            HP -= damage;
+            //ダメージエフェクト
+            StartCoroutine("DamageEffect");
+        }
+    }
+
+    IEnumerator DamageEffect()
+    {
+        //エフェクト表示
+        GameObject ef = Instantiate (effect, face.GetComponent<Renderer>().bounds.center, Quaternion.identity);
+
+        //表情を変更
+        face.GetComponent<Face>().ChangeFace(Faces.Lose);
+
+        //2秒停止(エフェクト終了まで待つ)
+        yield return new WaitForSeconds(2);
+
+        //エフェクト削除
+        Destroy(ef);
+        //表情を変更
+        face.GetComponent<Face>().ChangeFace(Faces.Normal);
     }
 
     public void DamagePlus(int damage)
