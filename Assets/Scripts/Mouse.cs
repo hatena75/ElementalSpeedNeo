@@ -10,11 +10,13 @@ public class Mouse : MonoBehaviour
     public bool isDowned;
 
     private Judgement jm;
+    private SEManager se;
 
     void Start()
     {
         isDowned = true;
         jm = GameObject.Find ("Master").GetComponent<Judgement>();
+        se = GameObject.Find ("SEManager").GetComponent<SEManager>();
     }
 
     void OnMouseDown() {
@@ -23,6 +25,7 @@ public class Mouse : MonoBehaviour
             this.screenPoint = Camera.main.WorldToScreenPoint(transform.position);
             this.offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
             isDowned = false;
+            se.CardTakeSE();
         }
     }
 
@@ -38,6 +41,7 @@ public class Mouse : MonoBehaviour
     void OnMouseUp() {
         if(this.enabled){
             isDowned = true;
+            se.CardPlaySE();
         }
     }
 

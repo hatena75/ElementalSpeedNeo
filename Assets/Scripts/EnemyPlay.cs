@@ -7,6 +7,8 @@ public class EnemyPlay : MonoBehaviour
     public float timeOut;
     private float timeElapsed;
     private Judgement jm;
+    private SEManager se;
+
     
     private GameObject[] moveFlg;
 
@@ -14,6 +16,8 @@ public class EnemyPlay : MonoBehaviour
     void Start()
     {
         jm = GameObject.Find ("Master").GetComponent<Judgement>();
+        se = GameObject.Find ("SEManager").GetComponent<SEManager>();
+
         timeOut = 3.0f;
         timeElapsed = 0.0f;
         moveFlg = null;
@@ -28,6 +32,7 @@ public class EnemyPlay : MonoBehaviour
         if(Vector3.Distance(prePos, hand.transform.position) < 0.01f)
         {
             jm.Put(hand, field);
+            se.CardPlaySE();
             return false;
         }
         else
@@ -70,6 +75,9 @@ public class EnemyPlay : MonoBehaviour
         if(timeElapsed >= timeOut)
         {
             moveFlg = Play();
+            if(moveFlg != null){
+                se.CardTakeSE();
+            }
 
             timeElapsed = 0.0f;
         }
