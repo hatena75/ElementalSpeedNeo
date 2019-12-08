@@ -54,6 +54,10 @@ sysinfo.txt
 # Unity assets from assetstore
 /Assets/Imports
 
+# Fonts
+/Assets/Resources/Fonts
+
+
 # Builds
 *.apk
 *.unitypackage

@@ -7,16 +7,18 @@ public partial class DefineStateMachine : MonoBehaviour
 {
     private class MyPlayState : ImtStateMachine<DefineStateMachine>.State
     {
-        private float timeOut;
-        private float timeElapsed;
+        //private float timeOut;
+        //private float timeElapsed;
         GameObject[] myHands = GameObject.FindGameObjectsWithTag("Player");
+        private TimerController timer = GameObject.Find("TimeCount").GetComponent<TimerController>();
 
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
         {
             //タイマーセット 5秒
-            timeOut = 5.0f;
-            timeElapsed = 0.0f;
+            //timeOut = 5.0f;
+            //timeElapsed = 0.0f;
+            timer.Set(5.0f);
 
             //自分のCardを動かせるようにする
             foreach (GameObject myHand in myHands) {
@@ -30,6 +32,7 @@ public partial class DefineStateMachine : MonoBehaviour
         // 状態の更新はこのUpdateで行う
         protected internal override void Update()
         {
+            /*
             //タイマー実行
             timeElapsed += Time.deltaTime;
 
@@ -41,12 +44,16 @@ public partial class DefineStateMachine : MonoBehaviour
 
             }
             //時間切れになったらMyAttackStateへ
+            */
+
+            if(!timer.IsActive()){
+                stateMachine.SendEvent((int)StateEventId.MyPlayEnd);
+            }
         }
 
         // 状態から脱出する時の処理はこのExitで行う
         protected internal override void Exit()
         {
-            timeElapsed = 0.0f;
             //散らかったカードを戻し、自分のCardを動かせないようにする
             foreach (GameObject myHand in myHands) {
                 myHand.GetComponent<CardModel>().ResetPos();
