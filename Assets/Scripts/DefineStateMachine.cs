@@ -2,6 +2,11 @@
 using IceMilkTea.Core;
 using UnityEngine;
 
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
+
+
 // 状態を定義しているだけの何もしないクラス
 public partial class DefineStateMachine : MonoBehaviour
 {

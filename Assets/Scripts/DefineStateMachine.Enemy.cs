@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using IceMilkTea.Core;
+using System.Threading.Tasks;
 
 public partial class DefineStateMachine : MonoBehaviour
 {
@@ -52,18 +53,24 @@ public partial class DefineStateMachine : MonoBehaviour
 
     private class EnemyAttackState : ImtStateMachine<DefineStateMachine>.State
     {
+        private async void WaitSeconds(float sec){
+            await Task.Delay((int)(1000 * sec));
+            stateMachine.SendEvent((int)StateEventId.EnemyTurnEnd);
+        }
+
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
         {
             //ダメージ+エフェクト用コルーチン？
             GameObject.Find ("Player").GetComponent<PlayerStatus>().DamageCal();
             //処理が終わったらMyPlayStateへ
+            WaitSeconds(2.5f);
         }
 
         // 状態の更新はこのUpdateで行う
         protected internal override void Update()
         {
-            stateMachine.SendEvent((int)StateEventId.EnemyTurnEnd);
+            //stateMachine.SendEvent((int)StateEventId.EnemyTurnEnd);
             //ダメージ+エフェクト処理？
         }
 
