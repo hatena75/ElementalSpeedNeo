@@ -26,8 +26,8 @@ public partial class DefineStateMachine : MonoBehaviour
         stateMachine.AddTransition<MyAttackState, EnemyPlayState>((int)StateEventId.MyTurnEnd);
         stateMachine.AddTransition<EnemyPlayState, EnemyAttackState>((int)StateEventId.EnemyPlayEnd);
         stateMachine.AddTransition<EnemyAttackState, MyPlayState>((int)StateEventId.EnemyTurnEnd);
-        stateMachine.AddTransition<MyAttackState, IdleState>((int)StateEventId.Finish);
-        stateMachine.AddTransition<EnemyAttackState, IdleState>((int)StateEventId.Finish);
+        stateMachine.AddTransition<MyAttackState, EndState>((int)StateEventId.Finish);
+        stateMachine.AddTransition<EnemyAttackState, EndState>((int)StateEventId.Finish);
 
 
 

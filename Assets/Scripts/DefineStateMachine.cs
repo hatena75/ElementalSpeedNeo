@@ -19,6 +19,14 @@ public partial class DefineStateMachine : MonoBehaviour
         // 何もしない状態クラスなら何も書かなくても良い（むしろ無駄なoverrideは避ける）
     }
 
+    private class EndState : ImtStateMachine<DefineStateMachine>.State
+    {
+        protected internal override void Enter()
+        {
+            
+        }
+    }
+
     private void Start()
     {
         // ステートマシンを起動
