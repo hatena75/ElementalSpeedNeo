@@ -70,6 +70,7 @@ public partial class DefineStateMachine : MonoBehaviour
 
     private class MyAttackState : ImtStateMachine<DefineStateMachine>.State
     {
+        private EnemyStatus eStatus = GameObject.Find("Enemy").GetComponent<EnemyStatus>();
         private async void WaitSeconds(float sec){
             await Task.Delay((int)(1000 * sec));
             stateMachine.SendEvent((int)StateEventId.MyTurnEnd);
@@ -98,6 +99,10 @@ public partial class DefineStateMachine : MonoBehaviour
         protected internal override void Exit()
         {
             //相手のHPが0ならWinシーンへ
+            if(!eStatus.IsAlive()){
+                GameObject.Find ("Master").GetComponent<SceneManagerMain>().Win();
+            }
+
              Debug.Log("自分の攻撃終了");
         }
     }

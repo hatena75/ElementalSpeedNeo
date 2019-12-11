@@ -55,11 +55,12 @@ public class PlayerStatus : CommonPlayerStatus
         //textHP.text = HP.ToString();
         //barHP.value = HP;
         
-
+        /*
         if(HP <= 0)
         {
             GameObject.Find ("Master").GetComponent<SceneManagerMain>().Lose();
         }
+        */
         
     }
 }

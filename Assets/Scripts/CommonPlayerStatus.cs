@@ -15,6 +15,10 @@ public class CommonPlayerStatus : MonoBehaviour
 
     protected GameObject effect;
 
+    public bool IsAlive(){
+        return HP > 0;
+    }
+
     // Start is called before the first frame update
     protected void Start()
     {

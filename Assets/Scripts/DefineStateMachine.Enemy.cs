@@ -53,6 +53,9 @@ public partial class DefineStateMachine : MonoBehaviour
 
     private class EnemyAttackState : ImtStateMachine<DefineStateMachine>.State
     {
+        private PlayerStatus pStatus = GameObject.Find("Player").GetComponent<PlayerStatus>();
+        
+
         private async void WaitSeconds(float sec){
             await Task.Delay((int)(1000 * sec));
             stateMachine.SendEvent((int)StateEventId.EnemyTurnEnd);
@@ -77,8 +80,12 @@ public partial class DefineStateMachine : MonoBehaviour
         // 状態から脱出する時の処理はこのExitで行う
         protected internal override void Exit()
         {
-            Debug.Log("相手のターン終了");
             //プレイヤーのHPが0以下ならLoseシーンへ
+            if(!pStatus.IsAlive()){
+                GameObject.Find ("Master").GetComponent<SceneManagerMain>().Lose();
+            }
+
+            Debug.Log("相手のターン終了");
         }
     }
 }
