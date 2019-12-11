@@ -20,6 +20,9 @@ public partial class DefineStateMachine : MonoBehaviour
             Debug.Log("相手のプレイターン");
             //EnemyがEnemyCardを動かすことを許可
             GameObject.Find ("Enemy").GetComponent<EnemyPlay>().enabled = true;
+            foreach (GameObject enemyHand in enemyHands) {
+                enemyHand.GetComponent<CardModel>().MovableColor();
+            }
         }
 
         // 状態の更新はこのUpdateで行う
@@ -39,6 +42,8 @@ public partial class DefineStateMachine : MonoBehaviour
             //散らかったカードを戻す
             foreach (GameObject enemyHand in enemyHands) {
                 enemyHand.GetComponent<CardModel>().ResetPos();
+                enemyHand.GetComponent<CardModel>().UnMovableColor();
+
             }
 
             Debug.Log("相手のプレイターン終了");

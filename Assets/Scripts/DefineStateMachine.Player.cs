@@ -23,6 +23,7 @@ public partial class DefineStateMachine : MonoBehaviour
             //自分のCardを動かせるようにする
             foreach (GameObject myHand in myHands) {
                 myHand.GetComponent<Mouse>().enabled = true;
+                myHand.GetComponent<CardModel>().MovableColor();
                 //Debug.Log(activeSelf);
             }
 
@@ -57,6 +58,7 @@ public partial class DefineStateMachine : MonoBehaviour
             //散らかったカードを戻し、自分のCardを動かせないようにする
             foreach (GameObject myHand in myHands) {
                 myHand.GetComponent<CardModel>().ResetPos();
+                myHand.GetComponent<CardModel>().UnMovableColor();
                 myHand.GetComponent<Mouse>().enabled = false;
             }
 

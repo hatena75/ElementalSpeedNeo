@@ -42,6 +42,25 @@ public class CardModel : MonoBehaviour
         this.transform.position = firstPos;
     }
 
+    public void UnMovableColor(){
+        float changeRed = 0.8f;
+        float changeGreen = 0.8f;
+        float cahngeBlue = 0.8f;
+        float cahngeAlpha = 1.0f;
+        //カードが少し暗くなる
+        GetComponent<SpriteRenderer>().color = new Color(changeRed, changeGreen, cahngeBlue, cahngeAlpha);
+    }
+
+    public void MovableColor(){
+        float changeRed = 1.0f;
+        float changeGreen = 1.0f;
+        float cahngeBlue = 1.0f;
+        float cahngeAlpha = 1.0f;
+        // 元の画像になる。
+        GetComponent<SpriteRenderer>().color = new Color(changeRed, changeGreen, cahngeBlue, cahngeAlpha);
+    }
+
+
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -54,6 +73,9 @@ public class CardModel : MonoBehaviour
         RandomFace();
         //Debug.Log(cardIndex);
         firstPos = this.transform.position;
+        if(gameObject.tag != "Field"){
+            UnMovableColor();
+        }
     }
 
 }
