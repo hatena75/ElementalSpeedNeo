@@ -6,8 +6,16 @@ using UnityEngine.UI;
 
 public class SceneManagerTitle : MonoBehaviour
 {
+    private static int level;
     public GameObject panel;
     float a;
+
+    public static int Level { get => level; }
+
+    public void MainLoad(int lv){
+        level = lv;
+        StartCoroutine(FadeOutpanel());
+    }
 
     void Awake()
     {
@@ -30,10 +38,14 @@ public class SceneManagerTitle : MonoBehaviour
             a -= 0.01f;
             yield return null;
         }
+
+        panel.SetActive(false);
     }
 
     IEnumerator FadeOutpanel()
-    {
+    {        
+        panel.SetActive(true);
+
         while(a < 1.0f)
         {
             //Debug.Log(a);

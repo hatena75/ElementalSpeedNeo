@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyPlay : MonoBehaviour
 {
+    private int level;
     public float timeOut;
     private float timeElapsed;
     private Judgement jm;
@@ -18,7 +19,8 @@ public class EnemyPlay : MonoBehaviour
         jm = GameObject.Find ("Master").GetComponent<Judgement>();
         se = GameObject.Find ("SEManager").GetComponent<SEManager>();
 
-        timeOut = 3.0f;
+        level = SceneManagerTitle.Level;
+        timeOut = (float)level;
         timeElapsed = 0.0f;
         moveFlg = null;
     }
