@@ -21,6 +21,9 @@ public class EnemyPlay : MonoBehaviour
 
         level = SceneManagerTitle.Level;
         timeOut = (float)level;
+        if(timeOut == 0.0f){
+            timeOut = 2.0f;
+        }
         timeElapsed = 0.0f;
         moveFlg = null;
     }

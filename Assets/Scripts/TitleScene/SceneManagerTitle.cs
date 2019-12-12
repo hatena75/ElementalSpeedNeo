@@ -26,6 +26,7 @@ public class SceneManagerTitle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        level = 2;
         StartCoroutine(FadeInpanel());
     }
 
