@@ -6,38 +6,38 @@ using UnityEngine.UI;
 
 public class SceneManagerTitle : MonoBehaviour
 {
-    public GameObject Panel;
+    public GameObject panel;
     float a;
 
     void Awake()
     {
-        a = Panel.GetComponent<Image>().color.a;
+        a = panel.GetComponent<Image>().color.a;
         Screen.SetResolution(450, 800, false, 60);
     }
     
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(FadeInPanel());
+        StartCoroutine(FadeInpanel());
     }
 
-    IEnumerator FadeInPanel()
+    IEnumerator FadeInpanel()
     {
         while(a > 0.0f)
         {
             //Debug.Log(a);
-            Panel.GetComponent<Image>().color -= new Color(0, 0, 0, 0.01f);
+            panel.GetComponent<Image>().color -= new Color(0, 0, 0, 0.01f);
             a -= 0.01f;
             yield return null;
         }
     }
 
-    IEnumerator FadeOutPanel()
+    IEnumerator FadeOutpanel()
     {
         while(a < 1.0f)
         {
             //Debug.Log(a);
-            Panel.GetComponent<Image>().color += new Color(0, 0, 0, 0.01f);
+            panel.GetComponent<Image>().color += new Color(0, 0, 0, 0.01f);
             a += 0.01f;
             yield return null;
         }
@@ -49,7 +49,7 @@ public class SceneManagerTitle : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButtonDown (0)) {
-            StartCoroutine(FadeOutPanel());
+            StartCoroutine(FadeOutpanel());
 		}
     }
 }
