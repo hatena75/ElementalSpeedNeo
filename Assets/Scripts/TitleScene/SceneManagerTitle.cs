@@ -9,6 +9,8 @@ public class SceneManagerTitle : MonoBehaviour
     private static int level;
     public GameObject panel;
     float a;
+    private SEManagerTitle se;
+
 
     public static int Level { get => level; }
 
@@ -18,7 +20,8 @@ public class SceneManagerTitle : MonoBehaviour
     }
 
     void Awake()
-    {
+    {        
+        se = GameObject.Find ("SEManager").GetComponent<SEManagerTitle>();
         a = panel.GetComponent<Image>().color.a;
         Screen.SetResolution(450, 800, false, 60);
     }
@@ -44,7 +47,8 @@ public class SceneManagerTitle : MonoBehaviour
     }
 
     IEnumerator FadeOutpanel()
-    {        
+    {
+        se.DecisionSE();
         panel.SetActive(true);
 
         while(a < 1.0f)

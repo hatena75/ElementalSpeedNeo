@@ -10,11 +10,12 @@ public class MenuManagerTitle : MonoBehaviour
     public Button buttonEasy;
     public Button buttonNormal;
     public Button buttonHard;
+    private SEManagerTitle se;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        se = GameObject.Find ("SEManager").GetComponent<SEManagerTitle>();
     }
 
     // Update is called once per frame
@@ -22,6 +23,7 @@ public class MenuManagerTitle : MonoBehaviour
     {
         if(startText.activeSelf){
             if (Input.GetMouseButtonDown (0)) {
+                se.DecisionSE();
                 buttonEasy.gameObject.SetActive(true);
                 buttonNormal.gameObject.SetActive(true);
                 buttonHard.gameObject.SetActive(true);
