@@ -8,6 +8,7 @@ public class SceneManagerOver : MonoBehaviour
 {
     public GameObject Panel;
     float a;
+    private bool isFade;
 
     void Awake()
     {
@@ -17,11 +18,13 @@ public class SceneManagerOver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isFade = true;
         StartCoroutine(FadeInPanel());
     }
 
     IEnumerator FadeInPanel()
     {
+        isFade = true;
         while(a > 0.0f)
         {
             //Debug.Log(a);
@@ -29,6 +32,7 @@ public class SceneManagerOver : MonoBehaviour
             a -= 0.01f;
             yield return null;
         }
+        isFade = false;
     }
 
     IEnumerator FadeOutPanel()
@@ -47,7 +51,7 @@ public class SceneManagerOver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown (0)) {
+        if (Input.GetMouseButtonDown (0) && isFade == false) {
 			StartCoroutine(FadeOutPanel());
 		}
     }
