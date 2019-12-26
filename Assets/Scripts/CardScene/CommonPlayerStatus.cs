@@ -19,6 +19,14 @@ public class CommonPlayerStatus : MonoBehaviour
         return HP > 0;
     }
 
+    public void AttackFace(){
+        face.GetComponent<Face>().ChangeFace(Faces.Attack);
+    }
+
+    public void NormalFace(){
+        face.GetComponent<Face>().ChangeFace(Faces.Normal);
+    }
+
     // Start is called before the first frame update
     protected void Start()
     {

@@ -79,6 +79,9 @@ public partial class DefineStateMachine : MonoBehaviour
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
         {
+            //攻撃の表情
+            GameObject.Find ("Player").GetComponent<PlayerStatus>().AttackFace();
+
             GameObject.Find ("Enemy").GetComponent<EnemyStatus>().DamageCal();
 
             //ダメージ+エフェクト待ち用
@@ -98,6 +101,8 @@ public partial class DefineStateMachine : MonoBehaviour
         // 状態から脱出する時の処理はこのExitで行う
         protected internal override void Exit()
         {
+            GameObject.Find ("Player").GetComponent<PlayerStatus>().NormalFace();
+            
             //相手のHPが0ならWinシーンへ
             if(!eStatus.IsAlive()){
                 GameObject.Find ("Master").GetComponent<SceneManagerMain>().Win();
