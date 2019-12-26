@@ -45,7 +45,7 @@ public class SceneManagerOver : MonoBehaviour
             yield return null;
         }
 
-        SceneManager.LoadScene ("Card");
+        SceneManager.LoadScene ("Title");
     }
 
     // Update is called once per frame
