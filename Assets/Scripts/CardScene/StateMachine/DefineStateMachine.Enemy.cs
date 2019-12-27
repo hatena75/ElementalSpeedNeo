@@ -78,15 +78,31 @@ public partial class DefineStateMachine : MonoBehaviour
             //ダメージ+エフェクト処理？
         }
 
-        // 状態から脱出する時の処理はこのExitで行う
-        protected internal override void Exit()
+        protected internal override bool GuardEvent(int eventId)
         {
             GameObject.Find ("Enemy").GetComponent<EnemyStatus>().NormalFace();
 
+            // 特定のタイミングで遷移を拒否（ガード）するなら true を返せばステートマシンは遷移を諦めます
+            if(!pStatus.IsAlive()){
+                GameObject.Find ("Master").GetComponent<SceneManagerMain>().Lose();
+                return true;
+            }
+
+            // 遷移を許可するなら false を返せばステートマシンは状態の遷移をします
+            return false;
+        }
+
+        // 状態から脱出する時の処理はこのExitで行う
+        protected internal override void Exit()
+        {
+            //GameObject.Find ("Enemy").GetComponent<EnemyStatus>().NormalFace();
+
             //プレイヤーのHPが0以下ならLoseシーンへ
+            /*
             if(!pStatus.IsAlive()){
                 GameObject.Find ("Master").GetComponent<SceneManagerMain>().Lose();
             }
+            */
 
             Debug.Log("相手のターン終了");
         }
