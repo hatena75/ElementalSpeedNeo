@@ -355,10 +355,20 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2100000, guid: d53afc79e32802940ad33db12b843aeb, type: 2}
+    - target: {fileID: 2870770599497584005, guid: 534e734cca60e684492d1bf4349449db,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2870770599497584005, guid: 534e734cca60e684492d1bf4349449db,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 2870770598037149226, guid: 534e734cca60e684492d1bf4349449db,
         type: 3}
       propertyPath: m_Name
-      value: TMP SubMeshUI [Korneuburg-Slab-Regular SDF + LiberationSans SDF Atlas]
+      value: TMP SubMeshUI [Lose + LiberationSans SDF Atlas]
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 534e734cca60e684492d1bf4349449db, type: 3}
@@ -495,12 +505,12 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
