@@ -12,6 +12,7 @@ public partial class DefineStateMachine : MonoBehaviour
         //private float timeElapsed;
         GameObject[] myHands = GameObject.FindGameObjectsWithTag("Player");
         private TimerController timer = GameObject.Find("TimeCount").GetComponent<TimerController>();
+        private HandResetButton reload = GameObject.Find("Button").GetComponent<HandResetButton>();
 
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
@@ -27,6 +28,8 @@ public partial class DefineStateMachine : MonoBehaviour
                 myHand.GetComponent<CardModel>().MovableColor();
                 //Debug.Log(activeSelf);
             }
+
+            reload.Activate();
 
             Debug.Log("自分のプレイターン");
         }
@@ -62,6 +65,8 @@ public partial class DefineStateMachine : MonoBehaviour
                 myHand.GetComponent<CardModel>().UnMovableColor();
                 myHand.GetComponent<Mouse>().enabled = false;
             }
+
+            reload.DeActivate();
 
             Debug.Log("自分のプレイターン終了");
 
