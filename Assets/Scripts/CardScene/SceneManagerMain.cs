@@ -41,6 +41,7 @@ public class SceneManagerMain : MonoBehaviour
         }
 
         Panel.SetActive(false);
+        GameObject.Find ("Master").GetComponent<DefineStateMachine>().GameStart();
     }
 
     IEnumerator FadeOutWinPanel()

@@ -13,6 +13,10 @@ public partial class DefineStateMachine : MonoBehaviour
     // この DefineStateMachine クラスのステートマシン
     private ImtStateMachine<DefineStateMachine> stateMachine;
 
+    public void GameStart(){
+        stateMachine.SendEvent((int)StateEventId.Start);
+    }
+
     // この DefineStateMachine クラスのアイドリング状態クラス
     private class IdleState : ImtStateMachine<DefineStateMachine>.State
     {
@@ -32,7 +36,7 @@ public partial class DefineStateMachine : MonoBehaviour
         // ステートマシンを起動
         stateMachine.Update();
 
-        stateMachine.SendEvent((int)StateEventId.Start);
+        //stateMachine.SendEvent((int)StateEventId.Start);
     }
 
     private void Update()
