@@ -53,6 +53,7 @@ sysinfo.txt
 
 # Unity assets from assetstore
 /Assets/Imports
+/Assets/Photon
 
 # Fonts
 /Assets/Resources/Fonts
