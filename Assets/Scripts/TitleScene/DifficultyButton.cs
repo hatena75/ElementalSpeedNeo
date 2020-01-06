@@ -1,14 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class ButtonNormal : MonoBehaviour
+public class DifficultyButton : MonoBehaviour
 {
     private SceneManagerTitle st;
+    
+    public void OnClickEasy() {
+        st.MainLoad(3);
+    }
 
-    public void OnClick() {
+    public void OnClickNormal() {
         st.MainLoad(2);
+    }
+
+    public void OnClickHard() {
+        st.MainLoad(1);
     }
 
     // Start is called before the first frame update

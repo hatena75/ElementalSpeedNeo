@@ -614,7 +614,7 @@ GameObject:
   - component: {fileID: 1269434211}
   - component: {fileID: 1269434210}
   - component: {fileID: 1269434212}
-  - component: {fileID: 1269434213}
+  - component: {fileID: 1269434214}
   m_Layer: 5
   m_Name: Easy
   m_TagString: Untagged
@@ -722,8 +722,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1269434213}
-        m_MethodName: OnClick
+      - m_Target: {fileID: 1269434214}
+        m_MethodName: OnClickEasy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -735,7 +735,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &1269434213
+--- !u!114 &1269434214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -744,7 +744,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1269434208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca9dfa9092f30f84181398fb68516fdf, type: 3}
+  m_Script: {fileID: 11500000, guid: d78250c07b6daab4e9ec0eeb4fac5bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1339700784
@@ -943,7 +943,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1356028516}
-        m_MethodName: OnClick
+        m_MethodName: OnClickNormal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -964,7 +964,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1356028511}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b15b3c8bdc5f894fa0ade083733aea2, type: 3}
+  m_Script: {fileID: 11500000, guid: d78250c07b6daab4e9ec0eeb4fac5bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1414309677
@@ -1268,7 +1268,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1503184257}
-        m_MethodName: OnClick
+        m_MethodName: OnClickHard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1346,7 +1346,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1503184252}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd47d20c129ca0a4f8792f8a484be620, type: 3}
+  m_Script: {fileID: 11500000, guid: d78250c07b6daab4e9ec0eeb4fac5bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1782854559
