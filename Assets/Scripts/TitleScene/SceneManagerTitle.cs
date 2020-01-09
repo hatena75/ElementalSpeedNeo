@@ -19,6 +19,10 @@ public class SceneManagerTitle : MonoBehaviour
         StartCoroutine(FadeOutpanel());
     }
 
+    public void LobbyLoad(){
+        StartCoroutine(FadeOutLobby());
+    }
+
     void Awake()
     {        
         se = GameObject.Find ("SEManager").GetComponent<SEManagerTitle>();
@@ -60,6 +64,22 @@ public class SceneManagerTitle : MonoBehaviour
         }
 
         SceneManager.LoadScene ("Card");
+    }
+
+    IEnumerator FadeOutLobby()
+    {
+        se.DecisionSE();
+        panel.SetActive(true);
+
+        while(a < 1.0f)
+        {
+            //Debug.Log(a);
+            panel.GetComponent<Image>().color += new Color(0, 0, 0, 0.01f);
+            a += 0.01f;
+            yield return null;
+        }
+
+        SceneManager.LoadScene ("Lobby");
     }
 
     // Update is called once per frame

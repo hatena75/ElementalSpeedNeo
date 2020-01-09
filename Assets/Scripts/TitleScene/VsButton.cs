@@ -9,7 +9,8 @@ public class VsButton : MonoBehaviour
 
 
     public void OnClickVsPlayer() {
-        //対人ルームに移動？
+        //Photonの対人ロビーに移動
+        st.LobbyLoad();
     }
 
     public void OnClickVsCPU() {
