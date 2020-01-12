@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 // MonoBehaviourではなくMonoBehaviourPunCallbacksを継承して、Photonのコールバックを受け取れるようにする
@@ -32,6 +33,17 @@ public class Connection : MonoBehaviourPunCallbacks
         if (PhotonNetwork.InLobby)
         {
             PhotonNetwork.JoinRandomRoom();
+        }
+    }
+
+    private void TryLoadGameScene(){
+        if(PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
+        {
+            Debug.Log("GameStart!");
+            sfb.StatusMatch();
+
+            PhotonNetwork.IsMessageQueueRunning = false;
+            SceneManager.LoadScene ("CardPvP");
         }
     }
 
@@ -106,12 +118,7 @@ public class Connection : MonoBehaviourPunCallbacks
 
         sfb.StatusWaiting();
 
-        if(PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
-        {
-            Debug.Log("GameStart!");
-            sfb.StatusMatch();
-        }
-        
+        TryLoadGameScene();
     }
  
     // 部屋から退室した時
@@ -126,11 +133,7 @@ public class Connection : MonoBehaviourPunCallbacks
     {
         Debug.Log("OnPlayerEnteredRoom");
 
-        if(PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
-        {
-            Debug.Log("GameStart!");
-            sfb.StatusMatch();
-        }
+        TryLoadGameScene();
     }
  
  
