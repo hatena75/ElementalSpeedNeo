@@ -497,6 +497,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1028054441}
     m_Modifications:
+    - target: {fileID: 4535804416824420726, guid: 635ea6e6cb42d9b4a96b60c5dbf26a3d,
+        type: 3}
+      propertyPath: viewIdField
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2669893407869478596, guid: 635ea6e6cb42d9b4a96b60c5dbf26a3d,
         type: 3}
       propertyPath: m_Name
@@ -693,6 +698,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 943580428}
     m_Modifications:
+    - target: {fileID: 6900310805853471031, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
+        type: 3}
+      propertyPath: viewIdField
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8550806685719874653, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
         type: 3}
       propertyPath: m_Name
@@ -1551,6 +1561,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 943580428}
     m_Modifications:
+    - target: {fileID: 6900310805853471031, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
+        type: 3}
+      propertyPath: viewIdField
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8550806685719874653, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
         type: 3}
       propertyPath: m_Name
@@ -2565,6 +2580,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1028054441}
     m_Modifications:
+    - target: {fileID: 4535804416824420726, guid: 635ea6e6cb42d9b4a96b60c5dbf26a3d,
+        type: 3}
+      propertyPath: viewIdField
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2669893407869478596, guid: 635ea6e6cb42d9b4a96b60c5dbf26a3d,
         type: 3}
       propertyPath: m_Name
@@ -3047,7 +3067,7 @@ PrefabInstance:
     - target: {fileID: 5493778718164022136, guid: 2533840f7655ecc48a9db4c0a11ae958,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5493778718164022137, guid: 2533840f7655ecc48a9db4c0a11ae958,
         type: 3}
@@ -3163,6 +3183,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 943580428}
     m_Modifications:
+    - target: {fileID: 6900310805853471031, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
+        type: 3}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8550806685719874653, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
         type: 3}
       propertyPath: m_Name
