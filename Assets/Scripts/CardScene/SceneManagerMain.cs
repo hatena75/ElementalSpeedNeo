@@ -41,7 +41,7 @@ public class SceneManagerMain : MonoBehaviour
         }
 
         Panel.SetActive(false);
-        GameObject.Find ("Master").GetComponent<DefineStateMachine>().GameStart();
+        //GameObject.Find ("Master").GetComponent<DefineStateMachinePvP>().GameStart();
     }
 
     IEnumerator FadeOutWinPanel()

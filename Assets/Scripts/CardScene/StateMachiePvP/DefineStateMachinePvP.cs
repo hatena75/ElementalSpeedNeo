@@ -21,6 +21,21 @@ public partial class DefineStateMachinePvP : MonoBehaviour
     private class IdleState : ImtStateMachine<DefineStateMachinePvP>.State
     {
         // 何もしない状態クラスなら何も書かなくても良い（むしろ無駄なoverrideは避ける）
+        GameObject panel;
+
+        protected internal override void Enter()
+        {
+            //探し出すためには最初にパネルがactiveである必要がある
+            panel = GameObject.Find ("Panel");
+        }
+        protected internal override void Update()
+        {
+            if(!panel.activeSelf){
+                //フェードイン終了まで待つ
+                //探し出すためには最初にパネルがactiveである必要がある
+                stateMachine.SendEvent((int)StateEventId.Start);
+            }
+        }
     }
 
     private class EndState : ImtStateMachine<DefineStateMachinePvP>.State
