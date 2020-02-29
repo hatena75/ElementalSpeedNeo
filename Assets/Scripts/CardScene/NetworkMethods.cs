@@ -20,16 +20,21 @@ public class NetworkMethods : MonoBehaviourPun
             PhotonNetwork.Instantiate("Card", ph + new Vector3(-3.61f, -1.4f, 155f), Quaternion.identity, 0);        
             PhotonNetwork.Instantiate("Card", ph + new Vector3(1.26f, -1.4f, 155f), Quaternion.identity, 0);
 
-            PhotonNetwork.Instantiate("Card2", eh + new Vector3(-9.18f, 9f, 155f), Quaternion.identity, 0);
-            PhotonNetwork.Instantiate("Card2", eh + new Vector3(-4.08f, 9f, 155f), Quaternion.identity, 0);
-            PhotonNetwork.Instantiate("Card2", eh + new Vector3(0.9f, 9f, 155f), Quaternion.identity, 0);
-
             PhotonNetwork.Instantiate("Field", fi + new Vector3(-6.4f, 2.15f, 155f), Quaternion.identity, 0);
             PhotonNetwork.Instantiate("Field", fi + new Vector3(1.03f, 2.15f, 155f), Quaternion.identity, 0);
 
             //ここでRPCでもう一人のプレイヤーにCard2の所有権を付与
         }
-        
+        else
+        {
+            PhotonNetwork.Instantiate("Card2", eh + new Vector3(-9.18f, 9f, 155f), Quaternion.identity, 0);
+            PhotonNetwork.Instantiate("Card2", eh + new Vector3(-4.08f, 9f, 155f), Quaternion.identity, 0);
+            PhotonNetwork.Instantiate("Card2", eh + new Vector3(0.9f, 9f, 155f), Quaternion.identity, 0);
+        }
+    }
+
+    public bool MyIsMasterClient(){
+        return PhotonNetwork.IsMasterClient;
     }
 
     // Start is called before the first frame update

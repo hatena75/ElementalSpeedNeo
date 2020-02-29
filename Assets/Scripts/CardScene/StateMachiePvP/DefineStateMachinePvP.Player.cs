@@ -14,6 +14,8 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         private TimerController timer = GameObject.Find("TimeCount").GetComponent<TimerController>();
         private HandResetButton reload = GameObject.Find("Button").GetComponent<HandResetButton>();
 
+        private NetworkMethods nm = GameObject.Find("Master").GetComponent<NetworkMethods>();
+
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
         {
@@ -25,7 +27,9 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 
             //自分のCardを動かせるようにする
             foreach (GameObject myHand in myHands) {
-                myHand.GetComponent<Mouse>().enabled = true;
+                if(nm.MyIsMasterClient()){
+                    myHand.GetComponent<Mouse>().enabled = true;
+                }
                 myHand.GetComponent<CardModel>().MovableColor();
                 //Debug.Log(activeSelf);
             }

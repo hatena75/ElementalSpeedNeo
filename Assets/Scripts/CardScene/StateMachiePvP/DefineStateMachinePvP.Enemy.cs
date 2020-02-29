@@ -11,6 +11,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         GameObject[] enemyHands;
         private TimerController timer = GameObject.Find("TimeCount").GetComponent<TimerController>();
 
+        private NetworkMethods nm = GameObject.Find("Master").GetComponent<NetworkMethods>();
 
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
@@ -21,8 +22,11 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 
             Debug.Log("相手のプレイターン");
             //EnemyがEnemyCardを動かすことを許可
-            GameObject.Find ("Enemy").GetComponent<EnemyPlay>().enabled = true;
+            //GameObject.Find ("Enemy").GetComponent<EnemyPlay>().enabled = true;
             foreach (GameObject enemyHand in enemyHands) {
+                if(!nm.MyIsMasterClient()){
+                    enemyHand.GetComponent<Mouse>().enabled = true;
+                }
                 enemyHand.GetComponent<CardModel>().MovableColor();
             }
         }
@@ -45,7 +49,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
             foreach (GameObject enemyHand in enemyHands) {
                 enemyHand.GetComponent<CardModel>().ResetPos();
                 enemyHand.GetComponent<CardModel>().UnMovableColor();
-
+                enemyHand.GetComponent<Mouse>().enabled = false;
             }
 
             Debug.Log("相手のプレイターン終了");
