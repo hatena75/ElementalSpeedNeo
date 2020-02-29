@@ -21,7 +21,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
     {
         // ステートマシンのインスタンスを生成して遷移テーブルを構築
         stateMachine = new ImtStateMachine<DefineStateMachinePvP>(this); // 自身がコンテキストになるので自身のインスタンスを渡す
-        stateMachine.AddTransition<IdleState, MyPlayState>((int)StateEventId.Start);
+        stateMachine.AddTransition<InitialState, MyPlayState>((int)StateEventId.Start);
         stateMachine.AddTransition<MyPlayState, MyAttackState>((int)StateEventId.MyPlayEnd);
         stateMachine.AddTransition<MyAttackState, EnemyPlayState>((int)StateEventId.MyTurnEnd);
         stateMachine.AddTransition<EnemyPlayState, EnemyAttackState>((int)StateEventId.EnemyPlayEnd);
@@ -31,7 +31,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 
 
 
-        // 起動ステートを設定（起動ステートは IdleState）
-        stateMachine.SetStartState<IdleState>();
+        // 起動ステートを設定
+        stateMachine.SetStartState<InitialState>();
     }
 }

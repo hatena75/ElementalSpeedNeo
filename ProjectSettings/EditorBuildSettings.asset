@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: 5677324adcb83f94885f2e81e104a33e
+  - enabled: 1
+    path: Assets/Scenes/CardPvP.unity
+    guid: 72dc4ff448fef0b4a8a00170e2800dba
   m_configObjects: {}

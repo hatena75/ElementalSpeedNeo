@@ -10,13 +10,14 @@ public partial class DefineStateMachinePvP : MonoBehaviour
     {
         //private float timeOut;
         //private float timeElapsed;
-        GameObject[] myHands = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] myHands;
         private TimerController timer = GameObject.Find("TimeCount").GetComponent<TimerController>();
         private HandResetButton reload = GameObject.Find("Button").GetComponent<HandResetButton>();
 
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
         {
+            myHands = GameObject.FindGameObjectsWithTag("Player");
             //タイマーセット 5秒
             //timeOut = 5.0f;
             //timeElapsed = 0.0f;

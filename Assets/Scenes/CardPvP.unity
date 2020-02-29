@@ -497,6 +497,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1028054441}
     m_Modifications:
+    - target: {fileID: 2669893407869478596, guid: 635ea6e6cb42d9b4a96b60c5dbf26a3d,
+        type: 3}
+      propertyPath: m_Name
+      value: FieldLeft
+      objectReference: {fileID: 0}
     - target: {fileID: 4535804416824420726, guid: 635ea6e6cb42d9b4a96b60c5dbf26a3d,
         type: 3}
       propertyPath: ObservedComponents.Array.size
@@ -506,11 +511,6 @@ PrefabInstance:
         type: 3}
       propertyPath: viewIdField
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2669893407869478596, guid: 635ea6e6cb42d9b4a96b60c5dbf26a3d,
-        type: 3}
-      propertyPath: m_Name
-      value: FieldLeft
       objectReference: {fileID: 0}
     - target: {fileID: 2669893407869478598, guid: 635ea6e6cb42d9b4a96b60c5dbf26a3d,
         type: 3}
@@ -715,6 +715,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 943580428}
     m_Modifications:
+    - target: {fileID: 8550806685719874653, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
+        type: 3}
+      propertyPath: m_Name
+      value: Card (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550806685719874653, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6900310805853471031, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
         type: 3}
       propertyPath: ObservedComponents.Array.size
@@ -730,16 +740,6 @@ PrefabInstance:
       propertyPath: ObservedComponents.Array.data[0]
       value: 
       objectReference: {fileID: 248891140}
-    - target: {fileID: 8550806685719874653, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
-        type: 3}
-      propertyPath: m_Name
-      value: Card (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8550806685719874653, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8550806685719874655, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -906,6 +906,7 @@ GameObject:
   - component: {fileID: 433747256}
   - component: {fileID: 433747255}
   - component: {fileID: 433747254}
+  - component: {fileID: 433747257}
   m_Layer: 0
   m_Name: Master
   m_TagString: Untagged
@@ -1081,6 +1082,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433747249}
   m_Enabled: 1
+--- !u!114 &433747257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 433747249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce64a3758a0887241a3444b1a82923d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &509013635 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -1567991768995577066, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
@@ -1320,7 +1333,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &943580428
 Transform:
   m_ObjectHideFlags: 0
@@ -1504,7 +1517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1028054441
 Transform:
   m_ObjectHideFlags: 0
@@ -1608,6 +1621,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 943580428}
     m_Modifications:
+    - target: {fileID: 8550806685719874653, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
+        type: 3}
+      propertyPath: m_Name
+      value: Card (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 6900310805853471031, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
         type: 3}
       propertyPath: viewIdField
@@ -1618,11 +1636,6 @@ PrefabInstance:
       propertyPath: ObservedComponents.Array.data[0]
       value: 
       objectReference: {fileID: 509013635}
-    - target: {fileID: 8550806685719874653, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
-        type: 3}
-      propertyPath: m_Name
-      value: Card (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 8550806685719874655, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2467,7 +2480,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1585979447
 Transform:
   m_ObjectHideFlags: 0
@@ -2640,6 +2653,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1028054441}
     m_Modifications:
+    - target: {fileID: 2669893407869478596, guid: 635ea6e6cb42d9b4a96b60c5dbf26a3d,
+        type: 3}
+      propertyPath: m_Name
+      value: FieldRight
+      objectReference: {fileID: 0}
     - target: {fileID: 4535804416824420726, guid: 635ea6e6cb42d9b4a96b60c5dbf26a3d,
         type: 3}
       propertyPath: ObservedComponents.Array.size
@@ -2649,11 +2667,6 @@ PrefabInstance:
         type: 3}
       propertyPath: viewIdField
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2669893407869478596, guid: 635ea6e6cb42d9b4a96b60c5dbf26a3d,
-        type: 3}
-      propertyPath: m_Name
-      value: FieldRight
       objectReference: {fileID: 0}
     - target: {fileID: 2669893407869478598, guid: 635ea6e6cb42d9b4a96b60c5dbf26a3d,
         type: 3}
@@ -3256,15 +3269,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 943580428}
     m_Modifications:
-    - target: {fileID: 6900310805853471031, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
-        type: 3}
-      propertyPath: viewIdField
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 8550806685719874653, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
         type: 3}
       propertyPath: m_Name
       value: Card
+      objectReference: {fileID: 0}
+    - target: {fileID: 6900310805853471031, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
+        type: 3}
+      propertyPath: viewIdField
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8550806685719874655, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
         type: 3}

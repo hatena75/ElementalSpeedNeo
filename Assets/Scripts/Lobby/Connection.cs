@@ -43,7 +43,7 @@ public class Connection : MonoBehaviourPunCallbacks
             sfb.StatusMatch();
 
             PhotonNetwork.IsMessageQueueRunning = false;
-            SceneManager.LoadScene ("CardPvP");
+            SceneManager.LoadScene("CardPvP");
         }
     }
 

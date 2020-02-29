@@ -71,6 +71,7 @@ public class CardModel : MonoBehaviour
     void Start()
     {
         RandomFace();
+        this.transform.localScale = new Vector3(0.817f, 0.817f, 0.817f);
         //Debug.Log(cardIndex);
         firstPos = this.transform.position;
         if(gameObject.tag != "Field"){

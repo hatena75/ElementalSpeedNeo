@@ -6,6 +6,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
+using Photon.Pun;
+using Photon.Realtime;
+
 
 // 状態を定義しているだけの何もしないクラス
 public partial class DefineStateMachinePvP : MonoBehaviour
@@ -18,15 +21,20 @@ public partial class DefineStateMachinePvP : MonoBehaviour
     }
 
     // この DefineStateMachinePvP クラスのアイドリング状態クラス
-    private class IdleState : ImtStateMachine<DefineStateMachinePvP>.State
+    private class InitialState : ImtStateMachine<DefineStateMachinePvP>.State
     {
-        // 何もしない状態クラスなら何も書かなくても良い（むしろ無駄なoverrideは避ける）
         GameObject panel;
+        private NetworkMethods nm = GameObject.Find("Master").GetComponent<NetworkMethods>();
 
         protected internal override void Enter()
         {
+            PhotonNetwork.IsMessageQueueRunning = true;
+            //マスタークライアントがフィールドを含む全てのインスタンスを生成
+            nm.InitialPlacement();
+
             //探し出すためには最初にパネルがactiveである必要がある
             panel = GameObject.Find ("Panel");
+
         }
         protected internal override void Update()
         {

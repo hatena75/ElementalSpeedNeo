@@ -8,13 +8,14 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 {
     private class EnemyPlayState : ImtStateMachine<DefineStateMachinePvP>.State
     {
-        GameObject[] enemyHands = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] enemyHands;
         private TimerController timer = GameObject.Find("TimeCount").GetComponent<TimerController>();
 
 
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
         {
+            enemyHands = GameObject.FindGameObjectsWithTag("Player2");
             //タイマーセット 5秒
             timer.Set(5.0f);
 
