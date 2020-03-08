@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class CardModel : MonoBehaviour
 {
@@ -10,6 +12,9 @@ public class CardModel : MonoBehaviour
     public int cardMax; // e.g. faces[cardIndex];
     public Vector3 firstPos;
 
+    private RaiseEvents rE;
+    private PhotonView photonView;
+
     public void Reset(){
         ResetPos();
         RandomFace();
@@ -19,6 +24,19 @@ public class CardModel : MonoBehaviour
     {
         cardIndex = Index;
         spriteRenderer.sprite = faces[cardIndex];
+        photonView.RPC("ChangeFaceSync", RpcTarget.All, cardIndex);
+        //cardIndex = Index;
+        //spriteRenderer.sprite = faces[cardIndex];
+        //object[] content = new object[] { this.gameObject, cardIndex};
+        //rE.CardSync(content);
+    }
+
+    [PunRPC]
+    private void ChangeFaceSync(int Index)
+    {
+        cardIndex = Index;
+        spriteRenderer.sprite = faces[cardIndex];
+        //rE.CardSync(content);
     }
 
     public void RandomFace()
@@ -66,10 +84,13 @@ public class CardModel : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         faces = Resources.LoadAll<Sprite> ("pictures/frames");
         cardMax = faces.Length;
+        //rE = GameObject.Find("Master").GetComponent<RaiseEvents>();
+        
     }
 
     void Start()
     {
+        photonView = GetComponent<PhotonView>();
         RandomFace();
         this.transform.localScale = new Vector3(0.817f, 0.817f, 0.817f);
         //Debug.Log(cardIndex);

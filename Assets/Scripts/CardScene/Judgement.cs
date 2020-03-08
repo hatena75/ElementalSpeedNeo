@@ -10,10 +10,15 @@ enum Elements : int
 
 public class Judgement : MonoBehaviour
 {
+    private RaiseEvents rE;
+
     private Dictionary<Elements, Elements> ElementChart;
     // Start is called before the first frame update
     void Start()
     {
+        //rE = GameObject.Find("Master").GetComponent<RaiseEvents>();
+        //rE = this.gameObject.GetComponent<RaiseEvents>();
+
         //属性相性の定義
         ElementChart = new Dictionary<Elements, Elements>();
         ElementChart.Add(Elements.Fire, Elements.Wind);
@@ -50,6 +55,9 @@ public class Judgement : MonoBehaviour
             field.GetComponent<CardModel>().ChangeFace(playerIndex);
             //使用カードリセット
             hand.GetComponent<CardModel>().Reset();
+            //カード同期
+            //object[] content = new object[] { hand, hand.GetComponent<CardModel>().cardIndex, field, field.GetComponent<CardModel>().cardIndex};
+            //rE.PutSync(content);
         }
         else
         {
