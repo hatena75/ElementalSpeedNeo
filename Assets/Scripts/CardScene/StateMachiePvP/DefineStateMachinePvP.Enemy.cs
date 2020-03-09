@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using IceMilkTea.Core;
 using System.Threading.Tasks;
+using Photon.Pun;
 
 public partial class DefineStateMachinePvP : MonoBehaviour
 {
@@ -89,7 +90,12 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 
             // 特定のタイミングで遷移を拒否（ガード）するなら true を返せばステートマシンは遷移を諦めます
             if(!pStatus.IsAlive()){
-                GameObject.Find ("Master").GetComponent<SceneManagerMain>().Lose();
+                if(PhotonNetwork.IsMasterClient){
+                    GameObject.Find ("Master").GetComponent<SceneManagerMain>().Lose();
+                }
+                else{
+                    GameObject.Find ("Master").GetComponent<SceneManagerMain>().Win();
+                }
                 return true;
             }
 
