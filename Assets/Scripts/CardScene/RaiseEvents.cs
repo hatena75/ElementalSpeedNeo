@@ -35,13 +35,11 @@ public class RaiseEvents : MonoBehaviour
                 string data = (string)photonEvent.CustomData;
                 Debug.Log(data);
                 break;
-            /*
             case EEventType.PutSync:
                 object[] content = (object[])photonEvent.CustomData;
                 ((GameObject)content[0]).GetComponent<CardModel>().ChangeFace((int)content[1]);
                 ((GameObject)content[2]).GetComponent<CardModel>().ChangeFace((int)content[3]);
                 break;
-            */
             /*
             case EEventType.CardSync:
                 object[] content = (object[])photonEvent.CustomData;

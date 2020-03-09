@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class Mouse : MonoBehaviour
+public class Mouse : MonoBehaviourPunCallbacks //, IPunObservable
 {
     private Vector3 screenPoint;
     private Vector3 offset;
@@ -12,11 +14,14 @@ public class Mouse : MonoBehaviour
     private Judgement jm;
     private SEManager se;
 
+    private RaiseEvents rE;
+
     void Start()
     {
         isDowned = true;
         jm = GameObject.Find ("Master").GetComponent<Judgement>();
         se = GameObject.Find ("SEManager").GetComponent<SEManager>();
+        rE = GameObject.Find("Master").GetComponent<RaiseEvents>();
     }
 
     void OnMouseDown() {
@@ -45,12 +50,28 @@ public class Mouse : MonoBehaviour
         }
     }
 
+    //これは同期されない。恐らくisDownedが相手側では常にfalseになっている。
+    //isDowndを共有しようと思ったがPhotonViewで追っている分には遅すぎて検知無理
     void OnTriggerStay2D(Collider2D coll){ //Colliderオブジェクト(カード)と衝突した瞬間1度呼ばれる。
+        //Debug.Log("OnTriggerStay");
         if(isDowned && coll.gameObject.tag == "Field"){
             //Debug.Log("触ったよ");
-            isDowned = false;
             jm.Put(gameObject, coll.gameObject);
+            isDowned = false;
         }
 　　}
+
+    /*
+    // データを送受信するメソッド
+    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        if (stream.IsWriting) {
+            // 自身側が生成したオブジェクトの場合
+            stream.SendNext(isDowned);
+        } else {
+            // 他プレイヤー側が生成したオブジェクトの場合
+            isDowned = (bool)stream.ReceiveNext();
+        }
+    }
+    */
 
 }
