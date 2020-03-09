@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Photon.Pun;
 
 enum Elements : int
 {
@@ -11,6 +12,7 @@ enum Elements : int
 public class Judgement : MonoBehaviour
 {
     private RaiseEvents rE;
+    private PhotonView photonView;
 
     private Dictionary<Elements, Elements> ElementChart;
     // Start is called before the first frame update
@@ -18,6 +20,7 @@ public class Judgement : MonoBehaviour
     {
         //rE = GameObject.Find("Master").GetComponent<RaiseEvents>();
         //rE = this.gameObject.GetComponent<RaiseEvents>();
+        photonView = GetComponent<PhotonView>();
 
         //属性相性の定義
         ElementChart = new Dictionary<Elements, Elements>();
@@ -47,6 +50,7 @@ public class Judgement : MonoBehaviour
         int playerNum = playerIndex % 6;
         int fieldNum = fieldIndex % 6;
 
+        Debug.Log("Put");
         if(playerNum + 1 == fieldNum || playerNum - 1 == fieldNum || System.Math.Abs(playerNum - fieldNum) == 5)
         {
             //ダメージの処理。
@@ -89,6 +93,10 @@ public class Judgement : MonoBehaviour
         int times = ElementCalculator(playerEle, fieldEle);
         string attacker = hand.transform.tag;
 
+        //通信時相手にもダメージを換算
+        object[] content = {attacker, damage * times};
+        photonView.RPC("DamageCalculatorSync", RpcTarget.Others, content);
+
         if(attacker == "Player")
         {
             GameObject.Find ("Enemy").GetComponent<EnemyStatus>().DamagePlus(damage * times);
@@ -98,6 +106,22 @@ public class Judgement : MonoBehaviour
             GameObject.Find ("Player").GetComponent<PlayerStatus>().DamagePlus(damage * times);
         }
 
+    }
+
+    [PunRPC]
+    private void DamageCalculatorSync(object[] cnt)
+    {
+        string attacker = (string)cnt[0];
+        int damage = (int)cnt[1];
+
+        if(attacker == "Player")
+        {
+            GameObject.Find ("Enemy").GetComponent<EnemyStatus>().DamagePlus(damage);
+        }
+        else
+        {
+            GameObject.Find ("Player").GetComponent<PlayerStatus>().DamagePlus(damage);
+        }
     }
 
     // Update is called once per frame
