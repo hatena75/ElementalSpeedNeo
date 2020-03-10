@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; //added
+using Photon.Pun;
 
 public class PlayerStatus : CommonPlayerStatus
 {
@@ -19,13 +20,25 @@ public class PlayerStatus : CommonPlayerStatus
     void Start()
     {
         base.Start();
-
+        if(PhotonNetwork.IsMasterClient){
+            textHP = GameObject.Find ("PlayerHP").GetComponent<Text>();
+            barHP = GameObject.Find("PlayerBar").GetComponent<Slider>();
+            //damageCount = GameObject.Find ("DamageCount").GetComponent<Text>();
+            face = GameObject.Find ("PlayerCharactor");
+        }
+        else
+        {
+            textHP = GameObject.Find ("EnemyHP").GetComponent<Text>();
+            barHP = GameObject.Find("EnemyBar").GetComponent<Slider>();
+            //damageCount = GameObject.Find ("DamageCount").GetComponent<Text>();
+            face = GameObject.Find ("EnemyCharactor");
+        }
         //HP = maxHP;
         //damageSum = 0;
-        textHP = GameObject.Find ("PlayerHP").GetComponent<Text>();
-        barHP = GameObject.Find("PlayerBar").GetComponent<Slider>();
+        //textHP = GameObject.Find ("PlayerHP").GetComponent<Text>();
+        //barHP = GameObject.Find("PlayerBar").GetComponent<Slider>();
         //damageCount = GameObject.Find ("DamageCount").GetComponent<Text>();
-        face = GameObject.Find ("PlayerCharactor");
+        //face = GameObject.Find ("PlayerCharactor");
     }
 
     /*
