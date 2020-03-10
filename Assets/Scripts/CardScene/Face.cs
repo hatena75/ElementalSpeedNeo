@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public enum Faces : int
 {
@@ -27,6 +28,10 @@ public class Face : MonoBehaviour
     void Start()
     {
         ChangeFace(Faces.Normal);
+        if(!PhotonNetwork.IsMasterClient){
+            spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, 180);
+            //spriteRenderer.transform.Rotate(new Vector3(0, 0, 180));
+        }
     }
 
     // Update is called once per frame
