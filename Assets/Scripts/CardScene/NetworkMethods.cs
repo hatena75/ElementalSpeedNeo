@@ -13,6 +13,8 @@ public class NetworkMethods : MonoBehaviourPun
     private Vector3 ph = new Vector3(1.88f, -2.53f, -155.34f);
     private Vector3 fi = new Vector3(0.81f, 0.51f, -155.3491f);
 
+    public Camera camera;
+
 
     public void InitialPlacement(){
         if(PhotonNetwork.IsMasterClient){
@@ -30,6 +32,8 @@ public class NetworkMethods : MonoBehaviourPun
             PhotonNetwork.Instantiate("Card2", eh + new Vector3(-9.18f, 9f, 155f), Quaternion.identity, 0);
             PhotonNetwork.Instantiate("Card2", eh + new Vector3(-4.08f, 9f, 155f), Quaternion.identity, 0);
             PhotonNetwork.Instantiate("Card2", eh + new Vector3(0.9f, 9f, 155f), Quaternion.identity, 0);
+
+            camera.transform.rotation = Quaternion.Euler(0, 0, 180);
         }
     }
 
@@ -41,6 +45,7 @@ public class NetworkMethods : MonoBehaviourPun
     void Start()
     {
         //StartGame();
+        camera = Camera.main;
     }
 
     // Update is called once per frame
