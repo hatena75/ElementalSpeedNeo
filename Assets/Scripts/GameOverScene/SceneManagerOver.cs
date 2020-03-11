@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class SceneManagerOver : MonoBehaviour
 {
@@ -52,6 +54,8 @@ public class SceneManagerOver : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButtonDown (0) && isFade == false) {
+            PhotonNetwork.LeaveRoom();
+            PhotonNetwork.Disconnect();
 			StartCoroutine(FadeOutPanel());
 		}
     }
