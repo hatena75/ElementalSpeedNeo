@@ -36,7 +36,9 @@ public partial class DefineStateMachinePvP : MonoBehaviour
                 //Debug.Log(activeSelf);
             }
 
-            reload.Activate();
+            if(PhotonNetwork.IsMasterClient){
+                reload.Activate();
+            }
 
             Debug.Log("自分のプレイターン");
         }
@@ -73,7 +75,9 @@ public partial class DefineStateMachinePvP : MonoBehaviour
                 myHand.GetComponent<Mouse>().enabled = false;
             }
 
-            reload.DeActivate();
+            if(PhotonNetwork.IsMasterClient){
+                reload.DeActivate();
+            }
 
             Debug.Log("自分のプレイターン終了");
 

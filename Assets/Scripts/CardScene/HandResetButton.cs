@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class HandResetButton : MonoBehaviour
 {
@@ -19,10 +21,18 @@ public class HandResetButton : MonoBehaviour
     }
 
     public void OnClick() {
-        if(usable){  
-            GameObject[] playerHands = GameObject.FindGameObjectsWithTag("Player");
-            foreach (GameObject playerHand in playerHands) {
-                playerHand.GetComponent<CardModel>().RandomFace();
+        if(usable){
+            if(PhotonNetwork.IsMasterClient){
+                GameObject[] playerHands = GameObject.FindGameObjectsWithTag("Player");
+                foreach (GameObject playerHand in playerHands) {
+                    playerHand.GetComponent<CardModel>().RandomFace();
+                }
+            }
+            else{
+                GameObject[] player2Hands = GameObject.FindGameObjectsWithTag("Player2");
+                foreach (GameObject player2Hand in player2Hands) {
+                    player2Hand.GetComponent<CardModel>().RandomFace();
+                }
             }
 
             DeActivate();

@@ -14,6 +14,8 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 
         private NetworkMethods nm = GameObject.Find("Master").GetComponent<NetworkMethods>();
 
+        private HandResetButton reload = GameObject.Find("Button").GetComponent<HandResetButton>();
+
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
         {
@@ -29,6 +31,10 @@ public partial class DefineStateMachinePvP : MonoBehaviour
                     enemyHand.GetComponent<Mouse>().enabled = true;
                 }
                 enemyHand.GetComponent<CardModel>().MovableColor();
+            }
+
+            if(!PhotonNetwork.IsMasterClient){
+                reload.Activate();
             }
         }
 
@@ -51,6 +57,10 @@ public partial class DefineStateMachinePvP : MonoBehaviour
                 enemyHand.GetComponent<CardModel>().ResetPos();
                 enemyHand.GetComponent<CardModel>().UnMovableColor();
                 enemyHand.GetComponent<Mouse>().enabled = false;
+            }
+
+            if(!PhotonNetwork.IsMasterClient){
+                reload.DeActivate();
             }
 
             Debug.Log("相手のプレイターン終了");
