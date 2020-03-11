@@ -18,21 +18,25 @@ public class NetworkMethods : MonoBehaviourPun
 
     public void InitialPlacement(){
         if(PhotonNetwork.IsMasterClient){
-            PhotonNetwork.Instantiate("Card", ph + new Vector3(-8.57f, -1.4f, 155f), Quaternion.identity, 0);
-            PhotonNetwork.Instantiate("Card", ph + new Vector3(-3.61f, -1.4f, 155f), Quaternion.identity, 0);        
-            PhotonNetwork.Instantiate("Card", ph + new Vector3(1.26f, -1.4f, 155f), Quaternion.identity, 0);
+            PhotonNetwork.Instantiate("Card", ph + new Vector3(-6.77f, -4.4f, 155f), Quaternion.identity, 0);
+            PhotonNetwork.Instantiate("Card", ph + new Vector3(-1.81f, -4.4f, 155f), Quaternion.identity, 0);
+            PhotonNetwork.Instantiate("Card", ph + new Vector3(3.06f, -4.4f, 155f), Quaternion.identity, 0);
+                                                             
 
-            PhotonNetwork.Instantiate("Field", fi + new Vector3(-6.4f, 2.15f, 155f), Quaternion.identity, 0);
-            PhotonNetwork.Instantiate("Field", fi + new Vector3(1.03f, 2.15f, 155f), Quaternion.identity, 0);
+            PhotonNetwork.Instantiate("Field", fi + new Vector3(-4.6f, -0.85f, 155f), Quaternion.identity, 0);
+            PhotonNetwork.Instantiate("Field", fi + new Vector3(2.83f, -0.85f, 155f), Quaternion.identity, 0);
 
             //ここでRPCでもう一人のプレイヤーにCard2の所有権を付与
         }
         else
         {
-            PhotonNetwork.Instantiate("Card2", eh + new Vector3(-9.18f, 9f, 155f), Quaternion.identity, 0);
-            PhotonNetwork.Instantiate("Card2", eh + new Vector3(-4.08f, 9f, 155f), Quaternion.identity, 0);
-            PhotonNetwork.Instantiate("Card2", eh + new Vector3(0.9f, 9f, 155f), Quaternion.identity, 0);
+            PhotonNetwork.Instantiate("Card2", eh + new Vector3(-7.38f, 6f, 155f), Quaternion.identity, 0);
+            PhotonNetwork.Instantiate("Card2", eh + new Vector3(-2.28f, 6f, 155f), Quaternion.identity, 0);
+            //PhotonNetwork.Instantiate("Card2", eh + new Vector3(0.9f, 9f, 155f), Quaternion.identity, 0);
+            PhotonNetwork.Instantiate("Card2", eh + new Vector3(2.7f, 6f, 155f), Quaternion.identity, 0);
 
+            Debug.Log("enter");
+            camera = Camera.main;
             camera.transform.rotation = Quaternion.Euler(0, 0, 180);
         }
     }
@@ -45,7 +49,7 @@ public class NetworkMethods : MonoBehaviourPun
     void Start()
     {
         //StartGame();
-        camera = Camera.main;
+        //camera = Camera.main;
     }
 
     // Update is called once per frame
