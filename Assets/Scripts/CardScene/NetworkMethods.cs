@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class NetworkMethods : MonoBehaviourPun
+public class NetworkMethods : MonoBehaviourPunCallbacks
 {
     //カードの初期配置。自分と相手でそれぞれ手札を生成。
     //マスター側はフィールドも生成する。
@@ -25,8 +25,6 @@ public class NetworkMethods : MonoBehaviourPun
 
             PhotonNetwork.Instantiate("Field", fi + new Vector3(-4.6f, -0.85f, 155f), Quaternion.identity, 0);
             PhotonNetwork.Instantiate("Field", fi + new Vector3(2.83f, -0.85f, 155f), Quaternion.identity, 0);
-
-            //ここでRPCでもう一人のプレイヤーにCard2の所有権を付与
         }
         else
         {
@@ -43,6 +41,25 @@ public class NetworkMethods : MonoBehaviourPun
 
     public bool MyIsMasterClient(){
         return PhotonNetwork.IsMasterClient;
+    }
+
+    // Photonから切断された時
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        Debug.Log("OnDisconnected");
+    }
+
+    // 部屋から退室した時
+    public override void OnLeftRoom()
+    {
+        Debug.Log("OnLeftRoom");
+    }
+
+    // 他のプレイヤーが退室した時
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Debug.Log("OnPlayerLeftRoom");
+        GameObject.Find ("Master").GetComponent<SceneManagerMain>().Win();
     }
 
     // Start is called before the first frame update
