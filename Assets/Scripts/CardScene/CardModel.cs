@@ -93,6 +93,9 @@ public class CardModel : MonoBehaviour
         photonView = GetComponent<PhotonView>();
         RandomFace();
         this.transform.localScale = new Vector3(0.817f, 0.817f, 0.817f);
+        if(!PhotonNetwork.IsMasterClient){
+            this.transform.rotation = Quaternion.Euler(0, 0, 180);
+        }
         //Debug.Log(cardIndex);
         firstPos = this.transform.position;
         if(gameObject.tag != "Field"){
