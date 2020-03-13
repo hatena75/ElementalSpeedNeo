@@ -22,14 +22,33 @@ public class Face : MonoBehaviour
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        faces = Resources.LoadAll<Sprite> ("pictures/" + charName);
+        if(PhotonNetwork.IsMasterClient){
+            if(charName.Equals("Player")){
+                faces = Resources.LoadAll<Sprite> ("pictures/Player");
+            }
+            else
+            {
+                faces = Resources.LoadAll<Sprite> ("pictures/Enemy");
+            }
+        }
+        else
+        {
+            if(charName.Equals("Player")){
+                faces = Resources.LoadAll<Sprite> ("pictures/Enemy");
+            }
+            else
+            {
+                faces = Resources.LoadAll<Sprite> ("pictures/Player");
+            }
+        }
+        //faces = Resources.LoadAll<Sprite> ("pictures/" + charName);
     }
 
     void Start()
     {
         ChangeFace(Faces.Normal);
         if(!PhotonNetwork.IsMasterClient){
-            spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, 180);
+            //spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, 180);
             //spriteRenderer.transform.Rotate(new Vector3(0, 0, 180));
         }
     }
