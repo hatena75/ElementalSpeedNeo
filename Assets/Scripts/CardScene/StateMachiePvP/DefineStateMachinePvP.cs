@@ -20,6 +20,48 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         stateMachine.SendEvent((int)StateEventId.Start);
     }
 
+    //手札を動かせるようにしたり動かせないようにしたりする関数
+    public static void CanPlayHand(GameObject[] hands, HandResetButton reload ,bool flg){
+
+        string who = hands[0].tag;
+
+        void TrueChange(string str){
+            if(who.Equals(str)){
+                foreach(GameObject hand in hands){
+                    hand.GetComponent<Mouse>().enabled = true;
+                    hand.GetComponent<CardModel>().MovableColor();
+                }
+
+                reload.Activate();
+            }
+            else{
+                foreach(GameObject hand in hands){
+                    hand.GetComponent<CardModel>().MovableColor();
+                }
+            }
+        }
+
+        if(flg){
+            //自分のターンに自分のCardを動かせるようにする
+            if(PhotonNetwork.IsMasterClient){
+                TrueChange("Player");
+            }
+            else{
+                TrueChange("Player2");
+            }
+        }
+        else{
+            //散らかったカードを戻し、Cardを動かせないようにする
+            foreach (GameObject hand in hands) {
+                hand.GetComponent<CardModel>().ResetPos();
+                hand.GetComponent<CardModel>().UnMovableColor();
+                hand.GetComponent<Mouse>().enabled = false;
+            }
+
+            reload.DeActivate();
+        }
+    }
+
     // この DefineStateMachinePvP クラスのアイドリング状態クラス
     private class InitialState : ImtStateMachine<DefineStateMachinePvP>.State
     {

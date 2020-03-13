@@ -16,29 +16,14 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         private TimerController timer = GameObject.Find("TimeCount").GetComponent<TimerController>();
         private HandResetButton reload = GameObject.Find("Button").GetComponent<HandResetButton>();
 
-        private NetworkMethods nm = GameObject.Find("Master").GetComponent<NetworkMethods>();
-
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
         {
             myHands = GameObject.FindGameObjectsWithTag("Player");
             //タイマーセット 5秒
-            //timeOut = 5.0f;
-            //timeElapsed = 0.0f;
             timer.Set(5.0f);
 
-            //自分のCardを動かせるようにする
-            foreach (GameObject myHand in myHands) {
-                if(nm.MyIsMasterClient()){
-                    myHand.GetComponent<Mouse>().enabled = true;
-                }
-                myHand.GetComponent<CardModel>().MovableColor();
-                //Debug.Log(activeSelf);
-            }
-
-            if(PhotonNetwork.IsMasterClient){
-                reload.Activate();
-            }
+            CanPlayHand(myHands, reload, true);
 
             Debug.Log("自分のプレイターン");
         }
@@ -46,20 +31,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         // 状態の更新はこのUpdateで行う
         protected internal override void Update()
         {
-            /*
-            //タイマー実行
-            timeElapsed += Time.deltaTime;
-
-            if(timeElapsed >= timeOut)
-            {
-                timeElapsed = 0.0f;
-
-                stateMachine.SendEvent((int)StateEventId.MyPlayEnd);
-
-            }
-            //時間切れになったらMyAttackStateへ
-            */
-
             if(!timer.IsActive()){
                 stateMachine.SendEvent((int)StateEventId.MyPlayEnd);
             }
@@ -68,19 +39,9 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         // 状態から脱出する時の処理はこのExitで行う
         protected internal override void Exit()
         {
-            //散らかったカードを戻し、自分のCardを動かせないようにする
-            foreach (GameObject myHand in myHands) {
-                myHand.GetComponent<CardModel>().ResetPos();
-                myHand.GetComponent<CardModel>().UnMovableColor();
-                myHand.GetComponent<Mouse>().enabled = false;
-            }
-
-            if(PhotonNetwork.IsMasterClient){
-                reload.DeActivate();
-            }
+            CanPlayHand(myHands, reload, false);
 
             Debug.Log("自分のプレイターン終了");
-
         }
     }
 
@@ -95,6 +56,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
         {
+
             //攻撃の表情
             GameObject.Find ("Player").GetComponent<PlayerStatus>().AttackFace();
 
@@ -136,15 +98,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         // 状態から脱出する時の処理はこのExitで行う
         protected internal override void Exit()
         {
-            //GameObject.Find ("Player").GetComponent<PlayerStatus>().NormalFace();
-            
-            //相手のHPが0ならWinシーンへ
-            /*
-            if(!eStatus.IsAlive()){
-                GameObject.Find ("Master").GetComponent<SceneManagerMain>().Win();
-            }
-            */
-
              Debug.Log("自分の攻撃終了");
         }
     }

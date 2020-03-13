@@ -11,9 +11,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
     {
         GameObject[] enemyHands;
         private TimerController timer = GameObject.Find("TimeCount").GetComponent<TimerController>();
-
-        private NetworkMethods nm = GameObject.Find("Master").GetComponent<NetworkMethods>();
-
         private HandResetButton reload = GameObject.Find("Button").GetComponent<HandResetButton>();
 
         // 状態へ突入時の処理はこのEnterで行う
@@ -24,18 +21,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
             timer.Set(5.0f);
 
             Debug.Log("相手のプレイターン");
-            //EnemyがEnemyCardを動かすことを許可
-            //GameObject.Find ("Enemy").GetComponent<EnemyPlay>().enabled = true;
-            foreach (GameObject enemyHand in enemyHands) {
-                if(!nm.MyIsMasterClient()){
-                    enemyHand.GetComponent<Mouse>().enabled = true;
-                }
-                enemyHand.GetComponent<CardModel>().MovableColor();
-            }
-
-            if(!PhotonNetwork.IsMasterClient){
-                reload.Activate();
-            }
+            CanPlayHand(enemyHands, reload, true);
         }
 
         // 状態の更新はこのUpdateで行う
@@ -49,19 +35,9 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         // 状態から脱出する時の処理はこのExitで行う
         protected internal override void Exit()
         {
-            //EnemyがEnemyCardを動かせないようにする
-            GameObject.Find ("Enemy").GetComponent<EnemyPlay>().enabled = false;
 
             //散らかったカードを戻す
-            foreach (GameObject enemyHand in enemyHands) {
-                enemyHand.GetComponent<CardModel>().ResetPos();
-                enemyHand.GetComponent<CardModel>().UnMovableColor();
-                enemyHand.GetComponent<Mouse>().enabled = false;
-            }
-
-            if(!PhotonNetwork.IsMasterClient){
-                reload.DeActivate();
-            }
+            CanPlayHand(enemyHands, reload, false);
 
             Debug.Log("相手のプレイターン終了");
         }
@@ -90,8 +66,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         // 状態の更新はこのUpdateで行う
         protected internal override void Update()
         {
-            //stateMachine.SendEvent((int)StateEventId.EnemyTurnEnd);
-            //ダメージ+エフェクト処理？
+
         }
 
         protected internal override bool GuardEvent(int eventId)
@@ -116,15 +91,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         // 状態から脱出する時の処理はこのExitで行う
         protected internal override void Exit()
         {
-            //GameObject.Find ("Enemy").GetComponent<EnemyStatus>().NormalFace();
-
-            //プレイヤーのHPが0以下ならLoseシーンへ
-            /*
-            if(!pStatus.IsAlive()){
-                GameObject.Find ("Master").GetComponent<SceneManagerMain>().Lose();
-            }
-            */
-
             Debug.Log("相手のターン終了");
         }
     }
