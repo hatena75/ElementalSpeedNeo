@@ -11,10 +11,13 @@ using Photon.Realtime;
 
 
 // 状態を定義しているだけの何もしないクラス
-public partial class DefineStateMachinePvP : MonoBehaviour
+public partial class DefineStateMachinePvP : MonoBehaviour, IPunObservable
 {
     // この DefineStateMachinePvP クラスのステートマシン
     private ImtStateMachine<DefineStateMachinePvP> stateMachine;
+
+    //同期させる変数
+    public static bool attackEnd = false;
 
     public void GameStart(){
         stateMachine.SendEvent((int)StateEventId.Start);
@@ -96,12 +99,23 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         }
     }
 
+    // データを送受信するメソッド
+    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        if (stream.IsWriting) {
+            // 自身側が生成したオブジェクトの場合
+            Debug.Log("sycrowrite");
+            stream.SendNext(attackEnd);
+        } else {
+            // 他プレイヤー側が生成したオブジェクトの場合
+             Debug.Log("sycroread");
+            attackEnd = (bool)stream.ReceiveNext();
+        }
+    }
+
     private void Start()
     {
         // ステートマシンを起動
         stateMachine.Update();
-
-        //stateMachine.SendEvent((int)StateEventId.Start);
     }
 
     private void Update()

@@ -10,8 +10,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 {
     private class MyPlayState : ImtStateMachine<DefineStateMachinePvP>.State
     {
-        //private float timeOut;
-        //private float timeElapsed;
         GameObject[] myHands;
         private TimerController timer = GameObject.Find("TimeCount").GetComponent<TimerController>();
         private HandResetButton reload = GameObject.Find("Button").GetComponent<HandResetButton>();
@@ -31,9 +29,19 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         // 状態の更新はこのUpdateで行う
         protected internal override void Update()
         {
-            if(!timer.IsActive()){
-                stateMachine.SendEvent((int)StateEventId.MyPlayEnd);
+            if(PhotonNetwork.IsMasterClient){
+                if(!timer.IsActive()){
+                    attackEnd = true;
+                    stateMachine.SendEvent((int)StateEventId.MyPlayEnd);
+                }
             }
+            else{
+                if(!timer.IsActive() && attackEnd == true){
+                    attackEnd = false;
+                    stateMachine.SendEvent((int)StateEventId.MyPlayEnd);
+                }
+            }
+            
         }
 
         // 状態から脱出する時の処理はこのExitで行う
