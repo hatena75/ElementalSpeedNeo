@@ -27,9 +27,26 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         // 状態の更新はこのUpdateで行う
         protected internal override void Update()
         {
+            //自分がマスターなら攻撃終了通知を待つ、そうでなければ通知を送る。
+            if(PhotonNetwork.IsMasterClient){
+                if(!timer.IsActive() && attackEnd){
+                    attackEnd = false;
+                    stateMachine.SendEvent((int)StateEventId.EnemyPlayEnd);
+                }
+            }
+            else
+            {
+                if(!timer.IsActive()){
+                    AttackEndSync(true);
+                    stateMachine.SendEvent((int)StateEventId.EnemyPlayEnd);
+                }
+            }
+            /*
             if(!timer.IsActive()){
+                AttackEndSync(true);
                 stateMachine.SendEvent((int)StateEventId.EnemyPlayEnd);
             }
+            */
         }
 
         // 状態から脱出する時の処理はこのExitで行う
