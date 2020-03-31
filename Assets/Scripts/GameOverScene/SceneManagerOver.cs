@@ -22,8 +22,10 @@ public class SceneManagerOver : MonoBehaviour
     {
         isFade = true;
         StartCoroutine(FadeInPanel());
-        PhotonNetwork.LeaveRoom();
-        PhotonNetwork.Disconnect();
+        if(PhotonNetwork.IsConnected){
+            PhotonNetwork.LeaveRoom();
+            PhotonNetwork.Disconnect();
+        }
     }
 
     IEnumerator FadeInPanel()

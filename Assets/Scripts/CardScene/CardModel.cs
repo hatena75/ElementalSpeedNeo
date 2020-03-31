@@ -24,7 +24,9 @@ public class CardModel : MonoBehaviour
     {
         cardIndex = Index;
         spriteRenderer.sprite = faces[cardIndex];
-        photonView.RPC("ChangeFaceSync", RpcTarget.All, cardIndex);
+        if(PhotonNetwork.IsConnected){
+            photonView.RPC("ChangeFaceSync", RpcTarget.All, cardIndex);
+        }
         //cardIndex = Index;
         //spriteRenderer.sprite = faces[cardIndex];
         //object[] content = new object[] { this.gameObject, cardIndex};
@@ -93,7 +95,7 @@ public class CardModel : MonoBehaviour
         photonView = GetComponent<PhotonView>();
         RandomFace();
         this.transform.localScale = new Vector3(0.817f, 0.817f, 0.817f);
-        if(!PhotonNetwork.IsMasterClient){
+        if(!PhotonNetwork.IsMasterClient && PhotonNetwork.IsConnected){
             this.transform.rotation = Quaternion.Euler(0, 0, 180);
         }
         //Debug.Log(cardIndex);

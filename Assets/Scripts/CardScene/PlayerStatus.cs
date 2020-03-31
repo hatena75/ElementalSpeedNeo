@@ -20,18 +20,27 @@ public class PlayerStatus : CommonPlayerStatus
     void Start()
     {
         base.Start();
-        if(PhotonNetwork.IsMasterClient){
+        if(PhotonNetwork.IsConnected){
+            if(PhotonNetwork.IsMasterClient){
+                textHP = GameObject.Find ("PlayerHP").GetComponent<Text>();
+                barHP = GameObject.Find("PlayerBar").GetComponent<Slider>();
+                //damageCount = GameObject.Find ("DamageCount").GetComponent<Text>();
+                face = GameObject.Find ("PlayerCharactor");
+            }
+            else
+            {
+                textHP = GameObject.Find ("EnemyHP").GetComponent<Text>();
+                barHP = GameObject.Find("EnemyBar").GetComponent<Slider>();
+                //damageCount = GameObject.Find ("DamageCount").GetComponent<Text>();
+                face = GameObject.Find ("EnemyCharactor");
+            }
+        }
+        else
+        {
             textHP = GameObject.Find ("PlayerHP").GetComponent<Text>();
             barHP = GameObject.Find("PlayerBar").GetComponent<Slider>();
             //damageCount = GameObject.Find ("DamageCount").GetComponent<Text>();
             face = GameObject.Find ("PlayerCharactor");
-        }
-        else
-        {
-            textHP = GameObject.Find ("EnemyHP").GetComponent<Text>();
-            barHP = GameObject.Find("EnemyBar").GetComponent<Slider>();
-            //damageCount = GameObject.Find ("DamageCount").GetComponent<Text>();
-            face = GameObject.Find ("EnemyCharactor");
         }
         //HP = maxHP;
         //damageSum = 0;
