@@ -9,6 +9,8 @@ public class Yuuki : CharacterAbstract
         
     }
 
+    public Yuuki(string name, string picture) : base(name, picture){}
+
 
     // Start is called before the first frame update
     void Start()
