@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SceneManagerCharacterSelect : MonoBehaviour
 {
-    private static string usingCharacter; //自分の使用キャラ
+    private static CharacterAbstract usingCharacter; //自分の使用キャラ
 
-    public static string UsingCharacter { get => usingCharacter; }
+    public static CharacterAbstract UsingCharacter { get => usingCharacter; }
 
-    public void SelectCharacter(string character){
+    public void SelectCharacter(CharacterAbstract character){
         usingCharacter = character;
     }
 
