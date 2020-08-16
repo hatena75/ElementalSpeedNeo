@@ -9,7 +9,7 @@ public class Masato : CharacterAbstract
     }
 
     public Masato() : base(){
-        this.name = "Masato";
-        this.picture = "pictures/Enemy";
+        this.Name = "Masato";
+        this.Picture = "pictures/Enemy";
     }
 }

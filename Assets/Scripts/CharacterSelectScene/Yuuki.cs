@@ -10,7 +10,7 @@ public class Yuuki : CharacterAbstract
     }
 
     public Yuuki() : base(){
-        this.name = "Yuuki";
-        this.picture = "pictures/Player";
+        this.Name = "Yuuki";
+        this.Picture = "pictures/Player";
     }
 }
