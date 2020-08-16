@@ -7,11 +7,12 @@ public class CharacterSelectButton : MonoBehaviour
      private SceneManagerCharacterSelect sc;
     
     public void OnClickYuuki() {
-        sc.SelectCharacter(new Yuuki());
+        //newと同じ
+        sc.SelectCharacter(gameObject.AddComponent<Yuuki>());
     }
 
     public void OnClickMasato() {
-        sc.SelectCharacter(new Masato());
+        sc.SelectCharacter(gameObject.AddComponent<Masato>());
     }
 
     // Start is called before the first frame update
