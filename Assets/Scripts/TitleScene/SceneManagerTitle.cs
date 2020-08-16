@@ -23,7 +23,7 @@ public class SceneManagerTitle : MonoBehaviour
 
     public void LobbyLoad(){
         isVs = true;
-        StartCoroutine(FadeOutLobby());
+        StartCoroutine(FadeOutpanel());
     }
 
     void Awake()
