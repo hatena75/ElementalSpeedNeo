@@ -6,20 +6,23 @@ using UnityEngine.UI;
 
 public class SceneManagerTitle : MonoBehaviour
 {
+    private static bool isVs; //trueなら対人戦
     private static int level;
     public GameObject panel;
     float a;
     private SEManagerTitle se;
 
-
     public static int Level { get => level; }
+    public static bool IsVs { get => isVs; }
 
     public void MainLoad(int lv){
+        isVs = false;
         level = lv;
         StartCoroutine(FadeOutpanel());
     }
 
     public void LobbyLoad(){
+        isVs = true;
         StartCoroutine(FadeOutLobby());
     }
 
@@ -33,6 +36,7 @@ public class SceneManagerTitle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isVs = false;
         level = 2;
         StartCoroutine(FadeInpanel());
     }
