@@ -4,6 +4,9 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using ExitGames.Client.Photon;
+using System;
+using System.Reflection;
 
 // MonoBehaviourではなくMonoBehaviourPunCallbacksを継承して、Photonのコールバックを受け取れるようにする
 public class Connection : MonoBehaviourPunCallbacks
@@ -42,8 +45,10 @@ public class Connection : MonoBehaviourPunCallbacks
             Debug.Log("GameStart!");
             sfb.StatusMatch();
 
-            PhotonNetwork.IsMessageQueueRunning = false;
-            SceneManager.LoadScene("CardPvP");
+            SendMyCharacter();
+
+            //PhotonNetwork.IsMessageQueueRunning = false;
+            //SceneManager.LoadScene("CardPvP");
         }
     }
 
@@ -59,6 +64,8 @@ public class Connection : MonoBehaviourPunCallbacks
 
         sfb = GameObject.Find("Status").GetComponent<StatusFeedBack>();
         sfb.StatusConnected();
+
+        PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
  
         // ニックネームを付ける
         //SetMyNickName("Knohhoso");
@@ -150,4 +157,69 @@ public class Connection : MonoBehaviourPunCallbacks
         //名前適当な2人部屋を新たに作成
         PhotonNetwork.CreateRoom(null ,new RoomOptions{MaxPlayers = 2} ,null);
     }
+
+    ///////////////////////以下、RaiseEvent///////////////////
+    /*
+    public void OnEnable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
+    }
+
+    public void OnDisable()
+    {
+        //PhotonNetwork.NetworkingClient.EventReceived -= OnEvent;
+    }
+    */
+    
+
+    private enum EEventType : byte
+    {
+        SendMyCharacter = 1
+    }
+
+    public void OnEvent(EventData photonEvent)
+    {
+        var eventCode = (EEventType)photonEvent.Code;
+
+        switch( eventCode )
+        {
+            case EEventType.SendMyCharacter:
+                //CustomDataから送られたデータを取り出し
+                string data = (string)photonEvent.CustomData;
+                //dataの文字列の型(キャラ)のインスタンスをnew
+                //リフレクションを用いて汎用的にする
+                Type t = Type.GetType(data);
+                //昔の引数有りのAddComponentと区別するため、引数の数を指定してメソッドを得る
+                MethodInfo mi = typeof(GameObject).GetMethod(
+                    "AddComponent",
+                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
+                    null,
+                    new Type[0], // ここに引数の型を配列で指定
+                    null
+                    );
+                MethodInfo bound = mi.MakeGenericMethod(t);
+                Debug.Log(bound);
+                SceneManagerCharacterSelect.EnemyCharacter = (CharacterAbstract)bound.Invoke(gameObject, null);
+                
+                PhotonNetwork.NetworkingClient.EventReceived -= OnEvent;
+                
+                PhotonNetwork.IsMessageQueueRunning = false;
+                SceneManager.LoadScene("CardPvP");
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void SendMyCharacter()
+    {
+        var raiseEventOptions = new RaiseEventOptions
+        {
+            Receivers = ReceiverGroup.Others,
+            CachingOption = EventCaching.AddToRoomCache,
+        };
+        PhotonNetwork.RaiseEvent( (byte)EEventType.SendMyCharacter, SceneManagerCharacterSelect.UsingCharacter.Name, raiseEventOptions, SendOptions.SendReliable);
+        Debug.Log("sendcharacter");
+    }
+
 }

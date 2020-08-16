@@ -13,6 +13,8 @@ public class SceneManagerCharacterSelect : MonoBehaviour
 
     public static CharacterAbstract UsingCharacter { get => usingCharacter; }
 
+    public static CharacterAbstract EnemyCharacter { get; set; }
+
     public void SelectCharacter(CharacterAbstract character){
         usingCharacter = character;
         MainLoad();
