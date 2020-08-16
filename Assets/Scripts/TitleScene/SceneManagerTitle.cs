@@ -63,7 +63,7 @@ public class SceneManagerTitle : MonoBehaviour
             yield return null;
         }
 
-        SceneManager.LoadScene ("Card");
+        SceneManager.LoadScene ("CharacterSelect");
     }
 
     IEnumerator FadeOutLobby()
