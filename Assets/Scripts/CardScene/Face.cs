@@ -45,15 +45,9 @@ public class Face : MonoBehaviour
         }
         else
         {
-            if(charName.Equals("Player")){
-                faces = Resources.LoadAll<Sprite> ("pictures/Player");
-            }
-            else
-            {
-                faces = Resources.LoadAll<Sprite> ("pictures/Enemy");
-            }
+            //faces = Resources.LoadAll<Sprite> ("pictures/" + charName);
+            faces = Resources.LoadAll<Sprite> (SceneManagerCharacterSelect.UsingCharacter.Picture);
         }
-        //faces = Resources.LoadAll<Sprite> ("pictures/" + charName);
     }
 
     void Start()
