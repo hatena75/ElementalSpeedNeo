@@ -13,7 +13,7 @@ public class Face : MonoBehaviour
     
     SpriteRenderer spriteRenderer;
     public Sprite[] faces;
-    [SerializeField] string charName; //Inspectorから書き換え可能
+    [SerializeField] string charName; //Inspectorから書き換え可能、アタッチされているのが自分側か敵側か判別するためのもの
 
     public void ChangeFace(Faces face){
         spriteRenderer.sprite = faces[(int)face];
@@ -45,8 +45,14 @@ public class Face : MonoBehaviour
         }
         else
         {
-            //faces = Resources.LoadAll<Sprite> ("pictures/" + charName);
-            faces = Resources.LoadAll<Sprite> (SceneManagerCharacterSelect.UsingCharacter.Picture);
+            if(charName.Equals("Player")){
+                //faces = Resources.LoadAll<Sprite> ("pictures/" + charName);
+                faces = Resources.LoadAll<Sprite> (SceneManagerCharacterSelect.UsingCharacter.Picture);
+            }
+            else
+            {
+                faces = Resources.LoadAll<Sprite> ("pictures/Enemy");
+            }
         }
     }
 
