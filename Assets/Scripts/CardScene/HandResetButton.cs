@@ -8,7 +8,7 @@ using Photon.Realtime;
 public class HandResetButton : MonoBehaviour
 {
     private bool usable;
-    private Button btn;
+    public Button btn;
 
     public void Activate(){
         usable = true;
@@ -51,7 +51,7 @@ public class HandResetButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        btn = gameObject.GetComponent<Button>();
+        //btn = gameObject.GetComponent<Button>();
         DeActivate();
     }
 
