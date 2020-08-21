@@ -13,6 +13,7 @@ public partial class DefineStateMachine : MonoBehaviour
         GameObject[] myHands = GameObject.FindGameObjectsWithTag("Player");
         private TimerController timer = GameObject.Find("TimeCount").GetComponent<TimerController>();
         private HandResetButton reload = GameObject.Find("Button").GetComponent<HandResetButton>();
+        private SkillButton skill = GameObject.Find("Skill").GetComponent<SkillButton>();
 
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
@@ -30,6 +31,7 @@ public partial class DefineStateMachine : MonoBehaviour
             }
 
             reload.Activate();
+            skill.Activate();
 
             Debug.Log("自分のプレイターン");
         }
@@ -67,6 +69,7 @@ public partial class DefineStateMachine : MonoBehaviour
             }
 
             reload.DeActivate();
+            skill.DeActivate();
 
             Debug.Log("自分のプレイターン終了");
 
