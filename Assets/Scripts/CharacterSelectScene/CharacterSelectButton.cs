@@ -15,6 +15,10 @@ public class CharacterSelectButton : MonoBehaviour
         sc.SelectCharacter(gameObject.AddComponent<Masato>());
     }
 
+    public void OnClickHaruka() {
+        sc.SelectCharacter(gameObject.AddComponent<Haruka>());
+    }
+
     // Start is called before the first frame update
     void Start()
     {
