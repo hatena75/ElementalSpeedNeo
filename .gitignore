@@ -68,3 +68,6 @@ crashlytics-build.properties
 
 # Effekseer Plugin
 /Assets/Effekseer
+
+# Effekseer Texture
+/Assets/Resources/Effekseer/*.png
