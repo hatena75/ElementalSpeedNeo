@@ -15,6 +15,7 @@ public class Masato : CharacterAbstract
             int element = rand.Next(0, 3);
             int index = cardInfo + (element * 12);
             card.GetComponent<CardModel>().ChangeFace(index);
+            card.GetComponent<CardModel>().ChangeElementEffect();
         }
     }
 

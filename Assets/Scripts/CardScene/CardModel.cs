@@ -13,7 +13,10 @@ public class CardModel : MonoBehaviour
     public int cardIndex; // e.g. faces[cardIndex];
     public int cardMax; // e.g. faces[cardIndex];
     public Vector3 firstPos;
-    private EffekseerEffectAsset effect;
+    private EffekseerEffectAsset changeeffect;
+    private EffekseerEffectAsset changeelementeffect;
+    private EffekseerEffectAsset weakingeffect;
+
     private EffekseerHandle effectHandler;
 
     private RaiseEvents rE;
@@ -24,13 +27,41 @@ public class CardModel : MonoBehaviour
             photonView.RPC("ChangeEffectRpc", RpcTarget.All);
         }
         else{
-            effectHandler = EffekseerSystem.PlayEffect(effect, firstPos);
+            effectHandler = EffekseerSystem.PlayEffect(changeeffect, firstPos);
         }
     }
 
     [PunRPC]
     private void ChangeEffectRpc(){
-        effectHandler = EffekseerSystem.PlayEffect(effect, firstPos);
+        effectHandler = EffekseerSystem.PlayEffect(changeeffect, firstPos);
+    }
+
+    public void ChangeElementEffect(){
+        if(PhotonNetwork.IsConnected){
+            photonView.RPC("ChangeEffectRpc", RpcTarget.All);
+        }
+        else{
+            effectHandler = EffekseerSystem.PlayEffect(changeelementeffect, firstPos);
+        }
+    }
+
+    [PunRPC]
+    private void ChangeElementEffectRpc(){
+        effectHandler = EffekseerSystem.PlayEffect(changeelementeffect, firstPos);
+    }
+
+    public void WeakingEffect(){
+        if(PhotonNetwork.IsConnected){
+            photonView.RPC("ChangeEffectRpc", RpcTarget.All);
+        }
+        else{
+            effectHandler = EffekseerSystem.PlayEffect(weakingeffect, firstPos);
+        }
+    }
+
+    [PunRPC]
+    private void WeakingEffectRpc(){
+        effectHandler = EffekseerSystem.PlayEffect(weakingeffect, firstPos);
     }
 
     public void Reset(){
@@ -107,7 +138,9 @@ public class CardModel : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         faces = Resources.LoadAll<Sprite> ("pictures/frames");
         cardMax = faces.Length;
-        effect = Resources.Load<EffekseerEffectAsset> ("Effekseer/CardChange");
+        changeeffect = Resources.Load<EffekseerEffectAsset> ("Effekseer/CardChange");
+        changeelementeffect = Resources.Load<EffekseerEffectAsset> ("Effekseer/changeelement");
+        weakingeffect = Resources.Load<EffekseerEffectAsset> ("Effekseer/weaking");
         //rE = GameObject.Find("Master").GetComponent<RaiseEvents>();
     }
 

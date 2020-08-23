@@ -13,6 +13,7 @@ public class Haruka : CharacterAbstract
             //攻撃力が20なら10に下げる
             if(cardInfo % 12 >= 6){
                 card.GetComponent<CardModel>().ChangeFace(cardInfo - 6);
+                card.GetComponent<CardModel>().WeakingEffect();
             }
         }
     }
