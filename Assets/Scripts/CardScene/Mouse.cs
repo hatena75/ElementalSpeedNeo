@@ -14,14 +14,11 @@ public class Mouse : MonoBehaviourPunCallbacks //, IPunObservable
     private Judgement jm;
     private SEManager se;
 
-    private RaiseEvents rE;
-
     void Start()
     {
         isDowned = true;
         jm = GameObject.Find ("Master").GetComponent<Judgement>();
         se = GameObject.Find ("SEManager").GetComponent<SEManager>();
-        rE = GameObject.Find("Master").GetComponent<RaiseEvents>();
     }
 
     void OnMouseDown() {

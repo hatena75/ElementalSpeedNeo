@@ -11,7 +11,6 @@ enum Elements : int
 
 public class Judgement : MonoBehaviour
 {
-    private RaiseEvents rE;
     private PhotonView photonView;
 
     private Dictionary<Elements, Elements> ElementChart;
