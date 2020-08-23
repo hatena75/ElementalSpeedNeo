@@ -13,13 +13,12 @@ public class CardModel : MonoBehaviour
     public int cardIndex; // e.g. faces[cardIndex];
     public int cardMax; // e.g. faces[cardIndex];
     public Vector3 firstPos;
+
     private EffekseerEffectAsset changeeffect;
     private EffekseerEffectAsset changeelementeffect;
     private EffekseerEffectAsset weakingeffect;
-
     private EffekseerHandle effectHandler;
 
-    private RaiseEvents rE;
     private PhotonView photonView;
 
     private void ChangeEffect(){
@@ -78,10 +77,6 @@ public class CardModel : MonoBehaviour
             cardIndex = Index;
             spriteRenderer.sprite = faces[cardIndex];
         }
-        //cardIndex = Index;
-        //spriteRenderer.sprite = faces[cardIndex];
-        //object[] content = new object[] { this.gameObject, cardIndex};
-        //rE.CardSync(content);
     }
 
     [PunRPC]
@@ -89,25 +84,12 @@ public class CardModel : MonoBehaviour
     {
         cardIndex = Index;
         spriteRenderer.sprite = faces[cardIndex];
-        //rE.CardSync(content);
     }
 
     public void RandomFace()
     {
         ChangeFace((int)Random.Range(0.0f, (float)cardMax));
         ChangeEffect();
-    }
-
-    public void ToggleFace(bool showFace)
-    {
-        if (showFace)
-        {
-            spriteRenderer.sprite = faces[cardIndex];
-        }
-        else
-        {
-            spriteRenderer.sprite = cardBack;
-        }
     }
 
     public void ResetPos(){
@@ -132,7 +114,6 @@ public class CardModel : MonoBehaviour
         GetComponent<SpriteRenderer>().color = new Color(changeRed, changeGreen, cahngeBlue, cahngeAlpha);
     }
 
-
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -141,7 +122,6 @@ public class CardModel : MonoBehaviour
         changeeffect = Resources.Load<EffekseerEffectAsset> ("Effekseer/CardChange");
         changeelementeffect = Resources.Load<EffekseerEffectAsset> ("Effekseer/changeelement");
         weakingeffect = Resources.Load<EffekseerEffectAsset> ("Effekseer/weaking");
-        //rE = GameObject.Find("Master").GetComponent<RaiseEvents>();
     }
 
     void Start()
@@ -150,10 +130,10 @@ public class CardModel : MonoBehaviour
         //RandomFaceを使うとエフェクトが出てしまうため、別で初期化を行なう
         ChangeFace((int)Random.Range(0.0f, (float)cardMax));
         this.transform.localScale = new Vector3(0.817f, 0.817f, 0.817f);
+        //オンライン対戦時、2P側ならカードを反対向きにする
         if(!PhotonNetwork.IsMasterClient && PhotonNetwork.IsConnected){
             this.transform.rotation = Quaternion.Euler(0, 0, 180);
         }
-        //Debug.Log(cardIndex);
         firstPos = this.transform.position;
         if(gameObject.tag != "Field"){
             UnMovableColor();
