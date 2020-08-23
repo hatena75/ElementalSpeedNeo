@@ -32,13 +32,9 @@ public class CommonPlayerStatus : MonoBehaviour
     {
         HP = maxHP;
         damageSum = 0;
-        //textHP = GameObject.Find ("EnemyHP").GetComponent<Text>();
-        //barHP = GameObject.Find("EnemyBar").GetComponent<Slider>();
         damageCount = GameObject.Find ("DamageCount").GetComponent<Text>();
-        //face = GameObject.Find ("EnemyCharactor");
 
-        //プレハブをGameObject型で取得
-        //使用するエフェクトは2者共通
+        //プレハブをGameObject型で取得。使用するエフェクトは2者共通
         effect = (GameObject)Resources.Load ("Prefabs/Hit_Fire");
     }
 
