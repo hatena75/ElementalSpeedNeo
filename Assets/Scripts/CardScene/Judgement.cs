@@ -17,8 +17,6 @@ public class Judgement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //rE = GameObject.Find("Master").GetComponent<RaiseEvents>();
-        //rE = this.gameObject.GetComponent<RaiseEvents>();
         photonView = GetComponent<PhotonView>();
 
         //属性相性の定義
@@ -58,9 +56,6 @@ public class Judgement : MonoBehaviour
             field.GetComponent<CardModel>().ChangeFace(playerIndex);
             //使用カードリセット
             hand.GetComponent<CardModel>().Reset();
-            //カード同期
-            //object[] content = new object[] { hand, hand.GetComponent<CardModel>().cardIndex, field, field.GetComponent<CardModel>().cardIndex};
-            //rE.PutSync(content);
         }
         else
         {

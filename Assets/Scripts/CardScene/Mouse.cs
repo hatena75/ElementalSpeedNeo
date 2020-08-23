@@ -57,18 +57,4 @@ public class Mouse : MonoBehaviourPunCallbacks //, IPunObservable
             isDowned = false;
         }
 　　}
-
-    /*
-    // データを送受信するメソッド
-    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-        if (stream.IsWriting) {
-            // 自身側が生成したオブジェクトの場合
-            stream.SendNext(isDowned);
-        } else {
-            // 他プレイヤー側が生成したオブジェクトの場合
-            isDowned = (bool)stream.ReceiveNext();
-        }
-    }
-    */
-
 }
