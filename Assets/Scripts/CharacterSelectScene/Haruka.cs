@@ -19,17 +19,11 @@ public class Haruka : CharacterAbstract
     }
     public override void Skill(){
         //相手の全てのカードの攻撃力を10にする。
-        if(PhotonNetwork.IsConnected){
-            if(PhotonNetwork.IsMasterClient){
-                EffectCard("Player2");
-            }
-            else{
-                EffectCard("Player");
-            }
+        if(PhotonNetwork.IsMasterClient){
+            EffectCard("Player2");
         }
-        else
-        {
-            EffectCard("Enemy");
+        else{
+            EffectCard("Player");
         }
     }
 

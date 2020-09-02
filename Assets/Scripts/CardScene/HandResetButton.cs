@@ -22,28 +22,19 @@ public class HandResetButton : MonoBehaviour
 
     public void OnClick() {
         if(usable){
-            if(PhotonNetwork.IsConnected){
-                if(PhotonNetwork.IsMasterClient){
-                    GameObject[] playerHands = GameObject.FindGameObjectsWithTag("Player");
-                    foreach (GameObject playerHand in playerHands) {
-                        playerHand.GetComponent<CardModel>().RandomFace();
-                    }
-                }
-                else{
-                    GameObject[] player2Hands = GameObject.FindGameObjectsWithTag("Player2");
-                    foreach (GameObject player2Hand in player2Hands) {
-                        player2Hand.GetComponent<CardModel>().RandomFace();
-                    }
-                }
-            }
-            else
-            {
+            if(PhotonNetwork.IsMasterClient){
                 GameObject[] playerHands = GameObject.FindGameObjectsWithTag("Player");
                 foreach (GameObject playerHand in playerHands) {
                     playerHand.GetComponent<CardModel>().RandomFace();
                 }
             }
-
+            else{
+                GameObject[] player2Hands = GameObject.FindGameObjectsWithTag("Player2");
+                foreach (GameObject player2Hand in player2Hands) {
+                    player2Hand.GetComponent<CardModel>().RandomFace();
+                }
+            }
+            
             DeActivate();
         }
     }

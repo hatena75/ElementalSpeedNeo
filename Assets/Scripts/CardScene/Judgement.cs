@@ -89,19 +89,7 @@ public class Judgement : MonoBehaviour
 
         //通信時相手にもダメージを換算
         object[] content = {attacker, damage * times};
-        if(PhotonNetwork.IsConnected){
-            photonView.RPC("DamageCalculatorSync", RpcTarget.Others, content);
-        }
-
-        if(attacker == "Player")
-        {
-            GameObject.Find ("Enemy").GetComponent<EnemyStatus>().DamagePlus(damage * times);
-        }
-        else
-        {
-            GameObject.Find ("Player").GetComponent<PlayerStatus>().DamagePlus(damage * times);
-        }
-
+        photonView.RPC("DamageCalculatorSync", RpcTarget.All, content);
     }
 
     [PunRPC]

@@ -21,17 +21,11 @@ public class Masato : CharacterAbstract
 
     public override void Skill(){
         //自分の手札の属性を変える
-        if(PhotonNetwork.IsConnected){
-            if(PhotonNetwork.IsMasterClient){
-                EffectCard("Player");
-            }
-            else{
-                EffectCard("Player2");
-            }
-        }
-        else
-        {
+        if(PhotonNetwork.IsMasterClient){
             EffectCard("Player");
+        }
+        else{
+            EffectCard("Player2");
         }
     }
 
