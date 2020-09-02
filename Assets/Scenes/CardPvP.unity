@@ -1332,12 +1332,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807982231}
   m_CullTransparentMesh: 0
---- !u!1 &909750740 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8550806685719874653, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
-    type: 3}
-  m_PrefabInstance: {fileID: 8550806685418519945}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &909750746 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8550806685719874655, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7,
@@ -1570,7 +1564,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1056135517}
-  - component: {fileID: 1056135516}
   m_Layer: 0
   m_Name: _Debug
   m_TagString: Untagged
@@ -1578,19 +1571,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1056135516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1056135515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72295899b76556d4db10b1a49428a950, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  card: {fileID: 909750740}
 --- !u!4 &1056135517
 Transform:
   m_ObjectHideFlags: 0
