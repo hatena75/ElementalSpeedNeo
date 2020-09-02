@@ -22,35 +22,18 @@ public class Face : MonoBehaviour
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if(PhotonNetwork.IsConnected){
-            if(charName.Equals("Player")){
-                faces = Resources.LoadAll<Sprite> (SceneManagerCharacterSelect.UsingCharacter.Picture);
-            }
-            else
-            {
-                faces = Resources.LoadAll<Sprite> (SceneManagerCharacterSelect.EnemyCharacter.Picture);
-            }
+        if(charName.Equals("Player")){
+            faces = Resources.LoadAll<Sprite> (SceneManagerCharacterSelect.UsingCharacter.Picture);
         }
         else
         {
-            if(charName.Equals("Player")){
-                //faces = Resources.LoadAll<Sprite> ("pictures/" + charName);
-                faces = Resources.LoadAll<Sprite> (SceneManagerCharacterSelect.UsingCharacter.Picture);
-            }
-            else
-            {
-                faces = Resources.LoadAll<Sprite> ("pictures/Enemy");
-            }
+            faces = Resources.LoadAll<Sprite> (SceneManagerCharacterSelect.EnemyCharacter.Picture);
         }
     }
 
     void Start()
     {
         ChangeFace(Faces.Normal);
-        if(!PhotonNetwork.IsMasterClient){
-            //spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, 180);
-            //spriteRenderer.transform.Rotate(new Vector3(0, 0, 180));
-        }
     }
 
     // Update is called once per frame
