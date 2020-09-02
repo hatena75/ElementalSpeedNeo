@@ -37,6 +37,8 @@ public class SceneManagerCharacterSelect : MonoBehaviour
     void Start()
     {
         StartCoroutine(FadeInpanel());
+        //オフライン用のデフォルト
+        EnemyCharacter = gameObject.AddComponent<Masato>();
     }
 
     // Update is called once per frame
