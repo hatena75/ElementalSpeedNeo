@@ -21,23 +21,20 @@ public partial class DefineStateMachinePvP : MonoBehaviour
             timer.Set(5.0f);
 
             Debug.Log("相手のプレイターン");
-            if(PhotonNetwork.IsConnected){
-                CanPlayHand(enemyHands, reload, true);
-            }
-            else{
+            
+            if(PhotonNetwork.OfflineMode){
                 //EnemyがEnemyCardを動かすことを許可
                 GameObject.Find ("Enemy").GetComponent<EnemyPlay>().enabled = true;
-                foreach (GameObject enemyHand in enemyHands) {
-                    enemyHand.GetComponent<CardModel>().MovableColor();
-                }
             }
+
+            CanPlayHand(enemyHands, reload, true);
         }
 
         // 状態の更新はこのUpdateで行う
         protected internal override void Update()
         {
             //自分がマスターなら攻撃終了通知を待つ、そうでなければ通知を送る。
-            if(PhotonNetwork.IsConnected){
+            if(!PhotonNetwork.OfflineMode){
                 if(PhotonNetwork.IsMasterClient){
                     if(!timer.IsActive() && attackEnd){
                         attackEnd = false;
@@ -57,35 +54,19 @@ public partial class DefineStateMachinePvP : MonoBehaviour
                     stateMachine.SendEvent((int)StateEventId.EnemyPlayEnd);
                 }
             }
-        
-            
-            /*
-            if(!timer.IsActive()){
-                AttackEndSync(true);
-                stateMachine.SendEvent((int)StateEventId.EnemyPlayEnd);
-            }
-            */
+    
         }
 
         // 状態から脱出する時の処理はこのExitで行う
         protected internal override void Exit()
         {
-            if(PhotonNetwork.IsConnected){
-                //散らかったカードを戻す
-                CanPlayHand(enemyHands, reload, false);
-            }
-            else
-            {
+            if(PhotonNetwork.OfflineMode){
                 //EnemyがEnemyCardを動かせないようにする
                 GameObject.Find ("Enemy").GetComponent<EnemyPlay>().enabled = false;
-
-                //散らかったカードを戻す
-                foreach (GameObject enemyHand in enemyHands) {
-                    enemyHand.GetComponent<CardModel>().ResetPos();
-                    enemyHand.GetComponent<CardModel>().UnMovableColor();
-                }
             }
-            
+
+            //散らかったカードを戻す
+            CanPlayHand(enemyHands, reload, false);
 
             Debug.Log("相手のプレイターン終了");
         }
@@ -123,19 +104,13 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 
             // 特定のタイミングで遷移を拒否（ガード）するなら true を返せばステートマシンは遷移を諦めます
             if(!pStatus.IsAlive()){
-                if(PhotonNetwork.IsConnected){
-                    if(PhotonNetwork.IsMasterClient){
-                        GameObject.Find ("Master").GetComponent<SceneManagerMain>().Lose();
-                    }
-                    else{
-                        GameObject.Find ("Master").GetComponent<SceneManagerMain>().Win();
-                    }
-                    return true;
+                if(PhotonNetwork.IsMasterClient){
+                    GameObject.Find ("Master").GetComponent<SceneManagerMain>().Lose();
                 }
                 else{
-                    GameObject.Find ("Master").GetComponent<SceneManagerMain>().Lose();
-                    return true;
+                    GameObject.Find ("Master").GetComponent<SceneManagerMain>().Win();
                 }
+                return true;
             }
 
             // 遷移を許可するなら false を返せばステートマシンは状態の遷移をします

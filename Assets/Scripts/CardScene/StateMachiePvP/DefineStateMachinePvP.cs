@@ -18,6 +18,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 
     //同期させる変数
     public static bool attackEnd = false;
+
     public void GameStart(){
         stateMachine.SendEvent((int)StateEventId.Start);
     }
@@ -69,10 +70,14 @@ public partial class DefineStateMachinePvP : MonoBehaviour
     {
         GameObject panel;
         private NetworkMethods nm = GameObject.Find("Master").GetComponent<NetworkMethods>();
-
         protected internal override void Enter()
         {
             PhotonNetwork.IsMessageQueueRunning = true;
+            //オンラインかオフラインか
+            if(PhotonNetwork.OfflineMode = !SceneManagerTitle.IsVs){
+                //オフラインならRPC利用のために1人用ルーム(offlineという部屋名)に入る
+                nm.JoinOfflineRoom();
+            }
             //マスタークライアントがフィールドを含む全てのインスタンスを生成
             nm.InitialPlacement();
 

@@ -21,17 +21,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
             //タイマーセット 5秒
             timer.Set(5.0f);
 
-            if(PhotonNetwork.IsConnected){
-                CanPlayHand(myHands, reload, true);
-            }
-            else{
-                foreach (GameObject myHand in myHands) {
-                    myHand.GetComponent<Mouse>().enabled = true;
-                    myHand.GetComponent<CardModel>().MovableColor();
-                }
-                reload.Activate();
-            }
-
+            CanPlayHand(myHands, reload, true);
 
             Debug.Log("自分のプレイターン");
         }
@@ -39,7 +29,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         // 状態の更新はこのUpdateで行う
         protected internal override void Update()
         {
-            if(PhotonNetwork.IsConnected){
+            if(!PhotonNetwork.OfflineMode){
                 if(PhotonNetwork.IsMasterClient){
                     if(!timer.IsActive()){
                         AttackEndSync(true);
@@ -56,6 +46,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
             }
             else
             {
+                //オフラインなので遅延用処理無し
                 if(!timer.IsActive()){
                     stateMachine.SendEvent((int)StateEventId.MyPlayEnd);
                 }
@@ -66,18 +57,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         // 状態から脱出する時の処理はこのExitで行う
         protected internal override void Exit()
         {
-            if(PhotonNetwork.IsConnected){
-                CanPlayHand(myHands, reload, false);
-            }
-            else{
-                foreach (GameObject myHand in myHands) {
-                    myHand.GetComponent<CardModel>().ResetPos();
-                    myHand.GetComponent<CardModel>().UnMovableColor();
-                    myHand.GetComponent<Mouse>().enabled = false;
-                }
-
-                reload.DeActivate();
-            }
+            CanPlayHand(myHands, reload, false);
 
             Debug.Log("自分のプレイターン終了");
         }
@@ -120,20 +100,14 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 
             // 特定のタイミングで遷移を拒否（ガード）するなら true を返せばステートマシンは遷移を諦めます
             if(!eStatus.IsAlive()){
-                if(PhotonNetwork.IsConnected){
-                    if(PhotonNetwork.IsMasterClient){
-                        GameObject.Find ("Master").GetComponent<SceneManagerMain>().Win();
-                    }
-                    else{
-                        GameObject.Find ("Master").GetComponent<SceneManagerMain>().Lose();
-                    }
-                    return true;
+                if(PhotonNetwork.IsMasterClient){
+                    //オフラインではIsMasterCliantは常にtrue
+                    GameObject.Find ("Master").GetComponent<SceneManagerMain>().Win();
                 }
                 else{
-                    GameObject.Find ("Master").GetComponent<SceneManagerMain>().Win();
-                    return true;
+                    GameObject.Find ("Master").GetComponent<SceneManagerMain>().Lose();
                 }
-                
+                return true;
             }
 
             // 遷移を許可するなら false を返せばステートマシンは状態の遷移をします

@@ -22,12 +22,7 @@ public class CardModel : MonoBehaviour
     private PhotonView photonView;
 
     private void ChangeEffect(){
-        if(PhotonNetwork.IsConnected){
-            photonView.RPC("ChangeEffectRpc", RpcTarget.All);
-        }
-        else{
-            effectHandler = EffekseerSystem.PlayEffect(changeeffect, firstPos);
-        }
+        photonView.RPC("ChangeEffectRpc", RpcTarget.All);
     }
 
     [PunRPC]
@@ -36,12 +31,7 @@ public class CardModel : MonoBehaviour
     }
 
     public void ChangeElementEffect(){
-        if(PhotonNetwork.IsConnected){
-            photonView.RPC("ChangeEffectRpc", RpcTarget.All);
-        }
-        else{
-            effectHandler = EffekseerSystem.PlayEffect(changeelementeffect, firstPos);
-        }
+        photonView.RPC("ChangeElementEffectRpc", RpcTarget.All);
     }
 
     [PunRPC]
@@ -50,12 +40,7 @@ public class CardModel : MonoBehaviour
     }
 
     public void WeakingEffect(){
-        if(PhotonNetwork.IsConnected){
-            photonView.RPC("ChangeEffectRpc", RpcTarget.All);
-        }
-        else{
-            effectHandler = EffekseerSystem.PlayEffect(weakingeffect, firstPos);
-        }
+        photonView.RPC("WeakingEffectRpc", RpcTarget.All);
     }
 
     [PunRPC]
@@ -70,13 +55,7 @@ public class CardModel : MonoBehaviour
 
     public void ChangeFace(int Index)
     {
-        if(PhotonNetwork.IsConnected){
-            photonView.RPC("ChangeFaceSync", RpcTarget.All, cardIndex);
-        }
-        else{
-            cardIndex = Index;
-            spriteRenderer.sprite = faces[cardIndex];
-        }
+        photonView.RPC("ChangeFaceSync", RpcTarget.All, Index);
     }
 
     [PunRPC]
@@ -131,7 +110,7 @@ public class CardModel : MonoBehaviour
         ChangeFace((int)Random.Range(0.0f, (float)cardMax));
         this.transform.localScale = new Vector3(0.817f, 0.817f, 0.817f);
         //オンライン対戦時、2P側ならカードを反対向きにする
-        if(!PhotonNetwork.IsMasterClient && PhotonNetwork.IsConnected){
+        if(!PhotonNetwork.IsMasterClient){
             this.transform.rotation = Quaternion.Euler(0, 0, 180);
         }
         firstPos = this.transform.position;
