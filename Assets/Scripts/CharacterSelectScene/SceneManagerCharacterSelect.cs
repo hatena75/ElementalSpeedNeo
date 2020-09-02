@@ -70,7 +70,9 @@ public class SceneManagerCharacterSelect : MonoBehaviour
             yield return null;
         }
 
-        SceneManager.LoadScene ("Card");
+        //SceneManager.LoadScene ("Card");
+        SceneManager.LoadScene ("CardPvP");
+
     }
 
     IEnumerator FadeOutLobby()

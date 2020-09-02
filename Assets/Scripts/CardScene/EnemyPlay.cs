@@ -49,7 +49,9 @@ public class EnemyPlay : MonoBehaviour
     private GameObject[] Play()
     {
         // Enemyのカードを格納
-        GameObject[] enemyHands = GameObject.FindGameObjectsWithTag("Enemy");
+        //GameObject[] enemyHands = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] enemyHands = GameObject.FindGameObjectsWithTag("Player2");
+
 
         GameObject[] fields = GameObject.FindGameObjectsWithTag("Field");
 
