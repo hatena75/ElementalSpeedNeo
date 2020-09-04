@@ -15,45 +15,45 @@ public class NetworkMethods : MonoBehaviourPunCallbacks
 
     public Camera camera;
 
+    private void PlayerCardInstantiate(){
+        PhotonNetwork.Instantiate("Card", ph + new Vector3(-6.77f, -4.4f, 155f), Quaternion.identity, 0);
+        PhotonNetwork.Instantiate("Card", ph + new Vector3(-1.81f, -4.4f, 155f), Quaternion.identity, 0);
+        PhotonNetwork.Instantiate("Card", ph + new Vector3(3.06f, -4.4f, 155f), Quaternion.identity, 0);
+    }
+
+    private void FieldCardInstantiate(){
+        PhotonNetwork.Instantiate("Field", fi + new Vector3(-4.6f, -0.85f, 155f), Quaternion.identity, 0);
+        PhotonNetwork.Instantiate("Field", fi + new Vector3(2.83f, -0.85f, 155f), Quaternion.identity, 0);
+    }
+
+    private void Player2CardInstantiate(){
+        PhotonNetwork.Instantiate("Card2", eh + new Vector3(-7.38f, 6f, 155f), Quaternion.identity, 0);
+        PhotonNetwork.Instantiate("Card2", eh + new Vector3(-2.28f, 6f, 155f), Quaternion.identity, 0);
+        //PhotonNetwork.Instantiate("Card2", eh + new Vector3(0.9f, 9f, 155f), Quaternion.identity, 0);
+        PhotonNetwork.Instantiate("Card2", eh + new Vector3(2.7f, 6f, 155f), Quaternion.identity, 0);
+    }
+
 
     public void InitialPlacement(){
         //オフラインなら全て自分が生成
         if(!PhotonNetwork.OfflineMode){
             if(PhotonNetwork.IsMasterClient){
-                PhotonNetwork.Instantiate("Card", ph + new Vector3(-6.77f, -4.4f, 155f), Quaternion.identity, 0);
-                PhotonNetwork.Instantiate("Card", ph + new Vector3(-1.81f, -4.4f, 155f), Quaternion.identity, 0);
-                PhotonNetwork.Instantiate("Card", ph + new Vector3(3.06f, -4.4f, 155f), Quaternion.identity, 0);
-                                                                
-
-                PhotonNetwork.Instantiate("Field", fi + new Vector3(-4.6f, -0.85f, 155f), Quaternion.identity, 0);
-                PhotonNetwork.Instantiate("Field", fi + new Vector3(2.83f, -0.85f, 155f), Quaternion.identity, 0);
+                PlayerCardInstantiate();
+                FieldCardInstantiate();
             }
             else
             {
-                PhotonNetwork.Instantiate("Card2", eh + new Vector3(-7.38f, 6f, 155f), Quaternion.identity, 0);
-                PhotonNetwork.Instantiate("Card2", eh + new Vector3(-2.28f, 6f, 155f), Quaternion.identity, 0);
-                //PhotonNetwork.Instantiate("Card2", eh + new Vector3(0.9f, 9f, 155f), Quaternion.identity, 0);
-                PhotonNetwork.Instantiate("Card2", eh + new Vector3(2.7f, 6f, 155f), Quaternion.identity, 0);
+                Player2CardInstantiate();
 
-                Debug.Log("enter");
                 camera = Camera.main;
                 camera.transform.rotation = Quaternion.Euler(0, 0, 180);
             }
         }
         else
         {
-            PhotonNetwork.Instantiate("Card", ph + new Vector3(-6.77f, -4.4f, 155f), Quaternion.identity, 0);
-            PhotonNetwork.Instantiate("Card", ph + new Vector3(-1.81f, -4.4f, 155f), Quaternion.identity, 0);
-            PhotonNetwork.Instantiate("Card", ph + new Vector3(3.06f, -4.4f, 155f), Quaternion.identity, 0);
-                                                            
-
-            PhotonNetwork.Instantiate("Field", fi + new Vector3(-4.6f, -0.85f, 155f), Quaternion.identity, 0);
-            PhotonNetwork.Instantiate("Field", fi + new Vector3(2.83f, -0.85f, 155f), Quaternion.identity, 0);
-
-            PhotonNetwork.Instantiate("Card2", eh + new Vector3(-7.38f, 6f, 155f), Quaternion.identity, 0);
-            PhotonNetwork.Instantiate("Card2", eh + new Vector3(-2.28f, 6f, 155f), Quaternion.identity, 0);
-            //PhotonNetwork.Instantiate("Card2", eh + new Vector3(0.9f, 9f, 155f), Quaternion.identity, 0);
-            PhotonNetwork.Instantiate("Card2", eh + new Vector3(2.7f, 6f, 155f), Quaternion.identity, 0);
+            PlayerCardInstantiate();
+            FieldCardInstantiate();
+            Player2CardInstantiate();
         }
     }
 
@@ -61,10 +61,6 @@ public class NetworkMethods : MonoBehaviourPunCallbacks
         // MonoBehaviourPunCallbacksが必要なためここで定義
         //ここで入るのはofflineという特別なルーム
         PhotonNetwork.JoinRandomRoom();
-    }
-
-    public bool MyIsMasterClient(){
-        return PhotonNetwork.IsMasterClient;
     }
 
     // Photonから切断された時
