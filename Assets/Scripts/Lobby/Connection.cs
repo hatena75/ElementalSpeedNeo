@@ -54,6 +54,7 @@ public class Connection : MonoBehaviourPunCallbacks
 
     private void Start() {
         // PhotonServerSettingsに設定した内容を使ってマスターサーバーへ接続する
+        PhotonNetwork.OfflineMode = !SceneManagerTitle.IsVs;
         Connect("1.0"); //バージョン指定
     }
 
