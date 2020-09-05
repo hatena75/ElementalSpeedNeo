@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class Flash : MonoBehaviour
 {
-    //public Text text;
-    [SerializeField]
-    private TextMeshProUGUI text;
+    public Text text;
     private float a;
 
     // Start is called before the first frame update
