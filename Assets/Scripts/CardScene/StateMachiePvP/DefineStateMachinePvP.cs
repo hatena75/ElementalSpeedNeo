@@ -72,6 +72,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         GameObject panel;
         private BanaFunction bf = GameObject.Find("bana").GetComponent<BanaFunction>();
         private NetworkMethods nm = GameObject.Find("Master").GetComponent<NetworkMethods>();
+
         protected internal override void Enter()
         {
             PhotonNetwork.IsMessageQueueRunning = true;
@@ -108,6 +109,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
     private class StandByState : ImtStateMachine<DefineStateMachinePvP>.State
     {
         private BanaFunction bf = GameObject.Find("bana").GetComponent<BanaFunction>();
+        private BgmManager bm = GameObject.Find("Master").GetComponent<BgmManager>();
 
         protected internal override void Enter()
         {
@@ -134,7 +136,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 
         protected internal override void Exit()
         {
-
+            bm.BgmPlay();
         }
     }
 

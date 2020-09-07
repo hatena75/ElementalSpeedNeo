@@ -7,12 +7,15 @@ public class BgmManager : MonoBehaviour
     public AudioClip bgm;
     private AudioSource audioSource;
 
+    public void BgmPlay(){
+        audioSource.Play();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         audioSource = gameObject.GetComponent<AudioSource>();
         audioSource.clip = bgm;
-        audioSource.Play();
     }
 
     // Update is called once per frame
