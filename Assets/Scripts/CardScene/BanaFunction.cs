@@ -10,6 +10,7 @@ public class BanaFunction : MonoBehaviour
     private Animator animator;
     [SerializeField]
     private GameObject bana;
+    public bool animationEnd = false;
 
     public void TextureChangeGo(){
         banaText.text = "GO!";
@@ -19,6 +20,10 @@ public class BanaFunction : MonoBehaviour
         //bana.SetActive(true);
         //animator.Play("ReadyAnimation");
         animator.enabled = true;
+    }
+
+    public void AnimationEnd(){
+        animationEnd = true;
     }
 
     // Start is called before the first frame update
