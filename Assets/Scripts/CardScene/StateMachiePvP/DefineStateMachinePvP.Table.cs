@@ -10,6 +10,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
     public enum StateEventId
     {
         Start,
+        ReadyEnd,
         MyPlayEnd,
         MyTurnEnd,
         EnemyPlayEnd,
@@ -21,7 +22,8 @@ public partial class DefineStateMachinePvP : MonoBehaviour
     {
         // ステートマシンのインスタンスを生成して遷移テーブルを構築
         stateMachine = new ImtStateMachine<DefineStateMachinePvP>(this); // 自身がコンテキストになるので自身のインスタンスを渡す
-        stateMachine.AddTransition<InitialState, MyPlayState>((int)StateEventId.Start);
+        stateMachine.AddTransition<InitialState, StandByState>((int)StateEventId.Start);
+        stateMachine.AddTransition<StandByState, MyPlayState>((int)StateEventId.ReadyEnd);
         stateMachine.AddTransition<MyPlayState, MyAttackState>((int)StateEventId.MyPlayEnd);
         stateMachine.AddTransition<MyAttackState, EnemyPlayState>((int)StateEventId.MyTurnEnd);
         stateMachine.AddTransition<EnemyPlayState, EnemyAttackState>((int)StateEventId.EnemyPlayEnd);
