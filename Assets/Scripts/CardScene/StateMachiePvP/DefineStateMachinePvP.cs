@@ -90,35 +90,51 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         protected internal override void Update()
         {
             if(!panel.activeSelf){
-                bf.Animation();
                 //フェードイン終了まで待つ
                 //探し出すためには最初にパネルがactiveである必要がある
                 stateMachine.SendEvent((int)StateEventId.Start);
             }
         }
+
+        protected internal override void Exit()
+        {
+            //アニメーション再生
+            bf.Animation();
+        }
+        
     }
 
     //完全にパネルがなくなった後の状態
     private class StandByState : ImtStateMachine<DefineStateMachinePvP>.State
     {
+        private BanaFunction bf = GameObject.Find("bana").GetComponent<BanaFunction>();
+
         protected internal override void Enter()
         {
             //相手にこの状態に入ったことを通知
-
+            ReadySync(true);
         }
 
         protected internal override void Update()
         {
             //相手がこの状態に入るまで待つ(遅延軽減)
-            //入ってきたら対戦開始
-            if(opponentReady){
-
+            //アニメーション終了時に遷移
+            if(PhotonNetwork.OfflineMode){
+                if(bf.animationEnd){
+                    stateMachine.SendEvent((int)StateEventId.ReadyEnd);
+                }
             }
+            else{
+                if(opponentReady && bf.animationEnd){
+                    stateMachine.SendEvent((int)StateEventId.ReadyEnd);
+                }
+            }
+            
         }
 
         protected internal override void Exit()
         {
-            //banaアニメーション再生
+
         }
     }
 
