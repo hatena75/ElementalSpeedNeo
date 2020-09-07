@@ -210,6 +210,7 @@ GameObject:
   - component: {fileID: 3669276794862670455}
   - component: {fileID: 3669276794862670453}
   - component: {fileID: 6158737762947849796}
+  - component: {fileID: 2371720163089355122}
   - component: {fileID: 3669276794862670411}
   - component: {fileID: 3669276794862670452}
   - component: {fileID: 3669276794862670454}
@@ -290,6 +291,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_layerName: Effect
+--- !u!114 &2371720163089355122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3669276794862670448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51afc5cbf3f2a5d45ba2ccd55e244bd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  banaText: {fileID: 0}
 --- !u!33 &3669276794862670411
 MeshFilter:
   m_ObjectHideFlags: 0
