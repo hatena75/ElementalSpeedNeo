@@ -2268,6 +2268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   takeCard: {fileID: 8300000, guid: b1d4e2e17a9ddb441b41d8bc9bed0c29, type: 3}
   playCard: {fileID: 8300000, guid: 49ee261fbc7dc8849a6f8b5f11f24efe, type: 3}
+  attack: {fileID: 8300000, guid: f09d835c0d0f64c439102ff29434abe1, type: 3}
 --- !u!82 &1328641253
 AudioSource:
   m_ObjectHideFlags: 0

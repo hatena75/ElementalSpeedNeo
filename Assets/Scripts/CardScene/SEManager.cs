@@ -5,6 +5,7 @@ using UnityEngine;
 public class SEManager : MonoBehaviour {
     public AudioClip takeCard;
     public AudioClip playCard;
+    public AudioClip attack;
     private AudioSource[] audioSource;
 
     private enum SE : int{
@@ -28,6 +29,10 @@ public class SEManager : MonoBehaviour {
 
     public void CardPlaySE(){
         PlaySE(SE.Players, playCard);
+    }
+
+    public void AttackSE(){
+        PlaySE(SE.Effect, attack);
     }
 
     void Update () {

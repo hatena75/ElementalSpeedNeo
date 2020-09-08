@@ -16,6 +16,7 @@ public class CommonPlayerStatus : MonoBehaviour
     protected DamageCountFunction dcf;
     protected GameObject face;
 
+    protected SEManager sm;
     protected GameObject effect;
 
     public bool IsAlive(){
@@ -38,6 +39,7 @@ public class CommonPlayerStatus : MonoBehaviour
         damageSum = 0;
         damageCount = GameObject.Find ("DamageCount").GetComponent<Text>();
         dcf = GameObject.Find ("DamageCount").GetComponent<DamageCountFunction>();
+        sm = GameObject.Find ("SEManager").GetComponent<SEManager>();
 
         //プレハブをGameObject型で取得。使用するエフェクトは2者共通
         effect = (GameObject)Resources.Load ("Prefabs/Hit_Fire");
@@ -79,6 +81,7 @@ public class CommonPlayerStatus : MonoBehaviour
 
     public void DamageCal()
     {
+        sm.AttackSE();
         Damage(damageSum);
         damageSum = 0;
         damageCount.text = damageSum.ToString();//ここで表示されるのは相手からのダメージ
