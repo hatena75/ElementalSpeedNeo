@@ -34,7 +34,7 @@ public class EnemyPlay : MonoBehaviour
         hand.transform.position = Vector3.Lerp(hand.transform.position, field.transform.position, 0.1f);
         
         //十分近づいたら置く処理
-        if(Vector3.Distance(prePos, hand.transform.position) < 0.01f)
+        if(Vector3.Distance(prePos, hand.transform.position) < 0.05f)
         {
             jm.Put(hand, field);
             se.CardPlaySE();

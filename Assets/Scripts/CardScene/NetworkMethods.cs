@@ -9,7 +9,7 @@ public class NetworkMethods : MonoBehaviourPunCallbacks
     //カードの初期配置。自分と相手でそれぞれ手札を生成。
     //マスター側はフィールドも生成する。
     private Vector3 scale = new Vector3(0.817f, 0.817f, 0.817f);
-    private Vector3 eh = new Vector3(2.34f, 0.1f, 0.817f);
+    private Vector3 eh = new Vector3(2.34f, 0.1f, -155.3491f); //0.817f
     private Vector3 ph = new Vector3(1.88f, -2.53f, -155.34f);
     private Vector3 fi = new Vector3(0.81f, 0.51f, -155.3491f);
 
