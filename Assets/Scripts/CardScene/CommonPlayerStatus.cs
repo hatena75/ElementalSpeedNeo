@@ -13,6 +13,7 @@ public class CommonPlayerStatus : MonoBehaviour
     //HPの差分を取り、アニメーション調でHPバーを操作
     protected int preHP;
     protected Text damageCount;
+    protected DamageCountFunction dcf;
     protected GameObject face;
 
     protected GameObject effect;
@@ -36,6 +37,7 @@ public class CommonPlayerStatus : MonoBehaviour
         preHP = HP;
         damageSum = 0;
         damageCount = GameObject.Find ("DamageCount").GetComponent<Text>();
+        dcf = GameObject.Find ("DamageCount").GetComponent<DamageCountFunction>();
 
         //プレハブをGameObject型で取得。使用するエフェクトは2者共通
         effect = (GameObject)Resources.Load ("Prefabs/Hit_Fire");
@@ -69,6 +71,8 @@ public class CommonPlayerStatus : MonoBehaviour
 
     public void DamagePlus(int damage)
     {
+        //アニメーション
+        dcf.Animation();
         damageSum += damage;
         damageCount.text = damageSum.ToString();//ここで表示されるのは相手からのダメージ
     }
