@@ -10,6 +10,8 @@ public class CommonPlayerStatus : MonoBehaviour
     protected int damageSum;
     protected Text textHP;
     protected Slider barHP;
+    //HPの差分を取り、アニメーション調でHPバーを操作
+    protected int preHP;
     protected Text damageCount;
     protected GameObject face;
 
@@ -31,6 +33,7 @@ public class CommonPlayerStatus : MonoBehaviour
     protected void Start()
     {
         HP = maxHP;
+        preHP = HP;
         damageSum = 0;
         damageCount = GameObject.Find ("DamageCount").GetComponent<Text>();
 
@@ -81,6 +84,18 @@ public class CommonPlayerStatus : MonoBehaviour
     protected void Update()
     {
         textHP.text = HP.ToString();
-        barHP.value = HP;
+        //barHP.value = HP;
+        if(HP != preHP){
+            StartCoroutine("BarAnimation");
+        }
+    }
+
+    IEnumerator BarAnimation()
+    {
+        while(HP != preHP){
+            preHP--;
+            barHP.value = preHP;
+            yield return null;
+        }
     }
 }
