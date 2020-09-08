@@ -11,6 +11,12 @@ public class BanaFunction : MonoBehaviour
     [SerializeField]
     private GameObject bana;
     public bool animationEnd = false;
+    //SE関連
+    [SerializeField]
+    private AudioClip cyber1;
+    [SerializeField]
+    private AudioClip cyber2;
+    private AudioSource audioSource;
 
     public void TextureChangeGo(){
         banaText.text = "GO!";
@@ -26,12 +32,23 @@ public class BanaFunction : MonoBehaviour
         animationEnd = true;
     }
 
+    public void PlayCyber1(){
+        audioSource.clip = cyber1;
+        audioSource.Play();
+    }
+
+    public void PlayCyber2(){
+        audioSource.clip = cyber2;
+        audioSource.Play();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent (typeof(Animator)) as Animator;
         animator.enabled = false;
         //this.gameObject.SetActive(false);
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
