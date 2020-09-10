@@ -15,8 +15,11 @@ public class SceneManagerCharacterSelect : MonoBehaviour
 
     public static CharacterAbstract EnemyCharacter { get; set; }
 
+    private SEManagerTitle se;
+
     public void SelectCharacter(CharacterAbstract character){
         usingCharacter = character;
+        se.DecisionSE();
         MainLoad();
     }
 
@@ -39,6 +42,8 @@ public class SceneManagerCharacterSelect : MonoBehaviour
         StartCoroutine(FadeInpanel());
         //オフライン用のデフォルト
         EnemyCharacter = gameObject.AddComponent<Masato>();
+
+        se = GameObject.Find ("SEManager").GetComponent<SEManagerTitle>();
     }
 
     // Update is called once per frame
