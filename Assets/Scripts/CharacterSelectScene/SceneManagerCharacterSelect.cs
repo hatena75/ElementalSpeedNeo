@@ -41,7 +41,7 @@ public class SceneManagerCharacterSelect : MonoBehaviour
     {
         StartCoroutine(FadeInpanel());
         //オフライン用のデフォルト
-        EnemyCharacter = gameObject.AddComponent<Masato>();
+        EnemyCharacter = gameObject.AddComponent<Cpu>();
 
         se = GameObject.Find ("SEManager").GetComponent<SEManagerTitle>();
     }
