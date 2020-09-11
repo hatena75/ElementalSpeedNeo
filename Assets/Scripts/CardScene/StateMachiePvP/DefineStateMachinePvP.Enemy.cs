@@ -12,6 +12,8 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         GameObject[] enemyHands;
         private TimerController timer = GameObject.Find("TimeCount").GetComponent<TimerController>();
         private HandResetButton reload = GameObject.Find("Button").GetComponent<HandResetButton>();
+        private SkillButton skill = GameObject.Find("Skill").GetComponent<SkillButton>();
+
 
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
@@ -27,7 +29,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
                 GameObject.Find ("Enemy").GetComponent<EnemyPlay>().enabled = true;
             }
 
-            CanPlayHand(enemyHands, reload, true);
+            CanPlayHand(enemyHands, reload, skill, true);
         }
 
         // 状態の更新はこのUpdateで行う
@@ -66,7 +68,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
             }
 
             //散らかったカードを戻す
-            CanPlayHand(enemyHands, reload, false);
+            CanPlayHand(enemyHands, reload, skill, false);
 
             Debug.Log("相手のプレイターン終了");
         }

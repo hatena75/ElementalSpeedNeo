@@ -13,6 +13,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         GameObject[] myHands;
         private TimerController timer = GameObject.Find("TimeCount").GetComponent<TimerController>();
         private HandResetButton reload = GameObject.Find("Button").GetComponent<HandResetButton>();
+        private SkillButton skill = GameObject.Find("Skill").GetComponent<SkillButton>();
 
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
@@ -21,7 +22,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
             //タイマーセット 5秒
             timer.Set(5.0f);
 
-            CanPlayHand(myHands, reload, true);
+            CanPlayHand(myHands, reload, skill, true);
 
             Debug.Log("自分のプレイターン");
         }
@@ -57,7 +58,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         // 状態から脱出する時の処理はこのExitで行う
         protected internal override void Exit()
         {
-            CanPlayHand(myHands, reload, false);
+            CanPlayHand(myHands, reload, skill, false);
 
             Debug.Log("自分のプレイターン終了");
         }

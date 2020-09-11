@@ -25,7 +25,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
     }
 
     //手札を動かせるようにしたり動かせないようにしたりする関数
-    public static void CanPlayHand(GameObject[] hands, HandResetButton reload ,bool flg){
+    public static void CanPlayHand(GameObject[] hands, HandResetButton reload, SkillButton skill, bool flg){
 
         string who = hands[0].tag;
 
@@ -37,6 +37,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
                 }
 
                 reload.Activate();
+                skill.Activate();
             }
             else{
                 foreach(GameObject hand in hands){
@@ -63,6 +64,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
             }
 
             reload.DeActivate();
+            skill.DeActivate();
         }
     }
 
