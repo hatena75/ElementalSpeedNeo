@@ -81,7 +81,10 @@ public class CommonPlayerStatus : MonoBehaviour
 
     public void DamageCal()
     {
-        sm.AttackSE();
+        //空振りSEも用意するといいかも
+        if(damageSum != 0){
+            sm.AttackSE();
+        }
         Damage(damageSum);
         damageSum = 0;
         damageCount.text = damageSum.ToString();//ここで表示されるのは相手からのダメージ
