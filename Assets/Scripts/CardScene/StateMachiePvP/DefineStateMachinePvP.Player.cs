@@ -67,6 +67,8 @@ public partial class DefineStateMachinePvP : MonoBehaviour
     private class MyAttackState : ImtStateMachine<DefineStateMachinePvP>.State
     {
         private EnemyStatus eStatus = GameObject.Find("Enemy").GetComponent<EnemyStatus>();
+        private PlayerStatus pStatus = GameObject.Find("Player").GetComponent<PlayerStatus>();
+
         private async void WaitSeconds(float sec){
             await Task.Delay((int)(1000 * sec));
             stateMachine.SendEvent((int)StateEventId.MyTurnEnd);
@@ -77,9 +79,9 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         {
 
             //攻撃の表情
-            GameObject.Find ("Player").GetComponent<PlayerStatus>().AttackFace();
+            pStatus.AttackFace();
 
-            GameObject.Find ("Enemy").GetComponent<EnemyStatus>().DamageCal();
+            eStatus.DamageCal();
 
             //ダメージ+エフェクト待ち用
             WaitSeconds(2.5f);
@@ -97,7 +99,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 
         protected internal override bool GuardEvent(int eventId)
         {
-            GameObject.Find ("Player").GetComponent<PlayerStatus>().NormalFace();
+            pStatus.NormalFace();
 
             // 特定のタイミングで遷移を拒否（ガード）するなら true を返せばステートマシンは遷移を諦めます
             if(!eStatus.IsAlive()){

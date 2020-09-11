@@ -77,7 +77,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
     private class EnemyAttackState : ImtStateMachine<DefineStateMachinePvP>.State
     {
         private PlayerStatus pStatus = GameObject.Find("Player").GetComponent<PlayerStatus>();
-        
+        private EnemyStatus eStatus = GameObject.Find("Enemy").GetComponent<EnemyStatus>();
 
         private async void WaitSeconds(float sec){
             await Task.Delay((int)(1000 * sec));
@@ -87,9 +87,9 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
         {
-            GameObject.Find ("Enemy").GetComponent<EnemyStatus>().AttackFace();
+            eStatus.AttackFace();
             //ダメージ+エフェクト用コルーチン？
-            GameObject.Find ("Player").GetComponent<PlayerStatus>().DamageCal();
+            pStatus.DamageCal();
             //処理が終わったらMyPlayStateへ
             WaitSeconds(2.5f);
         }
@@ -102,7 +102,7 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 
         protected internal override bool GuardEvent(int eventId)
         {
-            GameObject.Find ("Enemy").GetComponent<EnemyStatus>().NormalFace();
+            eStatus.NormalFace();
 
             // 特定のタイミングで遷移を拒否（ガード）するなら true を返せばステートマシンは遷移を諦めます
             if(!pStatus.IsAlive()){
