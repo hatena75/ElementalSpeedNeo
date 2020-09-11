@@ -14,9 +14,12 @@ public class Haruka : CharacterAbstract
             if(cardInfo % 12 >= 6){
                 card.GetComponent<CardModel>().ChangeFace(cardInfo - 6);
                 card.GetComponent<CardModel>().WeakingEffect();
+                //ただし、下げられるのは1枚のみ
+                break;
             }
         }
     }
+
     public override void Skill(){
         //相手の全てのカードの攻撃力を10にする。
         if(PhotonNetwork.IsMasterClient){
