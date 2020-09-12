@@ -45,6 +45,9 @@ TagManager:
   - name: Back
     uniqueID: 3178953715
     locked: 0
+  - name: Frame
+    uniqueID: 2225511115
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

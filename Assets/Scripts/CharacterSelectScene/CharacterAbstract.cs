@@ -18,6 +18,21 @@ public abstract class CharacterAbstract : MonoBehaviour
         protected set;
     }
 
+    public string NameText{
+        get;
+        protected set;
+    }
+
+    public string ExplainText{
+        get;
+        protected set;
+    }
+
+    public string StandPicture{
+        get;
+        protected set;
+    }
+
     public abstract void Skill();
 
     public CharacterAbstract(){}

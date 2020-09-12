@@ -34,5 +34,8 @@ public class Haruka : CharacterAbstract
     public Haruka() : base(){
         this.Name = "Haruka";
         this.Picture = "pictures/Haruka";
+        this.NameText = "ハルカ";
+        this.ExplainText = "スキル：フォースダウン\r\n相手の攻撃力20のカード1枚の攻撃力を10にする。";
+        this.StandPicture = "pictures/HarukaStand";
     }
 }

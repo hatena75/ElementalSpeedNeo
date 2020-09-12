@@ -16,5 +16,8 @@ public class Yuuki : CharacterAbstract
     public Yuuki() : base(){
         this.Name = "Yuuki";
         this.Picture = "pictures/Player";
+        this.NameText = "ユウキ";
+        this.ExplainText = "スキル：フィールドリロード\r\nフィールドのカードをリロードする。";
+        this.StandPicture = "pictures/YuukiStand";
     }
 }

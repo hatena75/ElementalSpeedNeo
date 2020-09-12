@@ -33,5 +33,8 @@ public class Masato : CharacterAbstract
     public Masato() : base(){
         this.Name = "Masato";
         this.Picture = "pictures/Enemy";
+        this.NameText = "マサト";
+        this.ExplainText = "スキル:エレメントチェンジ\r\n自分の手札にある全てのカードの属性を変える。";
+        this.StandPicture = "pictures/MasatoStand";
     }
 }
