@@ -7,6 +7,7 @@ using Photon.Realtime;
 public class Haruka : CharacterAbstract
 {
     private void EffectCard(string target){
+        GameObject.Find ("SEManager").GetComponent<SEManager>().DownSE();
         GameObject[] Cards = GameObject.FindGameObjectsWithTag(target);
         foreach (GameObject card in Cards) {
             int cardInfo = card.GetComponent<CardModel>().cardIndex;

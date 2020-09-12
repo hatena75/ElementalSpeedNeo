@@ -6,6 +6,7 @@ public class Yuuki : CharacterAbstract
 {
     public override void Skill(){
         //フィールドのカードをシャッフルする
+        GameObject.Find ("SEManager").GetComponent<SEManager>().ReloadSE();
         GameObject[] Fields = GameObject.FindGameObjectsWithTag("Field");
         foreach (GameObject field in Fields) {
             field.GetComponent<CardModel>().RandomFace();

@@ -81,9 +81,11 @@ public class CommonPlayerStatus : MonoBehaviour
 
     public void DamageCal()
     {
-        //空振りSEも用意するといいかも
         if(damageSum != 0){
             sm.AttackSE();
+        }
+        else{
+            sm.MissingAttackSE();
         }
         Damage(damageSum);
         damageSum = 0;

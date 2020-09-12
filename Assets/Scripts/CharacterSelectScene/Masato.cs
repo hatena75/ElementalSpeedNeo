@@ -7,6 +7,7 @@ using Photon.Realtime;
 public class Masato : CharacterAbstract
 {
     private void EffectCard(string target){
+        GameObject.Find ("SEManager").GetComponent<SEManager>().ChangeElementSE();
         GameObject[] Cards = GameObject.FindGameObjectsWithTag(target);
         var rand = new System.Random();
         foreach (GameObject card in Cards) {

@@ -2334,7 +2334,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   takeCard: {fileID: 8300000, guid: b1d4e2e17a9ddb441b41d8bc9bed0c29, type: 3}
   playCard: {fileID: 8300000, guid: 49ee261fbc7dc8849a6f8b5f11f24efe, type: 3}
+  reload: {fileID: 8300000, guid: 72a2a32e59d63d742b9cc46ae7b5123c, type: 3}
   attack: {fileID: 8300000, guid: f09d835c0d0f64c439102ff29434abe1, type: 3}
+  missingAttack: {fileID: 8300000, guid: 40d9489914103954898e49cfa7645133, type: 3}
+  changeElement: {fileID: 8300000, guid: 061a44a0bd41d6849a5cac3527ed4d89, type: 3}
+  down: {fileID: 8300000, guid: b016e14d81d676b4eaecc57038355f57, type: 3}
 --- !u!82 &1328641253
 AudioSource:
   m_ObjectHideFlags: 0

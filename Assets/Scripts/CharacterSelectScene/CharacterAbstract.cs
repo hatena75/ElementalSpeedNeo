@@ -6,6 +6,7 @@ public abstract class CharacterAbstract : MonoBehaviour
 {
     //private string name;
     //private string picture;
+    protected SEManager sm;
 
     public string Name{
         get;

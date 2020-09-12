@@ -9,6 +9,7 @@ public class HandResetButton : MonoBehaviour
 {
     private bool usable;
     public Button btn;
+    private SEManager se;
 
     public void Activate(){
         usable = true;
@@ -22,6 +23,7 @@ public class HandResetButton : MonoBehaviour
 
     public void OnClick() {
         if(usable){
+            se.ReloadSE();
             if(PhotonNetwork.IsMasterClient){
                 GameObject[] playerHands = GameObject.FindGameObjectsWithTag("Player");
                 foreach (GameObject playerHand in playerHands) {
@@ -43,6 +45,7 @@ public class HandResetButton : MonoBehaviour
     void Start()
     {
         //btn = gameObject.GetComponent<Button>();
+        se = GameObject.Find ("SEManager").GetComponent<SEManager>();
         DeActivate();
     }
 

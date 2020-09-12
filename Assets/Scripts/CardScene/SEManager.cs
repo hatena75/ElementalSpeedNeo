@@ -5,7 +5,13 @@ using UnityEngine;
 public class SEManager : MonoBehaviour {
     public AudioClip takeCard;
     public AudioClip playCard;
+    public AudioClip reload;
     public AudioClip attack;
+    public AudioClip missingAttack;
+    public AudioClip changeElement;
+    public AudioClip down;
+
+
     private AudioSource[] audioSource;
 
     private enum SE : int{
@@ -31,8 +37,24 @@ public class SEManager : MonoBehaviour {
         PlaySE(SE.Players, playCard);
     }
 
+    public void ReloadSE(){
+        PlaySE(SE.Players, reload);
+    }
+
     public void AttackSE(){
         PlaySE(SE.Effect, attack);
+    }
+
+    public void MissingAttackSE(){
+        PlaySE(SE.Players, missingAttack);
+    }
+
+    public void ChangeElementSE(){
+        PlaySE(SE.Players, changeElement);
+    }
+
+    public void DownSE(){
+        PlaySE(SE.Players, down);
     }
 
     void Update () {
