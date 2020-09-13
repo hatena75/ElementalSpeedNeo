@@ -5,7 +5,7 @@ using UnityEngine.UI; //added
 
 public class CommonPlayerStatus : MonoBehaviour
 {
-    protected int maxHP = 200;
+    protected int maxHP = 300;
     protected int HP;
     protected int damageSum;
     protected Text textHP;
