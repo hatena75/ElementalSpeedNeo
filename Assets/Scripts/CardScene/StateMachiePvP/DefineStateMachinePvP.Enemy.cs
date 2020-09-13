@@ -18,7 +18,11 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
         {
+            turnCount++;
+            
             enemyHands = GameObject.FindGameObjectsWithTag("Player2");
+            CanPlayHand(enemyHands, reload, skill, true);
+
             //タイマーセット 5秒
             timer.Set(5.0f);
 
@@ -29,7 +33,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
                 GameObject.Find ("Enemy").GetComponent<EnemyPlay>().enabled = true;
             }
 
-            CanPlayHand(enemyHands, reload, skill, true);
         }
 
         // 状態の更新はこのUpdateで行う

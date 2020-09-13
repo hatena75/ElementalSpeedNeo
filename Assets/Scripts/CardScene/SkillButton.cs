@@ -12,9 +12,16 @@ public class SkillButton : MonoBehaviour
 
     private CharacterAbstract character;
 
+    public int UseCount{
+        private get;
+        set;
+    }
+
     public void Activate(){
-        usable = true;
-        btn.interactable = usable;
+        if(UseCount != 0){
+            usable = true;
+            btn.interactable = usable;
+        }
     }
 
     public void DeActivate(){
@@ -25,6 +32,7 @@ public class SkillButton : MonoBehaviour
     public void OnClick() {
         if(usable){
             character.Skill();
+            UseCount--;
             DeActivate();
         }
     }
@@ -35,6 +43,9 @@ public class SkillButton : MonoBehaviour
         //btn = gameObject.GetComponent<Button>();
         DeActivate();
         character = SceneManagerCharacterSelect.UsingCharacter;
+        //先行は1回、後攻は2回まで使用できる。これはofflinemodeの判別処理順番の都合上ステートマシンで初期化している。
+        //ここではnullにならないようにだけしている。
+        UseCount = 2;
     }
 
     // Update is called once per frame

@@ -18,11 +18,22 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
         {
-            myHands = GameObject.FindGameObjectsWithTag("Player");
-            //タイマーセット 5秒
-            timer.Set(5.0f);
+            turnCount++;
 
+            myHands = GameObject.FindGameObjectsWithTag("Player");
             CanPlayHand(myHands, reload, skill, true);
+
+            //先行1ターン目のデメリット処理
+            if(turnCount == 1){
+                //タイマーセット 3秒
+                timer.Set(3.0f);
+                
+                skill.DeActivate();
+            }
+            else{
+                //タイマーセット 5秒
+                timer.Set(5.0f);
+            }
 
             Debug.Log("自分のプレイターン");
         }

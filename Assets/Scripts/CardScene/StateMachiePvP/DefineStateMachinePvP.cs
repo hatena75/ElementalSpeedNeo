@@ -20,6 +20,9 @@ public partial class DefineStateMachinePvP : MonoBehaviour
     public static bool attackEnd = false;
     public static bool opponentReady = false;
 
+    //自分・相手のターンが回る度に1カウント増える
+    private static int turnCount = 0;
+
     public void GameStart(){
         stateMachine.SendEvent((int)StateEventId.Start);
     }
@@ -89,13 +92,23 @@ public partial class DefineStateMachinePvP : MonoBehaviour
             //探し出すためには最初にパネルがactiveである必要がある
             panel = GameObject.Find ("Panel");
 
+            //初期化処理
+            GameObject.Find("Skill").GetComponent<SkillButton>().UseCount = PhotonNetwork.IsMasterClient ? 1 : 2;
+            attackEnd = false;
+            opponentReady = false;
+            turnCount = 0;
         }
         protected internal override void Update()
         {
+            //フェードイン終了まで待つ
             if(!panel.activeSelf){
-                //フェードイン終了まで待つ
-                //探し出すためには最初にパネルがactiveである必要がある
-                stateMachine.SendEvent((int)StateEventId.Start);
+                //相手に初期準備が済んだことを通知
+                ReadySync(true);
+
+                //オンラインの場合は相手の初期準備が済むまで待つ(遅延軽減)
+                if(opponentReady || PhotonNetwork.OfflineMode){
+                    stateMachine.SendEvent((int)StateEventId.Start);
+                }
             }
         }
 
@@ -115,25 +128,15 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 
         protected internal override void Enter()
         {
-            //相手にこの状態に入ったことを通知
-            ReadySync(true);
+            
         }
 
         protected internal override void Update()
         {
-            //相手がこの状態に入るまで待つ(遅延軽減)
             //アニメーション終了時に遷移
-            if(PhotonNetwork.OfflineMode){
-                if(bf.animationEnd){
-                    stateMachine.SendEvent((int)StateEventId.ReadyEnd);
-                }
+            if(bf.animationEnd){
+                stateMachine.SendEvent((int)StateEventId.ReadyEnd);
             }
-            else{
-                if(opponentReady && bf.animationEnd){
-                    stateMachine.SendEvent((int)StateEventId.ReadyEnd);
-                }
-            }
-            
         }
 
         protected internal override void Exit()
