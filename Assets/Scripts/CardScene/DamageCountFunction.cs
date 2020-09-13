@@ -14,6 +14,14 @@ public class DamageCountFunction : MonoBehaviour
         animator.SetBool("DamagePlus", false);
     }
 
+    public void NormalAnimation(){
+        animator.SetBool("NormalDamage", true);
+    }
+
+    public void NormalAnimationEnd(){
+        animator.SetBool("NormalDamage", false);
+    }
+
     // Start is called before the first frame update
     void Start()
     {

@@ -71,10 +71,15 @@ public class CommonPlayerStatus : MonoBehaviour
         face.GetComponent<Face>().ChangeFace(Faces.Normal);
     }
 
-    public void DamagePlus(int damage)
+    public void DamagePlus(int damage, bool effective)
     {
         //アニメーション
-        dcf.Animation();
+        if(effective){
+            dcf.Animation();
+        }
+        else{
+            dcf.NormalAnimation();
+        }
         damageSum += damage;
         damageCount.text = damageSum.ToString();//ここで表示されるのは相手からのダメージ
     }

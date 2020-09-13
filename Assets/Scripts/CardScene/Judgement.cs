@@ -64,8 +64,10 @@ public class Judgement : MonoBehaviour
 
     }
 
-    private int ElementCalculator(Elements playerEle, Elements fieldEle)
+    private bool ElementCalculator(Elements playerEle, Elements fieldEle)
     {
+        return ElementChart[playerEle] == fieldEle;
+        /*
         int times = 1;
 
         if(ElementChart[playerEle] == fieldEle){
@@ -73,6 +75,7 @@ public class Judgement : MonoBehaviour
         }
 
         return times;
+        */
     }
 
     private void DamageCalculator(GameObject hand, GameObject field)
@@ -84,11 +87,11 @@ public class Judgement : MonoBehaviour
         //ダメージが10か20かをインデックスから計算
         int damage = (((playerIndex % 12) / 6) + 1) * 10;
         //属性相性計算
-        int times = ElementCalculator(playerEle, fieldEle);
+        bool effective = ElementCalculator(playerEle, fieldEle);
         string attacker = hand.transform.tag;
 
         //通信時相手にもダメージを換算
-        object[] content = {attacker, damage * times};
+        object[] content = {attacker, damage, effective};
         photonView.RPC("DamageCalculatorSync", RpcTarget.All, content);
     }
 
@@ -97,14 +100,18 @@ public class Judgement : MonoBehaviour
     {
         string attacker = (string)cnt[0];
         int damage = (int)cnt[1];
+        bool effective = (bool)cnt[2];
+
+        //属性有利の計算
+        damage *= effective ? 2 : 1;
 
         if(attacker == "Player")
         {
-            GameObject.Find ("Enemy").GetComponent<EnemyStatus>().DamagePlus(damage);
+            GameObject.Find ("Enemy").GetComponent<EnemyStatus>().DamagePlus(damage, effective);
         }
         else
         {
-            GameObject.Find ("Player").GetComponent<PlayerStatus>().DamagePlus(damage);
+            GameObject.Find ("Player").GetComponent<PlayerStatus>().DamagePlus(damage, effective);
         }
     }
 
