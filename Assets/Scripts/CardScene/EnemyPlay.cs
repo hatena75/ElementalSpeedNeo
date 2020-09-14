@@ -67,6 +67,7 @@ public class EnemyPlay : MonoBehaviour
         }
 
         //置けるカードが無かった場合、手札を更新して終了
+        se.ReloadSE();
         foreach (GameObject enemyHand in enemyHands) {
             enemyHand.GetComponent<CardModel>().RandomFace();
         }
