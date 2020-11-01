@@ -45,6 +45,9 @@ public class CardModel : MonoBehaviour
 
     [PunRPC]
     private void WeakingEffectRpc(){
+        if(!PhotonNetwork.IsMasterClient){
+            
+        }
         effectHandler = EffekseerSystem.PlayEffect(weakingeffect, firstPos);
     }
 
@@ -93,6 +96,11 @@ public class CardModel : MonoBehaviour
         GetComponent<SpriteRenderer>().color = new Color(changeRed, changeGreen, cahngeBlue, cahngeAlpha);
     }
 
+    [PunRPC]
+    private void PosSync(float[] posList){
+        this.transform.position = new Vector3(posList[0], posList[1], this.transform.position.z);
+    }
+
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -116,6 +124,19 @@ public class CardModel : MonoBehaviour
         firstPos = this.transform.position;
         if(gameObject.tag != "Field"){
             UnMovableColor();
+        }
+    }
+
+    void Update(){
+        if(PhotonNetwork.IsMasterClient){
+            if(this.transform.tag == "Player"){
+                photonView.RPC("PosSync", RpcTarget.Others, new float[] {this.transform.position.x, this.transform.position.y});
+            }
+        }
+        else{
+            if(this.transform.tag == "Player2"){
+                photonView.RPC("PosSync", RpcTarget.Others, new float[] {this.transform.position.x, this.transform.position.y});
+            }
         }
     }
 
