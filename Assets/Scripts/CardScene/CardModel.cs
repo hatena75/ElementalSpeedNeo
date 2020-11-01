@@ -13,6 +13,8 @@ public class CardModel : MonoBehaviour
     public int cardIndex; // e.g. faces[cardIndex];
     public int cardMax; // e.g. faces[cardIndex];
     public Vector3 firstPos;
+    private delegate void posSyncType();
+    private posSyncType posSync;
 
     private EffekseerEffectAsset changeeffect;
     private EffekseerEffectAsset changeelementeffect;
@@ -96,8 +98,12 @@ public class CardModel : MonoBehaviour
         GetComponent<SpriteRenderer>().color = new Color(changeRed, changeGreen, cahngeBlue, cahngeAlpha);
     }
 
+    private void PosSync(){
+        photonView.RPC("PosSyncRpc", RpcTarget.Others, new float[] {this.transform.position.x, this.transform.position.y});
+    }
+
     [PunRPC]
-    private void PosSync(float[] posList){
+    private void PosSyncRpc(float[] posList){
         this.transform.position = new Vector3(posList[0], posList[1], this.transform.position.z);
     }
 
@@ -125,19 +131,27 @@ public class CardModel : MonoBehaviour
         if(gameObject.tag != "Field"){
             UnMovableColor();
         }
-    }
 
-    void Update(){
+
         if(PhotonNetwork.IsMasterClient){
             if(this.transform.tag == "Player"){
-                photonView.RPC("PosSync", RpcTarget.Others, new float[] {this.transform.position.x, this.transform.position.y});
+                posSync = new posSyncType(PosSync);
             }
         }
         else{
             if(this.transform.tag == "Player2"){
-                photonView.RPC("PosSync", RpcTarget.Others, new float[] {this.transform.position.x, this.transform.position.y});
+                posSync = new posSyncType(PosSync);
             }
         }
+
+        if(posSync is null){posSync = new posSyncType(DoNothing);}
+    }
+
+    private void DoNothing(){ }
+
+    void Update(){
+        //Startで指定した条件を満たしていればPosSyncが呼ばれ、それ以外では何もしない
+        posSync();
     }
 
 }
