@@ -13,6 +13,9 @@ public class Connection : MonoBehaviourPunCallbacks
 {
     private StatusFeedBack sfb;
 
+    public static int seed;
+    public static int seedEnemy;
+
     private void Connect(string gameVersion)
     {
         if (PhotonNetwork.IsConnected == false)
@@ -46,6 +49,7 @@ public class Connection : MonoBehaviourPunCallbacks
             sfb.StatusMatch();
 
             SendMyCharacter();
+            SendMySeedValue();
 
             //PhotonNetwork.IsMessageQueueRunning = false;
             //SceneManager.LoadScene("CardPvP");
@@ -56,6 +60,7 @@ public class Connection : MonoBehaviourPunCallbacks
         // PhotonServerSettingsに設定した内容を使ってマスターサーバーへ接続する
         PhotonNetwork.OfflineMode = !SceneManagerTitle.IsVs;
         Connect("1.0"); //バージョン指定
+        seed = (int)UnityEngine.Random.Range(0.0f, 1000.0f); //自分のseed値(何でも良い)
     }
 
     // Photonに接続した時
@@ -175,7 +180,8 @@ public class Connection : MonoBehaviourPunCallbacks
 
     private enum EEventType : byte
     {
-        SendMyCharacter = 1
+        SendMyCharacter = 1,
+        SendMySeedValue
     }
 
     public void OnEvent(EventData photonEvent)
@@ -207,6 +213,9 @@ public class Connection : MonoBehaviourPunCallbacks
                 PhotonNetwork.IsMessageQueueRunning = false;
                 SceneManager.LoadScene("CardPvP");
                 break;
+            case EEventType.SendMySeedValue:
+                seedEnemy = (int)photonEvent.CustomData;
+                break;
             default:
                 break;
         }
@@ -220,6 +229,17 @@ public class Connection : MonoBehaviourPunCallbacks
             CachingOption = EventCaching.AddToRoomCache,
         };
         PhotonNetwork.RaiseEvent( (byte)EEventType.SendMyCharacter, SceneManagerCharacterSelect.UsingCharacter.Name, raiseEventOptions, SendOptions.SendReliable);
+        Debug.Log("sendcharacter");
+    }
+
+    public void SendMySeedValue()
+    {
+        var raiseEventOptions = new RaiseEventOptions
+        {
+            Receivers = ReceiverGroup.Others,
+            CachingOption = EventCaching.AddToRoomCache,
+        };
+        PhotonNetwork.RaiseEvent( (byte)EEventType.SendMyCharacter, seed, raiseEventOptions, SendOptions.SendReliable);
         Debug.Log("sendcharacter");
     }
 
