@@ -25,33 +25,15 @@ public class CardModel : MonoBehaviour
 
     private PhotonView photonView;
 
-    private void ChangeEffect(){
-        photonView.RPC("ChangeEffectRpc", RpcTarget.All);
-    }
-
-    [PunRPC]
-    private void ChangeEffectRpc(){
+    public void ChangeEffect(){
         effectHandler = EffekseerSystem.PlayEffect(changeeffect, firstPos);
     }
 
     public void ChangeElementEffect(){
-        photonView.RPC("ChangeElementEffectRpc", RpcTarget.All);
-    }
-
-    [PunRPC]
-    private void ChangeElementEffectRpc(){
         effectHandler = EffekseerSystem.PlayEffect(changeelementeffect, firstPos);
     }
 
     public void WeakingEffect(){
-        photonView.RPC("WeakingEffectRpc", RpcTarget.All);
-    }
-
-    [PunRPC]
-    private void WeakingEffectRpc(){
-        if(!PhotonNetwork.IsMasterClient){
-            
-        }
         effectHandler = EffekseerSystem.PlayEffect(weakingeffect, firstPos);
     }
 
