@@ -15,27 +15,40 @@ public class NetworkMethods : MonoBehaviourPunCallbacks
 
     public Camera camera;
 
+    public GameObject Card;
+    public GameObject Field;
+    public GameObject Card2;
+
+    private CardInfo ci;
+
+    private void InstantiateAddList(int n, GameObject obj, Dictionary<int, GameObject> dic){
+        obj.GetComponent<CardModel>().SetRand();
+        dic.Add(n, obj);
+        Debug.Log( ci.GetKey(dic, obj) );
+    }
+
     private void PlayerCardInstantiate(){
-        PhotonNetwork.Instantiate("Card", ph + new Vector3(-6.77f, -4.4f, 155f), Quaternion.identity, 0);
-        PhotonNetwork.Instantiate("Card", ph + new Vector3(-1.81f, -4.4f, 155f), Quaternion.identity, 0);
-        PhotonNetwork.Instantiate("Card", ph + new Vector3(3.06f, -4.4f, 155f), Quaternion.identity, 0);
+        InstantiateAddList(1, Instantiate(Card, ph + new Vector3(-6.77f, -4.4f, 155f), Quaternion.identity), ci.myHands);
+        InstantiateAddList(2, Instantiate(Card, ph + new Vector3(-1.81f, -4.4f, 155f), Quaternion.identity), ci.myHands);
+        InstantiateAddList(3, Instantiate(Card, ph + new Vector3(3.06f, -4.4f, 155f), Quaternion.identity), ci.myHands);
     }
 
     private void FieldCardInstantiate(){
-        PhotonNetwork.Instantiate("Field", fi + new Vector3(-4.6f, -0.85f, 155f), Quaternion.identity, 0);
-        PhotonNetwork.Instantiate("Field", fi + new Vector3(2.83f, -0.85f, 155f), Quaternion.identity, 0);
+        InstantiateAddList(1, Instantiate(Field, fi + new Vector3(-4.6f, -0.85f, 155f), Quaternion.identity), ci.fields);
+        InstantiateAddList(2, Instantiate(Field, fi + new Vector3(2.83f, -0.85f, 155f), Quaternion.identity), ci.fields);
     }
 
     private void Player2CardInstantiate(){
-        PhotonNetwork.Instantiate("Card2", eh + new Vector3(-7.38f, 6f, 155f), Quaternion.identity, 0);
-        PhotonNetwork.Instantiate("Card2", eh + new Vector3(-2.28f, 6f, 155f), Quaternion.identity, 0);
+        InstantiateAddList(1, Instantiate(Card2, eh + new Vector3(-7.38f, 6f, 155f), Quaternion.identity), ci.enemyHands);
+        InstantiateAddList(2, Instantiate(Card2, eh + new Vector3(-2.28f, 6f, 155f), Quaternion.identity), ci.enemyHands);
         //PhotonNetwork.Instantiate("Card2", eh + new Vector3(0.9f, 9f, 155f), Quaternion.identity, 0);
-        PhotonNetwork.Instantiate("Card2", eh + new Vector3(2.7f, 6f, 155f), Quaternion.identity, 0);
+        InstantiateAddList(3, Instantiate(Card2, eh + new Vector3(2.7f, 6f, 155f), Quaternion.identity), ci.enemyHands);
     }
 
 
     public void InitialPlacement(){
         //オフラインなら全て自分が生成
+        /*
         if(!PhotonNetwork.OfflineMode){
             if(PhotonNetwork.IsMasterClient){
                 PlayerCardInstantiate();
@@ -55,6 +68,10 @@ public class NetworkMethods : MonoBehaviourPunCallbacks
             FieldCardInstantiate();
             Player2CardInstantiate();
         }
+        */
+        PlayerCardInstantiate();
+        FieldCardInstantiate();
+        Player2CardInstantiate();
     }
 
     public void JoinOfflineRoom(){
@@ -85,8 +102,7 @@ public class NetworkMethods : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        //StartGame();
-        //camera = Camera.main;
+        ci = GameObject.Find ("Master").GetComponent<CardInfo>();
     }
 
     // Update is called once per frame

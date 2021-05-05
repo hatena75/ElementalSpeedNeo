@@ -958,12 +958,14 @@ GameObject:
   - component: {fileID: 433747251}
   - component: {fileID: 433747250}
   - component: {fileID: 433747252}
+  - component: {fileID: 433747259}
   - component: {fileID: 433747253}
   - component: {fileID: 433747256}
   - component: {fileID: 433747255}
   - component: {fileID: 433747254}
   - component: {fileID: 433747257}
   - component: {fileID: 433747258}
+  - component: {fileID: 433747260}
   m_Layer: 0
   m_Name: Master
   m_TagString: Untagged
@@ -1017,7 +1019,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433747249}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d4482da7006a3840aea96d310828aa1, type: 3}
   m_Name: 
@@ -1152,6 +1154,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 1403286759}
+  Card: {fileID: 8550806685719874653, guid: 818245aa7eeb2c845b2e1dcfc45cf8c7, type: 3}
+  Field: {fileID: 2669893407869478596, guid: 635ea6e6cb42d9b4a96b60c5dbf26a3d, type: 3}
+  Card2: {fileID: 5711532875009124435, guid: 522d4a2ffad040c42813e5bb14bb6b74, type: 3}
 --- !u!114 &433747258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1174,6 +1179,30 @@ MonoBehaviour:
   viewIdField: 6
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &433747259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 433747249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 392e594569295444fb62d367e385ecd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &433747260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 433747249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 968da77fb197a1f458f8f87d4166fb38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &589387618 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3669276793919972859, guid: ebb6b29b969776f46945140a6bef2ccb,

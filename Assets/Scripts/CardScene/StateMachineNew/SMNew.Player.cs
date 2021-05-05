@@ -14,6 +14,7 @@ public partial class SMNew : MonoBehaviour
         private TimerController timer = GameObject.Find("TimeCount").GetComponent<TimerController>();
         private HandResetButton reload = GameObject.Find("Button").GetComponent<HandResetButton>();
         private SkillButton skill = GameObject.Find("Skill").GetComponent<SkillButton>();
+        
         protected internal override void Enter()
         {
             turnCount++;

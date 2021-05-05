@@ -15,7 +15,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         private SkillButton skill = GameObject.Find("Skill").GetComponent<SkillButton>();
 
 
-        // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
         {
             turnCount++;
@@ -35,7 +34,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 
         }
 
-        // 状態の更新はこのUpdateで行う
         protected internal override void Update()
         {
             //自分がマスターなら攻撃終了通知を待つ、そうでなければ通知を送る。
@@ -62,7 +60,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
     
         }
 
-        // 状態から脱出する時の処理はこのExitで行う
         protected internal override void Exit()
         {
             if(PhotonNetwork.OfflineMode){
@@ -87,7 +84,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
             stateMachine.SendEvent((int)StateEventId.EnemyTurnEnd);
         }
 
-        // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
         {
             eStatus.AttackFace();
@@ -97,7 +93,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
             WaitSeconds(2.5f);
         }
 
-        // 状態の更新はこのUpdateで行う
         protected internal override void Update()
         {
 
@@ -107,7 +102,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         {
             eStatus.NormalFace();
 
-            // 特定のタイミングで遷移を拒否（ガード）するなら true を返せばステートマシンは遷移を諦めます
             if(!pStatus.IsAlive()){
                 if(PhotonNetwork.IsMasterClient){
                     GameObject.Find ("Master").GetComponent<SceneManagerMain>().Lose();
@@ -118,11 +112,10 @@ public partial class DefineStateMachinePvP : MonoBehaviour
                 return true;
             }
 
-            // 遷移を許可するなら false を返せばステートマシンは状態の遷移をします
+
             return false;
         }
 
-        // 状態から脱出する時の処理はこのExitで行う
         protected internal override void Exit()
         {
             Debug.Log("相手のターン終了");

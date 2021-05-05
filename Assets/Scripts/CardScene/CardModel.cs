@@ -16,6 +16,8 @@ public class CardModel : MonoBehaviour
     private delegate void posSyncType();
     private posSyncType posSync;
 
+    private System.Random rand;
+
     private EffekseerEffectAsset changeeffect;
     private EffekseerEffectAsset changeelementeffect;
     private EffekseerEffectAsset weakingeffect;
@@ -60,19 +62,29 @@ public class CardModel : MonoBehaviour
 
     public void ChangeFace(int Index)
     {
-        photonView.RPC("ChangeFaceSync", RpcTarget.All, Index);
+        //photonView.RPC("ChangeFaceSync", RpcTarget.All, Index);
+        cardIndex = Index;
+        spriteRenderer.sprite = faces[cardIndex];
     }
 
+    /*
     [PunRPC]
     private void ChangeFaceSync(int Index)
     {
         cardIndex = Index;
         spriteRenderer.sprite = faces[cardIndex];
     }
+    */
+
+    private void RandomFaceIni()
+    {
+        //ChangeFace(rand.Next(0, cardMax));
+        ChangeFace((int)Random.Range(0.0f, (float)cardMax));
+    }
 
     public void RandomFace()
     {
-        ChangeFace((int)Random.Range(0.0f, (float)cardMax));
+        RandomFaceIni();
         ChangeEffect();
     }
 
@@ -98,6 +110,7 @@ public class CardModel : MonoBehaviour
         GetComponent<SpriteRenderer>().color = new Color(changeRed, changeGreen, cahngeBlue, cahngeAlpha);
     }
 
+    /*
     private void PosSync(){
         photonView.RPC("PosSyncRpc", RpcTarget.Others, new float[] {this.transform.position.x, this.transform.position.y});
     }
@@ -105,6 +118,12 @@ public class CardModel : MonoBehaviour
     [PunRPC]
     private void PosSyncRpc(float[] posList){
         this.transform.position = new Vector3(posList[0], posList[1], this.transform.position.z);
+    }
+    */
+    public void SetRand(){
+        rand = new System.Random();
+        //乱数インスタンスセット時に初期化
+        RandomFaceIni();
     }
 
     void Awake()
@@ -121,7 +140,7 @@ public class CardModel : MonoBehaviour
     {
         photonView = GetComponent<PhotonView>();
         //RandomFaceを使うとエフェクトが出てしまうため、別で初期化を行なう
-        ChangeFace((int)Random.Range(0.0f, (float)cardMax));
+        RandomFaceIni();
         this.transform.localScale = new Vector3(0.817f, 0.817f, 0.817f);
         //オンライン対戦時、2P側ならカードを反対向きにする
         if(!PhotonNetwork.IsMasterClient){
@@ -132,7 +151,7 @@ public class CardModel : MonoBehaviour
             UnMovableColor();
         }
 
-
+        /*
         if(PhotonNetwork.IsMasterClient){
             if(this.transform.tag == "Player"){
                 posSync = new posSyncType(PosSync);
@@ -145,13 +164,14 @@ public class CardModel : MonoBehaviour
         }
 
         if(posSync is null){posSync = new posSyncType(DoNothing);}
+        */
     }
 
-    private void DoNothing(){ }
+    //private void DoNothing(){ }
 
     void Update(){
         //Startで指定した条件を満たしていればPosSyncが呼ばれ、それ以外では何もしない
-        posSync();
+        //posSync();
     }
 
 }

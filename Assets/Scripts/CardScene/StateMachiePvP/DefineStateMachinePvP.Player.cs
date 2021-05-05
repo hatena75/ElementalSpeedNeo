@@ -14,8 +14,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         private TimerController timer = GameObject.Find("TimeCount").GetComponent<TimerController>();
         private HandResetButton reload = GameObject.Find("Button").GetComponent<HandResetButton>();
         private SkillButton skill = GameObject.Find("Skill").GetComponent<SkillButton>();
-
-        // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
         {
             turnCount++;
@@ -37,8 +35,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 
             Debug.Log("自分のプレイターン");
         }
-
-        // 状態の更新はこのUpdateで行う
         protected internal override void Update()
         {
             if(!PhotonNetwork.OfflineMode){
@@ -65,8 +61,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
             }
             
         }
-
-        // 状態から脱出する時の処理はこのExitで行う
         protected internal override void Exit()
         {
             CanPlayHand(myHands, reload, skill, false);
@@ -84,8 +78,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
             await Task.Delay((int)(1000 * sec));
             stateMachine.SendEvent((int)StateEventId.MyTurnEnd);
         }
-
-        // 状態へ突入時の処理はこのEnterで行う
         protected internal override void Enter()
         {
 
@@ -100,8 +92,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 
             Debug.Log("自分の攻撃開始");
         }
-
-        // 状態の更新はこのUpdateで行う
         protected internal override void Update()
         {
             //ダメージ+エフェクトの処理？
@@ -112,7 +102,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
         {
             pStatus.NormalFace();
 
-            // 特定のタイミングで遷移を拒否（ガード）するなら true を返せばステートマシンは遷移を諦めます
             if(!eStatus.IsAlive()){
                 if(PhotonNetwork.IsMasterClient){
                     //オフラインではIsMasterCliantは常にtrue
@@ -121,14 +110,14 @@ public partial class DefineStateMachinePvP : MonoBehaviour
                 else{
                     GameObject.Find ("Master").GetComponent<SceneManagerMain>().Lose();
                 }
+                //遷移の中断
                 return true;
             }
 
-            // 遷移を許可するなら false を返せばステートマシンは状態の遷移をします
+            //falseで通常遷移
             return false;
         }
 
-        // 状態から脱出する時の処理はこのExitで行う
         protected internal override void Exit()
         {
              Debug.Log("自分の攻撃終了");

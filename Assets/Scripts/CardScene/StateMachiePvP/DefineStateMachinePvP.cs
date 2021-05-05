@@ -8,12 +8,8 @@ using UnityEngine.UI;
 
 using Photon.Pun;
 using Photon.Realtime;
-
-
-// 状態を定義しているだけの何もしないクラス
 public partial class DefineStateMachinePvP : MonoBehaviour
 {
-    // この DefineStateMachinePvP クラスのステートマシン
     private ImtStateMachine<DefineStateMachinePvP> stateMachine;
 
     //同期させる変数
@@ -70,8 +66,6 @@ public partial class DefineStateMachinePvP : MonoBehaviour
             skill.DeActivate();
         }
     }
-
-    // この DefineStateMachinePvP クラスのアイドリング状態クラス
     private class InitialState : ImtStateMachine<DefineStateMachinePvP>.State
     {
         GameObject panel;
@@ -155,13 +149,11 @@ public partial class DefineStateMachinePvP : MonoBehaviour
 
     private void Start()
     {
-        // ステートマシンを起動
         stateMachine.Update();
     }
 
     private void Update()
     {
-        // ひたすら更新
         stateMachine.Update();
     }
 }
