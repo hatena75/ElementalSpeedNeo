@@ -124,10 +124,12 @@ public class CardModel : MonoBehaviour
         //RandomFaceを使うとエフェクトが出てしまうため、別で初期化を行なう
         RandomFaceIni();
         this.transform.localScale = new Vector3(0.817f, 0.817f, 0.817f);
-        //オンライン対戦時、2P側ならカードを反対向きにする
+        //オンライン対戦時、2P側ならカードを反対向きにする→RaiseEventを使うため不要になった。
+        /*
         if(!PhotonNetwork.IsMasterClient){
             this.transform.rotation = Quaternion.Euler(0, 0, 180);
         }
+        */
         firstPos = this.transform.position;
         if(gameObject.tag != "Field"){
             UnMovableColor();
