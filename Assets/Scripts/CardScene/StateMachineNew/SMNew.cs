@@ -13,6 +13,8 @@ public partial class SMNew : MonoBehaviour
 {
     private ImtStateMachine<SMNew> stateMachine;
 
+    private static CardInfo cardInfo;
+
     //自分・相手のターンが回る度に1カウント増える
     private static int turnCount = 0;
 
@@ -111,16 +113,26 @@ public partial class SMNew : MonoBehaviour
 
         protected internal override void Enter()
         {
-            
+            //カードの同期処理
+            if(!PhotonNetwork.OfflineMode){
+                SendMyHands();
+                if(PhotonNetwork.IsMasterClient){
+                    SendFields();
+                }
+            }
         }
 
         protected internal override void Update()
         {
             //アニメーション終了時に遷移
             if(bf.animationEnd){
-                //ここ先攻後攻で分けたい
-                stateMachine.SendEvent((int)StateEventId.GameStart_P1);
-                //stateMachine.SendEvent((int)StateEventId.GameStart_P2);
+                //先攻後攻処理
+                if(PhotonNetwork.IsMasterClient){
+                    stateMachine.SendEvent((int)StateEventId.GameStart_P1);
+                }
+                else{
+                    stateMachine.SendEvent((int)StateEventId.GameStart_P2);
+                }
             }
         }
 
@@ -140,6 +152,7 @@ public partial class SMNew : MonoBehaviour
 
     private void Start()
     {
+        cardInfo = GameObject.Find("Master").GetComponent<CardInfo>();
         stateMachine.Update();
     }
 

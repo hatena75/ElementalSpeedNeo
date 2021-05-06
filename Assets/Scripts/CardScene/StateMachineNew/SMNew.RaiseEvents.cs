@@ -16,7 +16,9 @@ public partial class SMNew : MonoBehaviour
 
     private enum EEventType : byte
     {
-        PlayCard = 1,
+        SendMyHands = 1,
+        SendFields,
+        PlayCard,
         UseSkill,
         ChangeHands,
         TurnEnd,
@@ -38,6 +40,18 @@ public partial class SMNew : MonoBehaviour
 
         switch( eventCode )
         {
+            case EEventType.SendMyHands:
+                int[] enemycontent = (int[])photonEvent.CustomData;
+                for(int i = 0; i < enemycontent.Length; i++){
+                    cardInfo.enemyHands[i+1].GetComponent<CardModel>().ChangeFace(enemycontent[i]);
+                }
+                break;
+            case EEventType.SendFields:
+                int[] fieldcontent = (int[])photonEvent.CustomData;
+                for(int i = 0; i < fieldcontent.Length; i++){
+                    cardInfo.fields[i+1].GetComponent<CardModel>().ChangeFace(fieldcontent[i]);
+                }
+                break;
             case EEventType.PlayCard:
                 //CustomDataから送られたデータを取り出し
                 int[] data = (int[])photonEvent.CustomData;
@@ -55,6 +69,38 @@ public partial class SMNew : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public static void SendMyHands()
+    {
+        int[] content = new int[3];
+
+        for(int i = 1; i <= 3; i++){
+            content[i-1] = cardInfo.myHands[i].GetComponent<CardModel>().cardIndex;
+        }
+
+        var raiseEventOptions = new RaiseEventOptions
+        {
+            Receivers = ReceiverGroup.Others,
+            CachingOption = EventCaching.AddToRoomCache,
+        };
+        PhotonNetwork.RaiseEvent( (byte)EEventType.SendMyHands, content, raiseEventOptions, SendOptions.SendReliable);
+    }
+
+    public static void SendFields()
+    {
+        int[] content = new int[2];
+
+        for(int i = 1; i <= 2; i++){
+            content[i-1] = cardInfo.fields[i].GetComponent<CardModel>().cardIndex;
+        }
+
+        var raiseEventOptions = new RaiseEventOptions
+        {
+            Receivers = ReceiverGroup.Others,
+            CachingOption = EventCaching.AddToRoomCache,
+        };
+        PhotonNetwork.RaiseEvent( (byte)EEventType.SendFields, content, raiseEventOptions, SendOptions.SendReliable);
     }
 
     public static void PlayCard(int pos_hand, int pos_field)
@@ -86,7 +132,7 @@ public partial class SMNew : MonoBehaviour
             Receivers = ReceiverGroup.Others,
             CachingOption = EventCaching.AddToRoomCache,
         };
-        PhotonNetwork.RaiseEvent( (byte)EEventType.UseSkill, null, raiseEventOptions, SendOptions.SendReliable);
+        PhotonNetwork.RaiseEvent( (byte)EEventType.TurnEnd, null, raiseEventOptions, SendOptions.SendReliable);
     }
     
 }
