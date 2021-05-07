@@ -49,6 +49,11 @@ public partial class SMNew : MonoBehaviour
         {
             CanPlayHand(myHands, reload, skill, false);
 
+            //プレイ終了を相手に通知
+            if(!PhotonNetwork.OfflineMode){
+                PlayEnd();
+            }
+
             Debug.Log("自分のプレイターン終了");
         }
     }
@@ -104,7 +109,7 @@ public partial class SMNew : MonoBehaviour
 
         protected internal override void Exit()
         {
-             Debug.Log("自分の攻撃終了");
+            Debug.Log("自分の攻撃終了");
         }
     }
 }

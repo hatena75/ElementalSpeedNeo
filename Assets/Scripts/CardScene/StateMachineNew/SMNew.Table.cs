@@ -14,6 +14,7 @@ public partial class SMNew : MonoBehaviour
         GameStart_P2,
         MyPlayEnd,
         MyTurnEnd,
+        OpponentPlayEnd,
         OpponentTurnEnd,
         Finish,
     }
@@ -25,15 +26,16 @@ public partial class SMNew : MonoBehaviour
         stateMachine.AddTransition<InitialState, StandByState>((int)StateEventId.StandBy);
         // 先攻後攻
         stateMachine.AddTransition<StandByState, MyPlayState>((int)StateEventId.GameStart_P1);
-        stateMachine.AddTransition<StandByState, EnemyState>((int)StateEventId.GameStart_P2);
+        stateMachine.AddTransition<StandByState, EnemyPlayState>((int)StateEventId.GameStart_P2);
         
         stateMachine.AddTransition<MyPlayState, MyAttackState>((int)StateEventId.MyPlayEnd);
-        stateMachine.AddTransition<MyAttackState, EnemyState>((int)StateEventId.MyTurnEnd);
-        stateMachine.AddTransition<EnemyState, MyPlayState>((int)StateEventId.OpponentTurnEnd);
+        stateMachine.AddTransition<MyAttackState, EnemyPlayState>((int)StateEventId.MyTurnEnd);
+        stateMachine.AddTransition<EnemyPlayState, EnemyAttackState>((int)StateEventId.OpponentPlayEnd);
+        stateMachine.AddTransition<EnemyAttackState, MyPlayState>((int)StateEventId.OpponentTurnEnd);
         
         //HP0
         stateMachine.AddTransition<MyAttackState, EndState>((int)StateEventId.Finish);
-        stateMachine.AddTransition<EnemyState, EndState>((int)StateEventId.Finish);
+        stateMachine.AddTransition<EnemyAttackState, EndState>((int)StateEventId.Finish);
 
 
 

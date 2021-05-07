@@ -21,7 +21,7 @@ public partial class SMNew : MonoBehaviour
         PlayCard,
         UseSkill,
         ChangeHands,
-        TurnEnd,
+        PlayEnd,
     }
 
     public void OnEnable()
@@ -55,16 +55,14 @@ public partial class SMNew : MonoBehaviour
             case EEventType.PlayCard:
                 //CustomDataから送られたデータを取り出し
                 int[] data = (int[])photonEvent.CustomData;
-                int pos_hand = data[0];
-                int pos_field = data[1];
-                Debug.Log("attackend");
+                opponentPlay.PlayCard_Enqueue(data[0], data[1], data[2]);
                 break;
             case EEventType.UseSkill:
                 //CustomDataから送られたデータを取り出し
                 Debug.Log("ready");
                 break;
-            case EEventType.TurnEnd:
-                stateMachine.SendEvent((int)StateEventId.OpponentTurnEnd);
+            case EEventType.PlayEnd:
+                stateMachine.SendEvent((int)StateEventId.OpponentPlayEnd);
                 break;
             default:
                 break;
@@ -103,9 +101,9 @@ public partial class SMNew : MonoBehaviour
         PhotonNetwork.RaiseEvent( (byte)EEventType.SendFields, content, raiseEventOptions, SendOptions.SendReliable);
     }
 
-    public static void PlayCard(int pos_hand, int pos_field)
+    public static void PlayCard(int pos_hand, int pos_field, int new_index_hand)
     {
-        int[] content = new int[] { pos_hand, pos_field};
+        int[] content = new int[] {pos_hand, pos_field, new_index_hand};
 
         var raiseEventOptions = new RaiseEventOptions
         {
@@ -125,14 +123,14 @@ public partial class SMNew : MonoBehaviour
         PhotonNetwork.RaiseEvent( (byte)EEventType.UseSkill, flg, raiseEventOptions, SendOptions.SendReliable);
     }
 
-    public static void TurnEnd()
+    public static void PlayEnd()
     {
         var raiseEventOptions = new RaiseEventOptions
         {
             Receivers = ReceiverGroup.Others,
             CachingOption = EventCaching.AddToRoomCache,
         };
-        PhotonNetwork.RaiseEvent( (byte)EEventType.TurnEnd, null, raiseEventOptions, SendOptions.SendReliable);
+        PhotonNetwork.RaiseEvent( (byte)EEventType.PlayEnd, null, raiseEventOptions, SendOptions.SendReliable);
     }
     
 }

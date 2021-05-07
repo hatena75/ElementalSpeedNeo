@@ -14,10 +14,15 @@ public class Judgement : MonoBehaviour
     private PhotonView photonView;
 
     private Dictionary<Elements, Elements> ElementChart;
+
+    private static CardInfo cardInfo;
+
     // Start is called before the first frame update
     void Start()
     {
         photonView = GetComponent<PhotonView>();
+
+        cardInfo = GameObject.Find("Master").GetComponent<CardInfo>();
 
         //属性相性の定義
         ElementChart = new Dictionary<Elements, Elements>();
@@ -56,12 +61,40 @@ public class Judgement : MonoBehaviour
             field.GetComponent<CardModel>().ChangeFace(playerIndex);
             //使用カードリセット
             hand.GetComponent<CardModel>().Reset();
+
+            if(!PhotonNetwork.OfflineMode){
+                //同期処理
+                SMNew.PlayCard(cardInfo.GetKey(cardInfo.myHands, hand), cardInfo.GetKey(cardInfo.fields, field), hand.GetComponent<CardModel>().cardIndex);
+            }
         }
         else
         {
             hand.GetComponent<CardModel>().ResetPos(); //適切でない場合元の位置に戻す。
         }
+    }
 
+    //Putと被りが多い。用リファクタリング
+    public void PutFeedBack(GameObject hand, GameObject field, int next_index){
+        int playerIndex = hand.GetComponent<CardModel>().cardIndex;
+        int fieldIndex = field.GetComponent<CardModel>().cardIndex;
+        int playerNum = playerIndex % 6;
+        int fieldNum = fieldIndex % 6;
+
+        Debug.Log("PutFeedBack");
+        if(playerNum + 1 == fieldNum || playerNum - 1 == fieldNum || System.Math.Abs(playerNum - fieldNum) == 5)
+        {
+            //ダメージの処理。
+            DamageCalculator(hand, field);
+            //フィールド側の処理
+            field.GetComponent<CardModel>().ChangeFace(playerIndex);
+            //使用カードリセット
+            hand.GetComponent<CardModel>().ResetPos();
+            hand.GetComponent<CardModel>().ChangeFace(next_index);
+        }
+        else
+        {
+            hand.GetComponent<CardModel>().ResetPos(); //適切でない場合元の位置に戻す。
+        }
     }
 
     private bool ElementCalculator(Elements playerEle, Elements fieldEle)
@@ -91,11 +124,24 @@ public class Judgement : MonoBehaviour
         string attacker = hand.transform.tag;
 
         //通信時相手にもダメージを換算
-        object[] content = {attacker, damage, effective};
-        photonView.RPC("DamageCalculatorSync", RpcTarget.All, content);
+        //object[] content = {attacker, damage, effective};
+        //photonView.RPC("DamageCalculatorSync", RpcTarget.All, content);
+
+        //属性有利の計算
+        damage *= effective ? 2 : 1;
+
+        if(attacker == "Player")
+        {
+            GameObject.Find ("Enemy").GetComponent<EnemyStatus>().DamagePlus(damage, effective);
+        }
+        else
+        {
+            GameObject.Find ("Player").GetComponent<PlayerStatus>().DamagePlus(damage, effective);
+        }
+        
     }
 
-    [PunRPC]
+    /*
     private void DamageCalculatorSync(object[] cnt)
     {
         string attacker = (string)cnt[0];
@@ -114,6 +160,7 @@ public class Judgement : MonoBehaviour
             GameObject.Find ("Player").GetComponent<PlayerStatus>().DamagePlus(damage, effective);
         }
     }
+    */
 
     // Update is called once per frame
     void Update()

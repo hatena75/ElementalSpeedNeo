@@ -14,6 +14,7 @@ public partial class SMNew : MonoBehaviour
     private ImtStateMachine<SMNew> stateMachine;
 
     private static CardInfo cardInfo;
+    private static OpponentPlay opponentPlay;
 
     //自分・相手のターンが回る度に1カウント増える
     private static int turnCount = 0;
@@ -153,6 +154,7 @@ public partial class SMNew : MonoBehaviour
     private void Start()
     {
         cardInfo = GameObject.Find("Master").GetComponent<CardInfo>();
+        opponentPlay = GameObject.Find("Enemy").GetComponent<OpponentPlay>();
         stateMachine.Update();
     }
 
