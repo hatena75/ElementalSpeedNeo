@@ -46,12 +46,12 @@ public partial class SMNew : MonoBehaviour
 
         if(flg){
             //自分のターンに自分のCardを動かせるようにする
-            if(PhotonNetwork.IsMasterClient){
+            //if(PhotonNetwork.IsMasterClient){
                 TrueChange("Player");
-            }
-            else{
-                TrueChange("Player2");
-            }
+            //}
+            //else{
+                //TrueChange("Player2");
+            //}
         }
         else{
             //散らかったカードを戻し、Cardを動かせないようにする
