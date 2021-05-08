@@ -8,6 +8,7 @@ public class OpponentPlay : MonoBehaviour
     private Judgement jm;
     private SEManager se;
     private CardInfo cardInfo;
+    private HandResetButton hrb;
 
     //イベントの識別
     private Queue<int> raiseEvents = new Queue<int>();
@@ -31,6 +32,11 @@ public class OpponentPlay : MonoBehaviour
         raiseEvents.Enqueue(3); //PlayCard
     }
 
+    public void UseReload_Enqueue(int[] indexes){
+        SpecialInfos.Enqueue(indexes);
+        raiseEvents.Enqueue(4);
+    }
+
     public void PlayEnd_Enqueue(Action a){
         sendState = a;
         raiseEvents.Enqueue(5);
@@ -42,6 +48,7 @@ public class OpponentPlay : MonoBehaviour
         jm = GameObject.Find ("Master").GetComponent<Judgement>();
         se = GameObject.Find ("SEManager").GetComponent<SEManager>();
         cardInfo = GameObject.Find("Master").GetComponent<CardInfo>();
+        hrb = GameObject.Find("Button").GetComponent<HandResetButton>();
     }
 
     private bool MovingCard(object[] tmp)
@@ -80,6 +87,11 @@ public class OpponentPlay : MonoBehaviour
                         playInfos.Dequeue();
                         raiseEvents.Dequeue();
                     }
+                    break;
+                case 4:
+                    int[] reloadTmp = SpecialInfos.Dequeue();
+                    hrb.Reload(reloadTmp);
+                    raiseEvents.Dequeue();
                     break;
                 case 5:
                     sendState();

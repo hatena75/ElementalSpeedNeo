@@ -18,8 +18,8 @@ public partial class SMNew : MonoBehaviour
         SendMyHands = 1,
         SendFields,
         PlayCard,
+        UseReload,
         UseSkill,
-        ChangeHands,
         PlayEnd,
     }
 
@@ -55,6 +55,10 @@ public partial class SMNew : MonoBehaviour
                 //CustomDataから送られたデータを取り出し
                 int[] data = (int[])photonEvent.CustomData;
                 opponentPlay.PlayCard_Enqueue(data[0], data[1], data[2]);
+                break;
+            case EEventType.UseReload:
+                int[] reloadcontent = (int[])photonEvent.CustomData;
+                opponentPlay.UseReload_Enqueue(reloadcontent);
                 break;
             case EEventType.UseSkill:
                 //CustomDataから送られたデータを取り出し
@@ -111,6 +115,22 @@ public partial class SMNew : MonoBehaviour
             CachingOption = EventCaching.AddToRoomCache,
         };
         PhotonNetwork.RaiseEvent( (byte)EEventType.PlayCard, content, raiseEventOptions, SendOptions.SendReliable);
+    }
+
+    public static void UseReload()
+    {
+        int[] content = new int[3];
+
+        for(int i = 1; i <= 3; i++){
+            content[i-1] = cardInfo.myHands[i].GetComponent<CardModel>().cardIndex;
+        }
+
+        var raiseEventOptions = new RaiseEventOptions
+        {
+            Receivers = ReceiverGroup.Others,
+            CachingOption = EventCaching.AddToRoomCache,
+        };
+        PhotonNetwork.RaiseEvent( (byte)EEventType.UseReload, content, raiseEventOptions, SendOptions.SendReliable);
     }
 
     public static void UseSkill(bool flg)

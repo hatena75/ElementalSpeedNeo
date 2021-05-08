@@ -70,6 +70,11 @@ public class CardModel : MonoBehaviour
         ChangeEffect();
     }
 
+    public void ReloadSync(int index){
+        ChangeFace(index);
+        ChangeEffect();
+    }
+
     public void ResetPos(){
         this.transform.position = firstPos;
     }
