@@ -6,7 +6,6 @@ using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
 
-
 public partial class SMNew : MonoBehaviour
 {
     //同期は全てイベントの発生で行う？
@@ -62,7 +61,8 @@ public partial class SMNew : MonoBehaviour
                 Debug.Log("ready");
                 break;
             case EEventType.PlayEnd:
-                stateMachine.SendEvent((int)StateEventId.OpponentPlayEnd);
+                //opponentPlay.playEndState = () => { stateMachine.SendEvent((int)StateEventId.OpponentPlayEnd); };
+                opponentPlay.PlayEnd_Enqueue( () => { stateMachine.SendEvent((int)StateEventId.OpponentPlayEnd); } );
                 break;
             default:
                 break;

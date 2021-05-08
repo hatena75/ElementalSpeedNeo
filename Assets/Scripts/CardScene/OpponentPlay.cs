@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class OpponentPlay : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class OpponentPlay : MonoBehaviour
     //スキル、リロード情報
     private Queue<int[]> SpecialInfos = new Queue<int[]>();
 
+    private Action sendState;
+
     public void PlayCard_Enqueue(int pos_hand, int pos_field, int new_index_hand){
         object[] tmp = new object[3];
         tmp[0] = cardInfo.enemyHands[pos_hand]; //GameObject型
@@ -26,6 +29,11 @@ public class OpponentPlay : MonoBehaviour
         playInfos.Enqueue(tmp);
 
         raiseEvents.Enqueue(3); //PlayCard
+    }
+
+    public void PlayEnd_Enqueue(Action a){
+        sendState = a;
+        raiseEvents.Enqueue(5);
     }
 
     // Start is called before the first frame update
@@ -62,13 +70,23 @@ public class OpponentPlay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //キュー確認、先頭を参照、終わったらpop、state遷移は0,0,0
+        //キュー確認、先頭を参照、終わったらpop
         if(raiseEvents.Count > 0)
         {
-            if(!MovingCard(playInfos.Peek()))
-            {
-                playInfos.Dequeue();
-                raiseEvents.Dequeue();
+            switch(raiseEvents.Peek()){
+                case 3:
+                    if(!MovingCard(playInfos.Peek()))
+                    {
+                        playInfos.Dequeue();
+                        raiseEvents.Dequeue();
+                    }
+                    break;
+                case 5:
+                    sendState();
+                    raiseEvents.Dequeue();
+                    break;
+                default:
+                    break;
             }
         }
     }
