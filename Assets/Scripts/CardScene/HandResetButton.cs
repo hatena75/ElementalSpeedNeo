@@ -22,15 +22,8 @@ public class HandResetButton : MonoBehaviour
         btn.interactable = usable;
     }
 
-    public void Reload(){
-        se.ReloadSE();
-        GameObject[] playerHands = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject playerHand in playerHands) {
-            playerHand.GetComponent<CardModel>().RandomFace();
-        }
-    }
-
-    public void Reload(int[] indexes){
+    //敵手札のリロード
+    public void OpponentReload(int[] indexes){
         se.ReloadSE();
         for(int i = 0; i < indexes.Length; i++){
             cardInfo.enemyHands[i+1].GetComponent<CardModel>().ReloadSync(indexes[i]);
@@ -40,7 +33,11 @@ public class HandResetButton : MonoBehaviour
     public void OnClick() {
         if(usable){
             
-            Reload();
+            se.ReloadSE();
+            GameObject[] playerHands = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject playerHand in playerHands) {
+                playerHand.GetComponent<CardModel>().RandomFace();
+            }
 
             if(!PhotonNetwork.OfflineMode){
                 //同期処理

@@ -90,7 +90,7 @@ public class OpponentPlay : MonoBehaviour
                     break;
                 case 4:
                     int[] reloadTmp = SpecialInfos.Dequeue();
-                    hrb.Reload(reloadTmp);
+                    hrb.OpponentReload(reloadTmp);
                     raiseEvents.Dequeue();
                     break;
                 case 5:
