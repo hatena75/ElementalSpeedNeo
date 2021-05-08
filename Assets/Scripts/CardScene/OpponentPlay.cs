@@ -9,6 +9,7 @@ public class OpponentPlay : MonoBehaviour
     private SEManager se;
     private CardInfo cardInfo;
     private HandResetButton hrb;
+    private CharacterAbstract opponent;
 
     //イベントの識別
     private Queue<int> raiseEvents = new Queue<int>();
@@ -37,6 +38,11 @@ public class OpponentPlay : MonoBehaviour
         raiseEvents.Enqueue(4);
     }
 
+    public void UseSkill_Enqueue(int[] indexes){
+        SpecialInfos.Enqueue(indexes);
+        raiseEvents.Enqueue(2);
+    }
+
     public void PlayEnd_Enqueue(Action a){
         sendState = a;
         raiseEvents.Enqueue(5);
@@ -49,6 +55,7 @@ public class OpponentPlay : MonoBehaviour
         se = GameObject.Find ("SEManager").GetComponent<SEManager>();
         cardInfo = GameObject.Find("Master").GetComponent<CardInfo>();
         hrb = GameObject.Find("Button").GetComponent<HandResetButton>();
+        opponent = SceneManagerCharacterSelect.EnemyCharacter;
     }
 
     private bool MovingCard(object[] tmp)
@@ -81,6 +88,12 @@ public class OpponentPlay : MonoBehaviour
         if(raiseEvents.Count > 0)
         {
             switch(raiseEvents.Peek()){
+                case 2:
+                    opponent.SkillSync(SpecialInfos.Peek());
+                    Debug.Log("skill done");
+                    SpecialInfos.Dequeue();
+                    raiseEvents.Dequeue();
+                    break;
                 case 3:
                     if(!MovingCard(playInfos.Peek()))
                     {

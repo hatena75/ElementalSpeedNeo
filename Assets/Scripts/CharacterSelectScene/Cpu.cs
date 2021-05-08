@@ -8,6 +8,10 @@ public class Cpu : CharacterAbstract
         //なし
     }
 
+    public override void SkillSync(int[] data){
+        //なし
+    }
+
     public Cpu() : base(){
         this.Name = "Cpu";
         this.Picture = "pictures/Cpu";

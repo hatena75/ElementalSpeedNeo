@@ -7,6 +7,7 @@ public abstract class CharacterAbstract : MonoBehaviour
     //private string name;
     //private string picture;
     protected SEManager sm;
+    protected CardInfo cardInfo;
 
     public string Name{
         get;
@@ -34,6 +35,8 @@ public abstract class CharacterAbstract : MonoBehaviour
     }
 
     public abstract void Skill();
+
+    public abstract void SkillSync(int[] data);
 
     public CharacterAbstract(){}
 

@@ -62,10 +62,10 @@ public partial class SMNew : MonoBehaviour
                 break;
             case EEventType.UseSkill:
                 //CustomDataから送られたデータを取り出し
-                Debug.Log("ready");
+                int[] skillcontent = (int[])photonEvent.CustomData;
+                opponentPlay.UseSkill_Enqueue(skillcontent);
                 break;
             case EEventType.PlayEnd:
-                //opponentPlay.playEndState = () => { stateMachine.SendEvent((int)StateEventId.OpponentPlayEnd); };
                 opponentPlay.PlayEnd_Enqueue( () => { stateMachine.SendEvent((int)StateEventId.OpponentPlayEnd); } );
                 break;
             default:
@@ -133,14 +133,16 @@ public partial class SMNew : MonoBehaviour
         PhotonNetwork.RaiseEvent( (byte)EEventType.UseReload, content, raiseEventOptions, SendOptions.SendReliable);
     }
 
-    public static void UseSkill(bool flg)
+    public static void UseSkill(int[] data)
     {
+        int[] content = data; //要素0でキャラ指定、要素データ
+
         var raiseEventOptions = new RaiseEventOptions
         {
             Receivers = ReceiverGroup.Others,
             CachingOption = EventCaching.AddToRoomCache,
         };
-        PhotonNetwork.RaiseEvent( (byte)EEventType.UseSkill, flg, raiseEventOptions, SendOptions.SendReliable);
+        PhotonNetwork.RaiseEvent( (byte)EEventType.UseSkill, content, raiseEventOptions, SendOptions.SendReliable);
     }
 
     public static void PlayEnd()
