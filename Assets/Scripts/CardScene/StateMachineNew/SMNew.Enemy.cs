@@ -101,15 +101,9 @@ public partial class SMNew : MonoBehaviour
             eStatus.NormalFace();
 
             if(!pStatus.IsAlive()){
-                if(PhotonNetwork.IsMasterClient){
-                    GameObject.Find ("Master").GetComponent<SceneManagerMain>().Lose();
-                }
-                else{
-                    GameObject.Find ("Master").GetComponent<SceneManagerMain>().Win();
-                }
+                GameObject.Find ("Master").GetComponent<SceneManagerMain>().Lose();
                 return true;
             }
-
 
             return false;
         }

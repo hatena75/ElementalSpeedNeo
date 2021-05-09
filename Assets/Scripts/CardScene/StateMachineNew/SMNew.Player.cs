@@ -92,13 +92,7 @@ public partial class SMNew : MonoBehaviour
             pStatus.NormalFace();
 
             if(!eStatus.IsAlive()){
-                if(PhotonNetwork.IsMasterClient){
-                    //オフラインではIsMasterCliantは常にtrue
-                    GameObject.Find ("Master").GetComponent<SceneManagerMain>().Win();
-                }
-                else{
-                    GameObject.Find ("Master").GetComponent<SceneManagerMain>().Lose();
-                }
+                GameObject.Find ("Master").GetComponent<SceneManagerMain>().Win();
                 //遷移の中断
                 return true;
             }
