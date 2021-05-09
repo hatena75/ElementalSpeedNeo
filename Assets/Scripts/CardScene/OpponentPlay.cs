@@ -12,13 +12,21 @@ public class OpponentPlay : MonoBehaviour
     private CharacterAbstract opponent;
 
     //イベントの識別
-    private Queue<int> raiseEvents = new Queue<int>();
+    private Queue<FeedBackType> raiseEvents = new Queue<FeedBackType>();
     //カードプレイ情報
     private Queue<object[]> playInfos = new Queue<object[]>();
     //スキル、リロード情報
     private Queue<int[]> SpecialInfos = new Queue<int[]>();
 
     private Action sendState;
+
+    private enum FeedBackType
+    {
+        PlayCard,
+        UseReload,
+        UseSkill,
+        PlayEnd,
+    }
 
     public void PlayCard_Enqueue(int pos_hand, int pos_field, int new_index_hand){
         object[] tmp = new object[3];
@@ -27,22 +35,22 @@ public class OpponentPlay : MonoBehaviour
         tmp[2] = new_index_hand; //int型
 
         playInfos.Enqueue(tmp);
-        raiseEvents.Enqueue(3);
+        raiseEvents.Enqueue(FeedBackType.PlayCard);
     }
 
     public void UseReload_Enqueue(int[] indexes){
         SpecialInfos.Enqueue(indexes);
-        raiseEvents.Enqueue(4);
+        raiseEvents.Enqueue(FeedBackType.UseReload);
     }
 
     public void UseSkill_Enqueue(int[] indexes){
         SpecialInfos.Enqueue(indexes);
-        raiseEvents.Enqueue(2);
+        raiseEvents.Enqueue(FeedBackType.UseSkill);
     }
 
     public void PlayEnd_Enqueue(Action a){
         sendState = a;
-        raiseEvents.Enqueue(5);
+        raiseEvents.Enqueue(FeedBackType.PlayEnd);
     }
 
     // Start is called before the first frame update
@@ -85,25 +93,25 @@ public class OpponentPlay : MonoBehaviour
         if(raiseEvents.Count > 0)
         {
             switch(raiseEvents.Peek()){
-                case 2:
-                    opponent.SkillSync(SpecialInfos.Peek());
-                    Debug.Log("skill done");
-                    SpecialInfos.Dequeue();
-                    raiseEvents.Dequeue();
-                    break;
-                case 3:
+                case FeedBackType.PlayCard:
                     if(!MovingCard(playInfos.Peek()))
                     {
                         playInfos.Dequeue();
                         raiseEvents.Dequeue();
                     }
                     break;
-                case 4:
+                case FeedBackType.UseReload:
                     int[] reloadTmp = SpecialInfos.Dequeue();
                     hrb.OpponentReload(reloadTmp);
                     raiseEvents.Dequeue();
                     break;
-                case 5:
+                case FeedBackType.UseSkill:
+                    opponent.SkillSync(SpecialInfos.Peek());
+                    Debug.Log("skill done");
+                    SpecialInfos.Dequeue();
+                    raiseEvents.Dequeue();
+                    break;
+                case FeedBackType.PlayEnd:
                     sendState();
                     raiseEvents.Dequeue();
                     break;
