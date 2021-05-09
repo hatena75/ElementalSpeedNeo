@@ -25,11 +25,9 @@ public partial class SMNew : MonoBehaviour
 
     //手札を動かせるようにしたり動かせないようにしたりする関数
     public static void CanPlayHand(GameObject[] hands, HandResetButton reload, SkillButton skill, bool flg){
-
-        string who = hands[0].tag;
-
-        void TrueChange(string str){
-            if(who.Equals(str)){
+        
+        if(flg){
+            if((hands[0].tag).Equals("Player")){
                 foreach(GameObject hand in hands){
                     hand.GetComponent<Mouse>().enabled = true;
                     hand.GetComponent<CardModel>().MovableColor();
@@ -43,16 +41,6 @@ public partial class SMNew : MonoBehaviour
                     hand.GetComponent<CardModel>().MovableColor();
                 }
             }
-        }
-
-        if(flg){
-            //自分のターンに自分のCardを動かせるようにする
-            //if(PhotonNetwork.IsMasterClient){
-                TrueChange("Player");
-            //}
-            //else{
-                //TrueChange("Player2");
-            //}
         }
         else{
             //散らかったカードを戻し、Cardを動かせないようにする

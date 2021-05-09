@@ -13,7 +13,6 @@ public class OpponentPlay : MonoBehaviour
 
     //イベントの識別
     private Queue<int> raiseEvents = new Queue<int>();
-    //イベントごとのコンテンツ
     //カードプレイ情報
     private Queue<object[]> playInfos = new Queue<object[]>();
     //スキル、リロード情報
@@ -27,10 +26,8 @@ public class OpponentPlay : MonoBehaviour
         tmp[1] = cardInfo.fields[pos_field]; //GameObject型
         tmp[2] = new_index_hand; //int型
 
-        Debug.Log(tmp[0]);
         playInfos.Enqueue(tmp);
-
-        raiseEvents.Enqueue(3); //PlayCard
+        raiseEvents.Enqueue(3);
     }
 
     public void UseReload_Enqueue(int[] indexes){

@@ -8,10 +8,6 @@ using ExitGames.Client.Photon;
 
 public partial class SMNew : MonoBehaviour
 {
-    //同期は全てイベントの発生で行う？
-    //最初に自分の手札情報を相手に送る。マスターならフィールド情報も送る。(後のプレイカード記録のために配列として送る)
-    //カードプレイ情報を送る。手札とフィールドの配列要素のみ？計算は相手に任せる？
-
 
     private enum EEventType : byte
     {
@@ -40,6 +36,7 @@ public partial class SMNew : MonoBehaviour
         switch( eventCode )
         {
             case EEventType.SendMyHands:
+                //CustomDataから送られたデータを取り出し
                 int[] enemycontent = (int[])photonEvent.CustomData;
                 for(int i = 0; i < enemycontent.Length; i++){
                     cardInfo.enemyHands[i+1].GetComponent<CardModel>().ChangeFace(enemycontent[i]);
@@ -52,7 +49,6 @@ public partial class SMNew : MonoBehaviour
                 }
                 break;
             case EEventType.PlayCard:
-                //CustomDataから送られたデータを取り出し
                 int[] data = (int[])photonEvent.CustomData;
                 opponentPlay.PlayCard_Enqueue(data[0], data[1], data[2]);
                 break;
@@ -61,7 +57,6 @@ public partial class SMNew : MonoBehaviour
                 opponentPlay.UseReload_Enqueue(reloadcontent);
                 break;
             case EEventType.UseSkill:
-                //CustomDataから送られたデータを取り出し
                 int[] skillcontent = (int[])photonEvent.CustomData;
                 opponentPlay.UseSkill_Enqueue(skillcontent);
                 break;
@@ -135,7 +130,7 @@ public partial class SMNew : MonoBehaviour
 
     public static void UseSkill(int[] data)
     {
-        int[] content = data; //要素0でキャラ指定、要素データ
+        int[] content = data; //キャラによってdataの使い方は異なる
 
         var raiseEventOptions = new RaiseEventOptions
         {

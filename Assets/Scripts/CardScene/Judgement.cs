@@ -73,7 +73,7 @@ public class Judgement : MonoBehaviour
         }
     }
 
-    //Putと被りが多い。用リファクタリング
+    //カードプレイ同期の処理
     public void PutFeedBack(GameObject hand, GameObject field, int next_index){
         int playerIndex = hand.GetComponent<CardModel>().cardIndex;
         int fieldIndex = field.GetComponent<CardModel>().cardIndex;
@@ -100,15 +100,6 @@ public class Judgement : MonoBehaviour
     private bool ElementCalculator(Elements playerEle, Elements fieldEle)
     {
         return ElementChart[playerEle] == fieldEle;
-        /*
-        int times = 1;
-
-        if(ElementChart[playerEle] == fieldEle){
-            times *= 2;
-        }
-
-        return times;
-        */
     }
 
     private void DamageCalculator(GameObject hand, GameObject field)
@@ -123,10 +114,6 @@ public class Judgement : MonoBehaviour
         bool effective = ElementCalculator(playerEle, fieldEle);
         string attacker = hand.transform.tag;
 
-        //通信時相手にもダメージを換算
-        //object[] content = {attacker, damage, effective};
-        //photonView.RPC("DamageCalculatorSync", RpcTarget.All, content);
-
         //属性有利の計算
         damage *= effective ? 2 : 1;
 
@@ -140,27 +127,6 @@ public class Judgement : MonoBehaviour
         }
         
     }
-
-    /*
-    private void DamageCalculatorSync(object[] cnt)
-    {
-        string attacker = (string)cnt[0];
-        int damage = (int)cnt[1];
-        bool effective = (bool)cnt[2];
-
-        //属性有利の計算
-        damage *= effective ? 2 : 1;
-
-        if(attacker == "Player")
-        {
-            GameObject.Find ("Enemy").GetComponent<EnemyStatus>().DamagePlus(damage, effective);
-        }
-        else
-        {
-            GameObject.Find ("Player").GetComponent<PlayerStatus>().DamagePlus(damage, effective);
-        }
-    }
-    */
 
     // Update is called once per frame
     void Update()

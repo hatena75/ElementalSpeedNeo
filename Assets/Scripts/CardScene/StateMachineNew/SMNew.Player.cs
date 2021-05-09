@@ -83,8 +83,7 @@ public partial class SMNew : MonoBehaviour
         }
         protected internal override void Update()
         {
-            //ダメージ+エフェクトの処理？
-            //stateMachine.SendEvent((int)StateEventId.MyTurnEnd);
+            
         }
 
         protected internal override bool GuardEvent(int eventId)
