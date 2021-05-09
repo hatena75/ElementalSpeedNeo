@@ -27,7 +27,12 @@ public partial class SMNew : MonoBehaviour
             CanPlayHand(enemyHands, reload, skill, true);
 
             //タイマーセット 5秒 raiseeventでズレるからオンラインでは不要か？
-            timer.Set(5.0f);
+            if(turnCount == 1){
+                timer.Set(3.0f);
+            }
+            else{
+                timer.Set(5.0f);
+            }
 
             Debug.Log("相手のプレイターン");
 
