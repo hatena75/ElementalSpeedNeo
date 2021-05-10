@@ -25,16 +25,26 @@ public class CardModel : MonoBehaviour
 
     private PhotonView photonView;
 
-    public void ChangeEffect(){
+    private void ChangeEffect(){
         effectHandler = EffekseerSystem.PlayEffect(changeeffect, firstPos);
     }
 
-    public void ChangeElementEffect(){
+    private void ChangeElementEffect(){
         effectHandler = EffekseerSystem.PlayEffect(changeelementeffect, firstPos);
     }
 
-    public void WeakingEffect(){
+    private void WeakingEffect(){
         effectHandler = EffekseerSystem.PlayEffect(weakingeffect, firstPos);
+    }
+
+    public void ChangeElement(int index){
+        ChangeFace(index);
+        ChangeElementEffect();
+    }
+
+    public void ChangeWeaking(int index){
+        ChangeFace(index);
+        WeakingEffect();
     }
 
     public void Reset(){

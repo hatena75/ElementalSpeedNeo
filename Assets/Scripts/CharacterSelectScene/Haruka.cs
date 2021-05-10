@@ -17,8 +17,7 @@ public class Haruka : CharacterAbstract
             int cardindex = card.GetComponent<CardModel>().cardIndex;
             //攻撃力が20なら10に下げる
             if(cardindex % 12 >= 6){
-                card.GetComponent<CardModel>().ChangeFace(cardindex - 6);
-                card.GetComponent<CardModel>().WeakingEffect();
+                card.GetComponent<CardModel>().ChangeWeaking(cardindex - 6);
                 num = cardInfo.GetKey(cardInfo.enemyHands, card);
                 //ただし、下げられるのは1枚のみ
                 break;
@@ -35,8 +34,7 @@ public class Haruka : CharacterAbstract
     public override void SkillSync(int[] data){
         cardInfo = GameObject.Find("Master").GetComponent<CardInfo>();
         GameObject.Find ("SEManager").GetComponent<SEManager>().DownSE();
-        cardInfo.myHands[data[0]].GetComponent<CardModel>().ChangeFace(data[1]);
-        cardInfo.myHands[data[0]].GetComponent<CardModel>().ChangeElementEffect();
+        cardInfo.myHands[data[0]].GetComponent<CardModel>().ChangeWeaking(data[1]);
     }
 
     public Haruka() : base(){

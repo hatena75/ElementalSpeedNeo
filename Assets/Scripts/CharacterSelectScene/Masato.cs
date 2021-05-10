@@ -16,8 +16,7 @@ public class Masato : CharacterAbstract
             int cardPow = card.GetComponent<CardModel>().cardIndex % 12;
             int element = rand.Next(0, 3);
             int index = cardPow + (element * 12);
-            card.GetComponent<CardModel>().ChangeFace(index);
-            card.GetComponent<CardModel>().ChangeElementEffect();
+            card.GetComponent<CardModel>().ChangeElement(index);
         }
 
          if(!PhotonNetwork.OfflineMode){
@@ -34,8 +33,7 @@ public class Masato : CharacterAbstract
         cardInfo = GameObject.Find("Master").GetComponent<CardInfo>();
         GameObject.Find ("SEManager").GetComponent<SEManager>().ChangeElementSE();
         for(int i = 0; i < data.Length; i++){
-            cardInfo.enemyHands[i+1].GetComponent<CardModel>().ChangeFace(data[i]);
-            cardInfo.enemyHands[i+1].GetComponent<CardModel>().ChangeElementEffect();
+            cardInfo.enemyHands[i+1].GetComponent<CardModel>().ChangeElement(data[i]);
         }
     }
 
