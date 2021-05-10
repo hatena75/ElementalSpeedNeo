@@ -22,9 +22,7 @@ public class NetworkMethods : MonoBehaviourPunCallbacks
     private CardInfo ci;
 
     private void InstantiateAddList(int n, GameObject obj, Dictionary<int, GameObject> dic){
-        obj.GetComponent<CardModel>().SetRand();
         dic.Add(n, obj);
-        Debug.Log( ci.GetKey(dic, obj) );
     }
 
     private void PlayerCardInstantiate(){
@@ -47,28 +45,6 @@ public class NetworkMethods : MonoBehaviourPunCallbacks
 
 
     public void InitialPlacement(){
-        //オフラインなら全て自分が生成
-        /*
-        if(!PhotonNetwork.OfflineMode){
-            if(PhotonNetwork.IsMasterClient){
-                PlayerCardInstantiate();
-                FieldCardInstantiate();
-            }
-            else
-            {
-                Player2CardInstantiate();
-
-                camera = Camera.main;
-                camera.transform.rotation = Quaternion.Euler(0, 0, 180);
-            }
-        }
-        else
-        {
-            PlayerCardInstantiate();
-            FieldCardInstantiate();
-            Player2CardInstantiate();
-        }
-        */
         PlayerCardInstantiate();
         FieldCardInstantiate();
         Player2CardInstantiate();

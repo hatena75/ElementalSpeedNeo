@@ -11,23 +11,15 @@ public class CardInfo : MonoBehaviour
     public Dictionary<int, GameObject> enemyHands = new Dictionary<int, GameObject>();
     public Dictionary<int, GameObject> fields = new Dictionary<int, GameObject>();
 
-    //結局randは今使ってない
-    public int seed, seedEnemy;
-
     //本当はDictionaryを拡張するべき。リファクタリング予定。
     public int GetKey(Dictionary<int, GameObject> dic, GameObject obj){
         var pair = dic.FirstOrDefault( c => c.Value == obj );
         return pair.Key;
     }
 
-    void Awake(){
-        //オフライン用の処理
-        if( (seed = Connection.seed) == 0){
-            seed = (int)UnityEngine.Random.Range(0.0f, 1000.0f);
-        }
-        if( (seedEnemy = Connection.seedEnemy) == 0){
-            seedEnemy = (int)UnityEngine.Random.Range(0.0f, 1000.0f);
-        }
+    void Awake()
+    {
+
     }
 
     // Start is called before the first frame update
